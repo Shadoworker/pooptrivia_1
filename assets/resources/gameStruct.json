@@ -1,0 +1,28 @@
+{
+    "levels" : [
+
+        {
+            "id":1,
+            "unlocked":true,
+            "games":[
+                {"name":"quiz", "played":false},
+                {"name":"quiz", "played":false},
+                {"name":"fiow", "played":false},
+                {"name":"fiow", "played":false}
+            ]
+        },
+
+        {
+            "id":2,
+            "unlocked":false,
+            "games":[
+                {"name":"quiz", "played":false},
+                {"name":"fiow", "played":false},
+                {"name":"quiz", "played":false},
+                {"name":"fiow", "played":false}
+            ]
+        }
+
+        
+    ]
+}

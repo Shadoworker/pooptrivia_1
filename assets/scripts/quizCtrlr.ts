@@ -110,6 +110,10 @@ export class quizCtrlr extends Component {
 
         if(isCorrect) // Correct answer : 
         {
+            
+            // Progress
+            find('stateManager').getComponent(stateManager).updateProgress();
+            
             // Go forward -->
             setTimeout(() => {
                 this.nextSet();
@@ -117,7 +121,6 @@ export class quizCtrlr extends Component {
 
 
             // Deactivate all btns
-
             for (let i = 0; i < this.m_answerBtns.length; i++) {
                 this.m_answerBtns[i].getComponent(Button).enabled = false;
             }

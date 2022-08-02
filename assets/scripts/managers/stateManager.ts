@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, find, game } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
 import { Singleton } from '../utils/singleton';
-import { PlayerData } from '../utils/types';
+import { GameData, GameStruct, PlayerData } from '../utils/types';
 import { dataLoader } from './dataLoader';
 const { ccclass, property } = _decorator;
 
@@ -86,6 +86,56 @@ export class stateManager extends Component {
 
         
         this.m_playerData.set(JSON.stringify(_playerData));
+    }
+
+
+    updateProgress()
+    {
+        let didUnlockLevelOfDifficulty = false;
+
+        let playerData : PlayerData = JSON.parse(this.m_playerData.get());
+        let gameStruct : GameStruct = JSON.parse(this.m_gameStruct.get());
+
+        let currentGame = gameStruct.levels[playerData.progression.levelIndex]
+        .rounds[playerData.progression.roundIndex]
+            .games.find((g)=>g.played == false);
+        
+        currentGame.played = true;
+
+        // Last game of that round : Go to next round
+        if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length-1)
+        {
+            playerData.progression.gameIndex = 0;
+
+            // If last Round
+            if(playerData.progression.roundIndex == gameStruct.levels[playerData.progression.levelIndex].rounds.length-1)
+            {
+                if(playerData.progression.levelIndex == gameStruct.levels.length-1)
+                {
+
+                }
+                else
+                {
+                    playerData.progression.levelIndex += 1;
+                    // Unlock level of difficulty
+                    gameStruct.levels[(playerData.progression.levelIndex+1)].unlocked = true;
+                    didUnlockLevelOfDifficulty = true;
+                }
+            }
+            else
+            {
+                playerData.progression.roundIndex += 1;
+            }
+
+        }
+
+        // Save New Data
+
+        this.m_playerData.set(JSON.stringify(playerData));
+        this.m_gameStruct.set(JSON.stringify(gameStruct))
+       
+        return didUnlockLevelOfDifficulty;
+
     }
 
 

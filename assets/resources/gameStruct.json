@@ -3,25 +3,144 @@
 
         {
             "id":1,
+            "name": "EASY",
             "unlocked":true,
-            "games":[
-                {"name":"quiz", "played":false},
-                {"name":"quiz", "played":false},
-                {"name":"fiow", "played":false},
-                {"name":"fiow", "played":false}
-            ]
+            "rounds" : 
+                [
+                    {
+                        "id":1,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":2,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":3,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":4,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    }
+                ]
+            
         },
+
 
         {
             "id":2,
+            "name":"MEDIUM",
             "unlocked":false,
-            "games":[
-                {"name":"quiz", "played":false},
-                {"name":"fiow", "played":false},
-                {"name":"quiz", "played":false},
-                {"name":"fiow", "played":false}
-            ]
+            "rounds" : 
+                [
+                    {
+                        "id":1,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":2,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":3,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":4,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    }
+                ]
+            
+        },
+
+
+        {
+            "id":3,
+            "name":"HARD",
+            "unlocked":false,
+            "rounds" : 
+                [
+                    {
+                        "id":1,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":2,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":3,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    },
+                    {
+                        "id":4,
+                        "games":[
+                            {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
+                            {"name":"fiow", "played":false},
+                            {"name":"fiow", "played":false}
+                        ]
+                    }
+                ]
+            
         }
+
 
         
     ]

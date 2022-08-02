@@ -36,7 +36,7 @@ export class dataLoader extends Component {
 
             // Got Home
             setTimeout(() => {
-                director.loadScene("quizScene");
+                director.loadScene("homeScene");
             }, 500);
     
         }

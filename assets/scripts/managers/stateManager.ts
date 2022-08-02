@@ -25,7 +25,7 @@ export class stateManager extends Component {
     onLoad()
     {
         this.m_gameLang.set(navigator.language.substring(0,2));
-        
+
         game.addPersistRootNode(this.node);
     }
 
@@ -35,7 +35,7 @@ export class stateManager extends Component {
         if(find('dataLoader') != null)
         {      
             let persistentDataLoader = find('dataLoader').getComponent(dataLoader);
-            console.log(persistentDataLoader.m_quizData);
+            // console.log(persistentDataLoader.m_quizData);
     
             // console.log(dataLoader.getInstance().m_quizData)
             if(persistentDataLoader.m_gameStruct != null)

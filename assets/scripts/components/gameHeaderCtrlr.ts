@@ -16,8 +16,11 @@ export class gameHeaderCtrlr extends Component {
 
     setPqPoints()
     {
-        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-        this.m_pqPointsText.string = this.padWithZeroes(playerData.pq, 3);
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+        {
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            this.m_pqPointsText.string = this.padWithZeroes(playerData.pq, 3);
+        }
     }
 
     padWithZeroes(_number, _length) {

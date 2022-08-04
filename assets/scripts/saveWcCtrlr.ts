@@ -21,6 +21,7 @@ export class saveWcCtrlr extends Component {
 
     m_word:string;
     m_letters:string[];
+    m_lettersToFind:string[];
 
     @property({type: Label})
     public m_questionHeader = null;
@@ -78,6 +79,7 @@ export class saveWcCtrlr extends Component {
         this.m_word = _word;
 
         this.m_letters = this.m_word.split('');
+        this.m_lettersToFind = [];
 
         // Get number of hidden letters
         let hiddenLength = this.getHiddenLength(_word.length, _difficulty);
@@ -98,7 +100,13 @@ export class saveWcCtrlr extends Component {
  
             letterSlot.getComponentInChildren(Label).string = el;
             if(randomLetterIndexes.indexOf(i) != -1) // Included in
+            {
+                // Hide letter
                 letterSlot.getComponentInChildren(Label).enabled = false;
+
+                // Define missings
+                this.m_lettersToFind.push(el);
+            }
 
 
             // letterSlot.clickEvents[0].
@@ -211,6 +219,8 @@ export class saveWcCtrlr extends Component {
 
     onClickLetter(_letter : string)
     {
+        const delay = 1000;
+
         // Check if among correct letters
         let isCorrect = this.m_letters.indexOf(_letter) != -1 ? true : false;
 
@@ -224,6 +234,52 @@ export class saveWcCtrlr extends Component {
                 el.getComponentInChildren(Label).enabled = true;
             }
  
+        }
+
+        if(isCorrect)
+        {
+            // Remove from to find
+            this.m_lettersToFind.splice(this.m_lettersToFind.indexOf(_letter), 1);
+
+            if(this.m_lettersToFind.length == 0)
+            {
+                // Completed 
+                console.log("COMPLETED");
+                    // Progress
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                this.m_didClearRound = _clears[0];
+                this.m_didClearLevel = _clears[1];
+                
+                // Go forward -->
+                setTimeout(() => {
+                    this.nextSet();
+                }, delay);
+
+            }
+        }
+        else // Not correct letter (decrease mistake coins)
+        {
+
+            if(this.m_mistakes > 1)
+            {
+                // Decrease miscoins and score base
+                //...
+                this.m_mistakes--;
+            }
+            else // No more miscoins
+            {
+
+                // FAILED
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                this.m_didClearRound = _clears[0];
+                this.m_didClearLevel = _clears[1];
+
+                // Go to next game
+                setTimeout(() => {
+                    this.nextSet();
+                }, delay);
+            }
+
         }
 
         return isCorrect;

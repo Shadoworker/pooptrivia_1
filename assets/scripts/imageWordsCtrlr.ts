@@ -195,6 +195,11 @@ export class imageWords extends Component {
             }
             else // No more miscoins
             {
+                 // Progress
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                this.m_didClearRound = _clears[0];
+                this.m_didClearLevel = _clears[1];
+                
                 // Go to next game
                 setTimeout(() => {
                     this.nextSet();

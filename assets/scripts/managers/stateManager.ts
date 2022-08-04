@@ -80,6 +80,7 @@ export class stateManager extends Component {
 
     updateProgress()
     {
+        // INFO : Data below are sent when round is over ; if the player is among best scorers then these data are processed
         let didClearLevel = false;
         let didClearRound = false;
 

@@ -79,20 +79,56 @@ export class saveWcCtrlr extends Component {
 
         this.m_letters = this.m_word.split('');
 
+        // Get number of hidden letters
+        let hiddenLength = this.getHiddenLength(_word.length, _difficulty);
+        // Set max errors
+        this.m_MISTAKES = hiddenLength;
+        this.m_mistakes = hiddenLength;
+
+        let randomLetterIndexes : number[] = this.getRandomIndexes(_word.length, hiddenLength);
+
         // Destroy previous
         this.m_slotsContainer.destroyAllChildren()
 
         for (let i = 0; i < this.m_letters.length; i++) {
+
             const el = this.m_letters[i];
 
             let letterSlot : Node = instantiate(this.m_letterSlot);
  
             letterSlot.getComponentInChildren(Label).string = el;
+            if(randomLetterIndexes.indexOf(i) != -1) // Included in
+                letterSlot.getComponentInChildren(Label).enabled = false;
+
+
             // letterSlot.clickEvents[0].
             this.m_slotsContainer.addChild(letterSlot);
             
         }
 
+    }
+
+    getHiddenLength(_wordLength: number, _level:number)
+    {
+        let x = 4 - _level;
+
+        let a = _wordLength / x + 1;
+
+        return a;
+
+    }
+
+    getRandomIndexes(_wordLength: number, _hiddenLength:number)
+    {
+        let indexes = [];
+        for (let i = 0; i < _hiddenLength; i++) {
+            
+            let r = Math.floor(Math.random() * _wordLength);
+            if(indexes.indexOf(r) == - 1)
+                indexes.push(r);
+        }
+
+        return indexes;
     }
 
     nextSet()
@@ -175,10 +211,22 @@ export class saveWcCtrlr extends Component {
 
     onClickLetter(_letter : string)
     {
-        console.log("LETTER !"+ _letter)
+        // Check if among correct letters
+        let isCorrect = this.m_letters.indexOf(_letter) != -1 ? true : false;
 
+        // Update slots
+        for (let i = 0; i < this.m_slotsContainer.children.length; i++) {
 
-        return true;
+            const el = this.m_slotsContainer.children[i];
+
+            if(el.getComponentInChildren(Label).string == _letter)
+            {
+                el.getComponentInChildren(Label).enabled = true;
+            }
+ 
+        }
+
+        return isCorrect;
     }
 
     checkAnswer(e: EventMouse, _btnIndex:number)

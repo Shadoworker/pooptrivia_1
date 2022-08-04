@@ -42,7 +42,8 @@ export class homeCtrlr extends Component {
         console.log(nextGame);
 
         setTimeout(() => {
-            director.loadScene("quizScene");
+            let scene = nextGame + "Scene";
+            director.loadScene(scene);
         }, 200);
 
     }

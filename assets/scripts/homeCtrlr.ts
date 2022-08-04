@@ -12,39 +12,60 @@ export class homeCtrlr extends Component {
     play()
     {
         //New only if not current new one
-        if(find('stateManager').getComponent(stateManager).m_playerData.get() == '')
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
         {
-            let p : PlayerData = {
-                name: 'Lamine',
-                avatar: '',
-                score: 0,
-                globalScore: 0,
-                coins: 0,
-                pq: 0,
-                progression: {
-                    levelIndex: 0,
-                    roundIndex: 0,
-                    gameIndex: 0,
-                    bestScore: 0
-                }
-            };
-            find('stateManager').getComponent(stateManager).setPlayerData(p);
+
+            
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
+
+            // Getting the fist game not yet played "levels/rounds/games"
+            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+                                        .rounds[playerData.progression.roundIndex]
+                                            .games.find((g)=>{return g.played == false}).name;
+
+            console.log(nextGame);
+
+            setTimeout(() => {
+                let scene = nextGame + "Scene";
+                director.loadScene(scene);
+            }, 200);
+
+            // let p : PlayerData = {
+            //     name: 'Lamine',
+            //     avatar: '',
+            //     score: 0,
+            //     globalScore: 0,
+            //     coins: 0,
+            //     pq: 0,
+            //     progression: {
+            //         levelIndex: 0,
+            //         roundIndex: 0,
+            //         gameIndex: 0,
+            //         bestScore: 0
+            //     }
+            // };
+            // find('stateManager').getComponent(stateManager).setPlayerData(p);
+        }
+        else
+        {
+            director.loadScene("selectPlayerScene");
         }
 
-        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-        let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
+        // let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+        // let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 
-        // Getting the fist game not yet played "levels/rounds/games"
-        let nextGame = gameStruct.levels[playerData.progression.levelIndex]
-                                    .rounds[playerData.progression.roundIndex]
-                                        .games.find((g)=>{return g.played == false}).name;
+        // // Getting the fist game not yet played "levels/rounds/games"
+        // let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+        //                             .rounds[playerData.progression.roundIndex]
+        //                                 .games.find((g)=>{return g.played == false}).name;
 
-        console.log(nextGame);
+        // console.log(nextGame);
 
-        setTimeout(() => {
-            let scene = nextGame + "Scene";
-            director.loadScene(scene);
-        }, 200);
+        // setTimeout(() => {
+        //     let scene = nextGame + "Scene";
+        //     director.loadScene(scene);
+        // }, 200);
 
     }
 

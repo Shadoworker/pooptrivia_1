@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director } from 'cc';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
@@ -13,6 +13,9 @@ export class quizCtrlr extends Component {
     m_quiz : any;
     m_mistakes : number;
     m_lang : string = "fr";
+
+    m_didClearRound : boolean = false;
+    m_didClearLevel : boolean = false;
 
     @property({type: Label})
     public m_questionText = null;
@@ -36,43 +39,59 @@ export class quizCtrlr extends Component {
 
     nextSet()
     {
- 
-        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-        let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
-        let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
-        let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
-        
-        // Get Next Game
-        let nextGame = gameStruct.levels[playerData.progression.levelIndex]
-                                    .rounds[playerData.progression.roundIndex]
-                                        .games.find((g)=>{return g.played == false}).name;
 
-
-        // Is this game the nextOne or Another
-        if(nextGame == this.m_GAME_NAME)
+        if(this.m_didClearRound) // Goto Recap screen
+        {
+            
+        }
+        else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
 
-            let thisLevelData = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
-            // Get Random One Random Question
-            let r = Math.floor(Math.random() * thisLevelData.length);
-    
-            this.m_quiz = thisLevelData[r];
-    
-            // Remove selected Quiz Item from initial array and save
-            quizData.splice(quizData.indexOf(this.m_quiz), 1);
-            find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
-
-            // Load data
-            this.initView();
-
-            // Init Basics
-            this.m_mistakes = this.m_MISTAKES;
-    
         }
         else
         {
-            console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
+    
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
+            let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
+            let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
+            
+            // Get Next Game
+            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+                                        .rounds[playerData.progression.roundIndex]
+                                            .games.find((g)=>{return g.played == false}).name;
+    
+            // Is this game the nextOne or Another
+            if(nextGame == this.m_GAME_NAME)
+            {
+
+                let thisLevelData = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                // Get Random One Random Question
+                let r = Math.floor(Math.random() * thisLevelData.length);
+        
+                this.m_quiz = thisLevelData[r];
+        
+                // Remove selected Quiz Item from initial array and save
+                quizData.splice(quizData.indexOf(this.m_quiz), 1);
+                find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
+
+                // Load data
+                this.initView();
+
+                // Init Basics
+                this.m_mistakes = this.m_MISTAKES;
+        
+            }
+            else
+            {
+                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
+                let scene = nextGame + "Scene";
+                director.loadScene(scene);
+
+            }
+        
         }
+        
 
 
     }
@@ -112,7 +131,9 @@ export class quizCtrlr extends Component {
         {
             
             // Progress
-            find('stateManager').getComponent(stateManager).updateProgress();
+            let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+            this.m_didClearRound = _clears[0];
+            this.m_didClearLevel = _clears[1];
             
             // Go forward -->
             setTimeout(() => {

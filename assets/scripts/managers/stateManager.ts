@@ -26,7 +26,8 @@ export class stateManager extends Component {
     {
         this.m_gameLang.set(navigator.language.substring(0,2));
 
-        game.addPersistRootNode(this.node);
+        if(!this.node._persistNode)
+            game.addPersistRootNode(this.node);
     }
 
     start() {
@@ -38,16 +39,15 @@ export class stateManager extends Component {
             // console.log(persistentDataLoader.m_quizData);
     
             // console.log(dataLoader.getInstance().m_quizData)
-            if(persistentDataLoader.m_gameStruct != null)
+            if(this.m_gameStruct.get() == '')
                 this.m_gameStruct.set(JSON.stringify(persistentDataLoader.m_gameStruct))
 
-            if(persistentDataLoader.m_quizData != null)
+            if(this.m_quizData.get() == '')
                 this.m_quizData.set(JSON.stringify(persistentDataLoader.m_quizData))
 
-            if(persistentDataLoader.m_fiowData != null)
+            if(this.m_fiowData.get() == '')
                 this.m_fiowData.set(JSON.stringify(persistentDataLoader.m_fiowData))
 
-            // console.log(this.m_fiowData.get());
         }
         else
         {
@@ -56,23 +56,6 @@ export class stateManager extends Component {
 
         }
 
-    
-        // For Test : Normally called by selectPlayer screen
-        let p: PlayerData = {
-            name: '',
-            avatar: '',
-            score: 0,
-            globalScore: 0,
-            coins: 0,
-            pq: 0,
-            progression: {
-                levelIndex: 0,
-                roundIndex: 0,
-                gameIndex: 0,
-                bestScore: 0
-            }
-        };
-        this.setPlayerData(p)
 
     }
 
@@ -91,50 +74,70 @@ export class stateManager extends Component {
 
     updateProgress()
     {
-        let didUnlockLevelOfDifficulty = false;
+        let didClearLevel = false;
+        let didClearRound = false;
 
         let playerData : PlayerData = JSON.parse(this.m_playerData.get());
         let gameStruct : GameStruct = JSON.parse(this.m_gameStruct.get());
 
+        
         let currentGame = gameStruct.levels[playerData.progression.levelIndex]
         .rounds[playerData.progression.roundIndex]
             .games.find((g)=>g.played == false);
         
+        
+        
         currentGame.played = true;
+        playerData.progression.gameIndex += 1;
 
         // Last game of that round : Go to next round
-        if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length-1)
+        if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length)
         {
             playerData.progression.gameIndex = 0;
-
+            playerData.progression.roundIndex += 1;
+            didClearRound = true;
             // If last Round
-            if(playerData.progression.roundIndex == gameStruct.levels[playerData.progression.levelIndex].rounds.length-1)
+            if(playerData.progression.roundIndex == gameStruct.levels[playerData.progression.levelIndex].rounds.length)
             {
-                if(playerData.progression.levelIndex == gameStruct.levels.length-1)
-                {
 
+                playerData.progression.roundIndex = 0;
+                playerData.progression.levelIndex += 1;
+
+                if(playerData.progression.levelIndex == gameStruct.levels.length)
+                {
+                    playerData.progression.levelIndex -= 1; // Rollback to valid index (0 -> 3)
+                    playerData.progression.roundIndex = 3; // Rollback to valid index (0 -> 3)
                 }
                 else
                 {
-                    playerData.progression.levelIndex += 1;
+                    // playerData.progression.levelIndex += 1;
                     // Unlock level of difficulty
                     gameStruct.levels[(playerData.progression.levelIndex+1)].unlocked = true;
-                    didUnlockLevelOfDifficulty = true;
+                    didClearLevel = true;
                 }
             }
-            else
-            {
-                playerData.progression.roundIndex += 1;
-            }
+            // else
+            // {
+            //     playerData.progression.roundIndex += 1;
+            // }
 
         }
+        // else
+        // {
+        //     // Progress in games
+        //     playerData.progression.gameIndex += 1;
+        // }
 
         // Save New Data
+        console.log("SM v")
+        console.log(playerData);
+        console.log(gameStruct);
 
         this.m_playerData.set(JSON.stringify(playerData));
-        this.m_gameStruct.set(JSON.stringify(gameStruct))
+
+        this.m_gameStruct.set(JSON.stringify(gameStruct));
        
-        return didUnlockLevelOfDifficulty;
+        return [didClearRound ,didClearLevel];
 
     }
 

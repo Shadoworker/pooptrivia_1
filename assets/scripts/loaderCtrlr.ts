@@ -14,6 +14,8 @@ export class loaderCtrlr extends Component {
         //     director.loadScene("quizScene");
         // }, 500);
 
+        
+
     }
 
  

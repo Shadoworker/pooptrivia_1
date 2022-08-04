@@ -19,12 +19,13 @@ export class dataLoader extends Component {
 
     onLoad()
     {
-        game.addPersistRootNode(this.node);
+        if(!this.node._persistNode)
+            game.addPersistRootNode(this.node);
     }
 
     start() {
 
-        // if(sys.localStorage.getItem("_dataLoaded"))
+        if(localStorage.getItem("_dataLoaded") != "true")
         {
         
             this.getQuizData();
@@ -33,13 +34,14 @@ export class dataLoader extends Component {
             this.loadGameStruct();
             // ...
 
-
-            // Got Home
-            setTimeout(() => {
-                director.loadScene("homeScene");
-            }, 500);
-    
+            localStorage.setItem("_dataLoaded", "true")
         }
+
+        // Got Home
+        setTimeout(() => {
+            director.loadScene("homeScene");
+        }, 500);
+    
 
 
         // setInterval(() => {

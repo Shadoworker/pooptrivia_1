@@ -3,8 +3,8 @@ import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
-@ccclass('homeCtrlr')
-export class homeCtrlr extends Component {
+@ccclass('recapCtrlr')
+export class recapCtrlr extends Component {
     start() {
 
     }

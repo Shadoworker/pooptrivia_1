@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
@@ -6,9 +6,10 @@ const { ccclass, property } = _decorator;
 @ccclass('saveWcCtrlr')
 export class saveWcCtrlr extends Component {
 
-    m_GAME_NAME : string = "quiz";
+    m_GAME_NAME : string = "saveWc";
     m_MISTAKES : number = 3;
-
+    m_ALPHABET = 
+    ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
     m_quiz : any;
     m_mistakes : number;
@@ -18,11 +19,24 @@ export class saveWcCtrlr extends Component {
     m_didClearRound : boolean = false;
     m_didClearLevel : boolean = false;
 
+    m_word:string;
+    m_letters:string[];
+
     @property({type: Label})
     public m_questionHeader = null;
     @property({type: Label})
     public m_questionText = null;
+
     
+    @property({type: Node})
+    public m_keyboard = null;
+    @property({type: Node})
+    public m_slotsContainer = null;
+    @property({type: Prefab})
+    public m_letterBtn = null;
+    @property({type: Prefab})
+    public m_letterSlot = null;
+
 
     @property({type: [Node]})
     public m_answerBtns = [];
@@ -36,10 +50,50 @@ export class saveWcCtrlr extends Component {
 
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
 
+
         this.nextSet();
 
     }
 
+    initKeyboard()
+    {
+        
+        // Destroy previous
+        this.m_keyboard.destroyAllChildren()
+
+        for (let i = 0; i < this.m_ALPHABET.length; i++) {
+            const el = this.m_ALPHABET[i];
+
+            let letterBtn : Button = instantiate(this.m_letterBtn);
+ 
+            letterBtn.getComponentInChildren(Label).string = el;
+            // letterBtn.clickEvents[0].
+            this.m_keyboard.addChild(letterBtn);
+            
+        }
+    }
+
+    initAnswer(_word: string, _difficulty : number = 1)
+    {
+        this.m_word = _word;
+
+        this.m_letters = this.m_word.split('');
+
+        // Destroy previous
+        this.m_slotsContainer.destroyAllChildren()
+
+        for (let i = 0; i < this.m_letters.length; i++) {
+            const el = this.m_letters[i];
+
+            let letterSlot : Node = instantiate(this.m_letterSlot);
+ 
+            letterSlot.getComponentInChildren(Label).string = el;
+            // letterSlot.clickEvents[0].
+            this.m_slotsContainer.addChild(letterSlot);
+            
+        }
+
+    }
 
     nextSet()
     {
@@ -56,7 +110,7 @@ export class saveWcCtrlr extends Component {
         {
     
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-            let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
+            let saveWcData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             this.m_gameIndex = playerData.progression.gameIndex; // Used as question Index as well
@@ -70,15 +124,16 @@ export class saveWcCtrlr extends Component {
             if(nextGame == this.m_GAME_NAME)
             {
 
-                let thisLevelData = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                console.log(saveWcData)
+                let thisLevelData = saveWcData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);
         
                 this.m_quiz = thisLevelData[r];
         
                 // Remove selected Quiz Item from initial array and save
-                quizData.splice(quizData.indexOf(this.m_quiz), 1);
-                find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
+                saveWcData.splice(saveWcData.indexOf(this.m_quiz), 1);
+                find('stateManager').getComponent(stateManager).m_saveWcData.set(JSON.stringify(saveWcData));
 
                 // Load data
                 this.initView();
@@ -89,7 +144,7 @@ export class saveWcCtrlr extends Component {
             }
             else
             {
-                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
+                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(any)")
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);
 
@@ -107,26 +162,23 @@ export class saveWcCtrlr extends Component {
 
         this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/4"
 
-        this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
+        this.initKeyboard();
 
-        let answers = JSON.parse(this.m_quiz.answers)[this.m_lang];
+        this.m_questionText.string = this.m_quiz.questions[this.m_lang];
+        let answer = this.m_quiz.answers[this.m_lang];
+        
+        console.log(answer)
+        this.initAnswer(answer, this.m_quiz.level)
 
-        let shuffledAnswers = answers.sort(() => Math.random() - 0.5);
+   
+    }
 
-        this.m_quiz.answers = shuffledAnswers;
-        // Setting Btns Data
-        for (let i = 0; i < this.m_answerBtns.length; i++) {
-
-            const el : Node = this.m_answerBtns[i];
-            el.getComponent(Button).interactable = true;
-            el.getComponent(Button).enabled = true;
-            // el.getComponent(Sprite).spriteFrame = this.m_btnTextures[0];
-            el.getComponent(Sprite).color = Color.WHITE;
+    onClickLetter(_letter : string)
+    {
+        console.log("LETTER !"+ _letter)
 
 
-            el.getComponentInChildren(Label).string = this.m_quiz.answers[i].answer;
-            
-        }
+        return true;
     }
 
     checkAnswer(e: EventMouse, _btnIndex:number)

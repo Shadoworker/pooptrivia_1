@@ -11,7 +11,7 @@
                         "id":1,
                         "games":[
                             {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
+                            {"name":"saveWc", "played":false},
                             {"name":"quiz", "played":false},
                             {"name":"quiz", "played":false}
                         ]

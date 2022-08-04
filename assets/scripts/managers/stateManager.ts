@@ -15,6 +15,7 @@ export class stateManager extends Component {
     public m_gameStruct = new Kayfo.PersistentString('m_persistentGameStruct', '');
     public m_quizData = new Kayfo.PersistentString('m_persistentQuizData', '');
     public m_fiowData = new Kayfo.PersistentString('m_persistentFiowData', '');
+    public m_saveWcData = new Kayfo.PersistentString('m_persistentSaveWcData', '');
 
     // selected levelIndex (0=EASY, 1=MEDIUM, 2=)
     // public m_currentLevelIndex = new Kayfo.PersistentNum('m_persistentCurrentLevelIndex', 0);
@@ -47,6 +48,11 @@ export class stateManager extends Component {
 
             if(this.m_fiowData.get() == '')
                 this.m_fiowData.set(JSON.stringify(persistentDataLoader.m_fiowData))
+
+            // console.log(persistentDataLoader.m_saveWcData);
+            if(this.m_saveWcData.get() == '')
+                this.m_saveWcData.set(JSON.stringify(persistentDataLoader.m_saveWcData))
+
 
         }
         else

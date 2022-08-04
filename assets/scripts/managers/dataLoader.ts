@@ -16,6 +16,7 @@ export class dataLoader extends Component {
 
     public m_quizData = null;
     public m_fiowData = null;
+    public m_saveWcData = null;
 
     onLoad()
     {
@@ -30,6 +31,8 @@ export class dataLoader extends Component {
         
             this.getQuizData();
             this.getFiowData();
+            this.getSaveWcData();
+            
             // Loading the structure of the game : Levels
             this.loadGameStruct();
             // ...
@@ -71,6 +74,157 @@ export class dataLoader extends Component {
             this.m_fiowData = data;
         })
         .catch(error => console.error(error))
+    }
+
+    getSaveWcData()
+    {
+        this.m_saveWcData =
+        [
+            {
+                "id": 1,
+                "questions": {
+                    "en": "Word to find : CAR",
+                    "fr": "Mot à trouver : VOITURE"
+                },
+                "answers": {
+                    "en": "CAR",
+                    "fr": "VOITURE"
+                },
+                "level": 1,
+                "active": true,
+            },
+            {
+                "id": 2,
+                "questions": {
+                    "en": "Word to find : HOME",
+                    "fr": "Mot à trouver : MAISON"
+                },
+                "answers": {
+                    "en": "HOME",
+                    "fr": "MAISON"
+                },
+                "level": 1,
+                "active": true,
+            },
+            {
+                "id": 3,
+                "questions": {
+                    "en": "Word to find : NECK",
+                    "fr": "Mot à trouver : COU"
+                },
+                "answers": {
+                    "en": "NECK",
+                    "fr": "COU"
+                },
+                "level": 1,
+                "active": true,
+            },
+            {
+                "id": 4,
+                "questions": {
+                    "en": "Word to find : BEE",
+                    "fr": "Mot à trouver : ABEILLE"
+                },
+                "answers": {
+                    "en": "BEE",
+                    "fr": "ABEILLE"
+                },
+                "level": 2,
+                "active": true,
+            },
+            {
+                "id": 5,
+                "questions": {
+                    "en": "Word to find : WORDUS",
+                    "fr": "Mot à trouver : MOTUS"
+                },
+                "answers": {
+                    "en": "WORDUS",
+                    "fr": "MOTUS"
+                },
+                "level": 3,
+                "active": true,
+            },
+            {
+                "id": 6,
+                "questions": {
+                    "en": "Word to find : TITLE",
+                    "fr": "Mot à trouver : TITRE"
+                },
+                "answers": {
+                    "en": "TITLE",
+                    "fr": "TITRE"
+                },
+                "level": 3,
+                "active": true,
+            },
+            {
+                "id": 7,
+                "questions": {
+                    "en": "Word to find : LONDON",
+                    "fr": "Mot à trouver : LONDRES"
+                },
+                "answers": {
+                    "en": "LONDON",
+                    "fr": "LONDRES"
+                },
+                "level": 1,
+                "active": true,
+            },
+            {
+                "id": 8,
+                "questions": {
+                    "en": "Word to find : BIRD",
+                    "fr": "Mot à trouver : OISEAU"
+                },
+                "answers": {
+                    "en": "BIRD",
+                    "fr": "OISEAU"
+                },
+                "level": 3,
+                "active": true,
+            },
+            {
+                "id": 9,
+                "questions": {
+                    "en": "Word to find : YELLOW",
+                    "fr": "Mot à trouver : JAUNE"
+                },
+                "answers": {
+                    "en": "YELLOW",
+                    "fr": "JAUNE"
+                },
+                "level": 3,
+                "active": true,
+            },
+            {
+                "id": 10,
+                "questions": {
+                    "en": "Word to find : GREEN",
+                    "fr": "Mot à trouver : VERT"
+                },
+                "answers": {
+                    "en": "GREEN",
+                    "fr": "VERT"
+                },
+                "level": 2,
+                "active": true,
+            },
+            {
+                "id": 11,
+                "questions": {
+                    "en": "Word to find : RED",
+                    "fr": "Mot à trouver : ROUGE"
+                },
+                "answers": {
+                    "en": "RED",
+                    "fr": "ROUGE"
+                },
+                "level": 2,
+                "active": true,
+            }
+        ]
+ 
     }
 
     loadGameStruct(){

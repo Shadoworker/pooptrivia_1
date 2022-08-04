@@ -13,12 +13,16 @@ export class quizCtrlr extends Component {
     m_quiz : any;
     m_mistakes : number;
     m_lang : string = "fr";
+    m_gameIndex : number;
 
     m_didClearRound : boolean = false;
     m_didClearLevel : boolean = false;
 
     @property({type: Label})
+    public m_questionHeader = null;
+    @property({type: Label})
     public m_questionText = null;
+    
 
     @property({type: [Node]})
     public m_answerBtns = [];
@@ -42,7 +46,7 @@ export class quizCtrlr extends Component {
 
         if(this.m_didClearRound) // Goto Recap screen
         {
-            
+            director.loadScene('recapScene');
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
@@ -55,6 +59,7 @@ export class quizCtrlr extends Component {
             let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
+            this.m_gameIndex = playerData.progression.gameIndex; // Used as question Index as well
             
             // Get Next Game
             let nextGame = gameStruct.levels[playerData.progression.levelIndex]
@@ -99,6 +104,9 @@ export class quizCtrlr extends Component {
     // Set UI items
     initView()
     {
+
+        this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/4"
+
         this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
 
         let answers = JSON.parse(this.m_quiz.answers)[this.m_lang];
@@ -112,7 +120,8 @@ export class quizCtrlr extends Component {
             const el : Node = this.m_answerBtns[i];
             el.getComponent(Button).interactable = true;
             el.getComponent(Button).enabled = true;
-            el.getComponent(Sprite).spriteFrame = this.m_btnTextures[0];
+            // el.getComponent(Sprite).spriteFrame = this.m_btnTextures[0];
+            el.getComponent(Sprite).color = Color.WHITE;
 
 
             el.getComponentInChildren(Label).string = this.m_quiz.answers[i].answer;
@@ -171,11 +180,13 @@ export class quizCtrlr extends Component {
     setAnswerBtnColor(_btnIndex:number, _isCorrect:boolean)
     {
         let btnTexture = _isCorrect ? 
-        this.m_btnTextures[1] : this.m_btnTextures[2];
+        // this.m_btnTextures[1] : this.m_btnTextures[2];
+        Color.GREEN : Color.RED;
         let thisBtn : Node = this.m_answerBtns[_btnIndex];
         thisBtn.getComponent(Button).enabled = false;
         setTimeout(() => {
-            thisBtn.getComponent(Sprite).spriteFrame = btnTexture;
+            // thisBtn.getComponent(Sprite).spriteFrame = btnTexture;
+            thisBtn.getComponent(Sprite).color = btnTexture;
         }, 30);
     }
 

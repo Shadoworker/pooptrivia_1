@@ -1,12 +1,12 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, assetManager, ImageAsset, Texture2D, director } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director } from 'cc';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
-@ccclass('imageWords')
-export class imageWords extends Component {
+@ccclass('saveWcCtrlr')
+export class saveWcCtrlr extends Component {
 
-    m_GAME_NAME : string = "imageWords";
+    m_GAME_NAME : string = "quiz";
     m_MISTAKES : number = 3;
 
 
@@ -18,12 +18,11 @@ export class imageWords extends Component {
     m_didClearRound : boolean = false;
     m_didClearLevel : boolean = false;
 
-
-    
     @property({type: Label})
     public m_questionHeader = null;
-    @property({type: Sprite})
-    public m_questionImage = null;
+    @property({type: Label})
+    public m_questionText = null;
+    
 
     @property({type: [Node]})
     public m_answerBtns = [];
@@ -55,10 +54,9 @@ export class imageWords extends Component {
         }
         else
         {
-        
     
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-            let fiowData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_fiowData.get())
+            let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             this.m_gameIndex = playerData.progression.gameIndex; // Used as question Index as well
@@ -67,21 +65,20 @@ export class imageWords extends Component {
             let nextGame = gameStruct.levels[playerData.progression.levelIndex]
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
-
-
+    
             // Is this game the nextOne or Another
             if(nextGame == this.m_GAME_NAME)
             {
 
-                let thisLevelData = fiowData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                let thisLevelData = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);
         
                 this.m_quiz = thisLevelData[r];
         
                 // Remove selected Quiz Item from initial array and save
-                fiowData.splice(fiowData.indexOf(this.m_quiz), 1);
-                find('stateManager').getComponent(stateManager).m_fiowData.set(JSON.stringify(fiowData));
+                quizData.splice(quizData.indexOf(this.m_quiz), 1);
+                find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
 
                 // Load data
                 this.initView();
@@ -92,12 +89,15 @@ export class imageWords extends Component {
             }
             else
             {
-                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(QUIZ)")
+                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);
+
             }
         
         }
+        
+
 
     }
 
@@ -107,30 +107,7 @@ export class imageWords extends Component {
 
         this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/4"
 
-        let imageUrl = JSON.parse(this.m_quiz.questions)[this.m_lang];
-
-        //Toggle spinner
-        this.m_questionImage.node.getChildByName("spinnerItem").active = true;
-
-        assetManager.loadRemote(imageUrl, 
-            (err:any, tex:ImageAsset)=>{
-                if(err) return;
-
-            var newTexture2D = new Texture2D();
-            newTexture2D.image = tex;
-
-            var newSpriteFrame = new SpriteFrame();
-            newSpriteFrame.texture = newTexture2D;
-
-            // set Image
-            this.m_questionImage.spriteFrame = newSpriteFrame; 
-
-            //Toggle spinner
-            this.m_questionImage.node.getChildByName("spinnerItem").active = false;
-
-
-        })
-        // this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
+        this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
 
         let answers = JSON.parse(this.m_quiz.answers)[this.m_lang];
 
@@ -147,9 +124,6 @@ export class imageWords extends Component {
             el.getComponent(Sprite).color = Color.WHITE;
 
 
-            //Toggle spinner
-            el.getChildByName("spinnerItem").active = false;
-
             el.getComponentInChildren(Label).string = this.m_quiz.answers[i].answer;
             
         }
@@ -157,7 +131,6 @@ export class imageWords extends Component {
 
     checkAnswer(e: EventMouse, _btnIndex:number)
     {
-
         const delay = 1000;
         let isCorrect = this.m_quiz.answers[_btnIndex].isCorrect;
         // UI btn change
@@ -170,6 +143,7 @@ export class imageWords extends Component {
             let _clears = find('stateManager').getComponent(stateManager).updateProgress();
             this.m_didClearRound = _clears[0];
             this.m_didClearLevel = _clears[1];
+            
             // Go forward -->
             setTimeout(() => {
                 this.nextSet();
@@ -179,8 +153,6 @@ export class imageWords extends Component {
             // Deactivate all btns
             for (let i = 0; i < this.m_answerBtns.length; i++) {
                 this.m_answerBtns[i].getComponent(Button).enabled = false;
-                //Toggle spinner
-                this.m_answerBtns[i].getChildByName("spinnerItem").active = false;
             }
 
         }

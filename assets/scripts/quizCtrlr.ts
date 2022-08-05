@@ -1,5 +1,7 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate } from 'cc';
+import { playerItemsCtrlr } from './components/playerItemsCtrlr';
 import { stateManager } from './managers/stateManager';
+import { playerItemSCROB } from './utils/scrobs';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
@@ -20,6 +22,23 @@ export class quizCtrlr extends Component {
     m_didClearRound : boolean = false;
     m_didClearLevel : boolean = false;
 
+    // Characters Data 
+    @property ({type : Prefab})
+    public m_playerItemsPrefab = null;
+    public m_playerItemSCROBs : [playerItemSCROB];
+    // --------------------------
+
+    // Player ui items
+    
+    @property({type: Sprite})
+    public m_playerAvatar = null;
+    @property({type: Label})
+    public m_playerName = null;
+    @property({type: Label})
+    public m_playerScore = null;
+
+    // --------------------
+
     @property({type: Label})
     public m_questionHeader = null;
     @property({type: Label})
@@ -33,18 +52,31 @@ export class quizCtrlr extends Component {
     public m_btnTextures = [];
 
 
-    @property({type: Label})
-    public m_pupitreScoreText = null;
-
-
     start() {
 
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
+
+        this.setPlayerView();
 
         this.nextSet();
 
     }
 
+    setPlayerView()
+    {
+        var playerItemsPrefab = instantiate(this.m_playerItemsPrefab);
+        this.m_playerItemSCROBs = playerItemsPrefab.getComponent(playerItemsCtrlr).playerItems;
+
+        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+        var currentPlayer : playerItemSCROB = this.m_playerItemSCROBs[playerData.index];
+
+        // Set
+        this.m_playerAvatar.spriteFrame = currentPlayer.m_avatar;
+        this.m_playerName.string = playerData.name;
+        this.m_playerScore.string = playerData.score.toString();
+
+    }
 
     nextSet()
     {
@@ -210,7 +242,7 @@ export class quizCtrlr extends Component {
     updateUiScore()
     {
         let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-        this.m_pupitreScoreText.string = playerData.score.toString();
+        this.m_playerScore.string = playerData.score.toString();
     }
 
     setAnswerBtnColor(_btnIndex:number, _isCorrect:boolean)

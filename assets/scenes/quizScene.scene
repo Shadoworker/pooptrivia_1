@@ -269,7 +269,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 432,
+    "_orthoHeight": 447.8501170960188,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -2989,6 +2989,19 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "m_playerItemsPrefab": {
+      "__uuid__": "52731f03-8384-4c6e-bd97-7622991206e7",
+      "__expectedType__": "cc.Prefab"
+    },
+    "m_playerAvatar": {
+      "__id__": 39
+    },
+    "m_playerName": {
+      "__id__": 47
+    },
+    "m_playerScore": {
+      "__id__": 50
+    },
     "m_questionHeader": {
       "__id__": 58
     },
@@ -3023,9 +3036,6 @@
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
-    "m_pupitreScoreText": {
-      "__id__": 50
-    },
     "_id": "69zzySyfRK54fl271l8JcD"
   },
   {

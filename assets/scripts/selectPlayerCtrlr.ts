@@ -25,8 +25,10 @@ export class selectPlayerCtrlr extends Component {
 
 
 
+    // Characters Data container
     @property ({type : Prefab})
     public m_playerItemsPrefab = null;
+
 
     @property ({type : Prefab})
     public m_playerAvatarPrefab = null;
@@ -38,6 +40,8 @@ export class selectPlayerCtrlr extends Component {
     public m_selectedPlayerData : PlayerData;
 
     public m_playerItemSCROBs : [playerItemSCROB];
+
+
     start() {
         
         this.initPlayers();

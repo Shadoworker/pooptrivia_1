@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, SpriteFrame, find, director, Asset, Vec2, ValueType, Prefab, instantiate, Button, Sprite, Label } from 'cc';
+import { _decorator, Component, Node, SpriteFrame, find, director, Asset, Vec2, ValueType, Prefab, instantiate, Button, Sprite, Label, Color } from 'cc';
 import { playerAvatarCtrlr } from './components/playerAvatarCtrlr';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
 import { stateManager } from './managers/stateManager';
@@ -35,6 +35,7 @@ export class selectPlayerCtrlr extends Component {
     public m_playerAvatarsContainer = null;
 
     public m_selectedPlayer : playerItemSCROB;
+    public m_selectedPlayerData : PlayerData;
 
     public m_playerItemSCROBs : [playerItemSCROB];
     start() {
@@ -90,7 +91,9 @@ export class selectPlayerCtrlr extends Component {
         for (let i = 0; i < this.m_playerAvatarsContainer.children.length; i++) {
             
             const el = this.m_playerAvatarsContainer.children[i];
-            el.getComponent(Button).enabled = (i != thisIndex);            
+            el.getComponent(Button).enabled = (i != thisIndex);  
+            if(i != thisIndex)          
+                el.getComponent(Sprite).color = new Color("#FFFFFF");
             el.getComponent(playerAvatarCtrlr).m_clicked = (i == thisIndex);            
         }
 
@@ -108,11 +111,16 @@ export class selectPlayerCtrlr extends Component {
 
     play()
     {
+
         //New only if not current new one
-        if(find('stateManager').getComponent(stateManager).m_playerData.get() == '')
+        // if(find('stateManager').getComponent(stateManager).m_playerData.get() == '')
         {
-            let p : PlayerData = {
-                name: 'Lamine',
+            // Get Player Index among playerItemSCROBs (Later use to get UI details)
+            let playerIndex = this.m_playerItemSCROBs.indexOf(this.m_selectedPlayer);
+            
+            this.m_selectedPlayerData = {
+                index: playerIndex, // Index among playerItemSCROBs
+                name:  this.m_selectedPlayer.m_name.toString(),
                 avatar: '',
                 score: 0,
                 globalScore: 0,
@@ -123,28 +131,84 @@ export class selectPlayerCtrlr extends Component {
                     roundIndex: 0,
                     gameIndex: 0,
                     bestScore: 0
-                }
+                },
+
+                eliminated:false
             };
-            find('stateManager').getComponent(stateManager).setPlayerData(p);
+            
+            find('stateManager').getComponent(stateManager).setPlayerData(this.m_selectedPlayerData);
         }
 
-        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
-        let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
-
-        // Getting the fist game not yet played "levels/rounds/games"
-        let nextGame = gameStruct.levels[playerData.progression.levelIndex]
-                                    .rounds[playerData.progression.roundIndex]
-                                        .games.find((g)=>{return g.played == false}).name;
-
-        console.log(nextGame);
+        // Select random Players (4) + selctedPlayer = 5
+        let allPlayers = this.definePlayers();
 
         setTimeout(() => {
-            let scene = nextGame + "Scene";
-            director.loadScene(scene);
-        }, 200);
+            
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
+    
+            // Getting the fist game not yet played "levels/rounds/games"
+            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+                                        .rounds[playerData.progression.roundIndex]
+                                            .games.find((g)=>{return g.played == false}).name;
+    
+            // console.log(nextGame);
+    
+            setTimeout(() => {
+                let scene = nextGame + "Scene";
+                director.loadScene(scene);
+            }, 100);
+
+        }, 10);
+  
 
     }
 
+
+    definePlayers()
+    {
+        var newPlayers : [PlayerData] = [this.m_selectedPlayerData];
+
+        var _globalPlayers = [...this.m_playerItemSCROBs];
+        var shuffledPlayers = _globalPlayers.sort((a, b) => 0.5 - Math.random());
+        
+        var index = shuffledPlayers.indexOf(this.m_selectedPlayer);
+        shuffledPlayers.splice(index, 1);
+
+        // Add selected player data to array
+
+        for (let i = 0; i < 4; i++) { // 4 Opponents
+            var p = shuffledPlayers[i];
+
+            // Creating PlayerData Item and setting values from playerAvatarSCROB corresponding item
+            var playerData : PlayerData = {
+                index:0,
+                name: '',
+                avatar: '',
+                score: 0,
+                globalScore: 0,
+                coins: 0,
+                pq: 0,
+                progression: {
+                    levelIndex: 0,
+                    roundIndex: 0,
+                    gameIndex: 0,
+                    bestScore: 0
+                },
+                eliminated: false
+            };
+            playerData.index = this.m_playerItemSCROBs.indexOf(p);
+            playerData.name = p.m_name.toString();
+            // Add to array
+            newPlayers.push(playerData);
+        }
+
+        
+        find('stateManager').getComponent(stateManager).setPlayersListData(newPlayers);
+
+
+
+    }
 
 
 

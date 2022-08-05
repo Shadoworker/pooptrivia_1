@@ -1,5 +1,6 @@
 export type PlayerData = {
 
+    index:number,
     name : string,
     avatar : string,
     score : number,
@@ -12,6 +13,7 @@ export type PlayerData = {
         gameIndex: number,
         bestScore: number
     }
+    eliminated : boolean
 
 }
 

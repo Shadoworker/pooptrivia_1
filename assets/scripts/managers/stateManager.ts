@@ -21,6 +21,7 @@ export class stateManager extends Component {
     // public m_currentLevelIndex = new Kayfo.PersistentNum('m_persistentCurrentLevelIndex', 0);
     
     public m_playerData = new Kayfo.PersistentString('m_persistentPlayerData', '');
+    public m_playersListData = new Kayfo.PersistentString('m_persistentPlayersListData', '');
 
     
     onLoad()
@@ -68,15 +69,19 @@ export class stateManager extends Component {
     setPlayerData(_playerData : PlayerData)
     {
         // For Test
-        if(_playerData.name == "")
-            _playerData = { ..._playerData,
-                name : "Moussa"
-            }
+        // if(_playerData.name == "")
+        //     _playerData = { ..._playerData,
+        //         name : "Moussa"
+        //     }
 
         
         this.m_playerData.set(JSON.stringify(_playerData));
     }
 
+    setPlayersListData(_playersListData : [PlayerData])
+    {
+        this.m_playersListData.set(JSON.stringify(_playersListData))
+    }
 
     updateProgress(_score:number)
     {

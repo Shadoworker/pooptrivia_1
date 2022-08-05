@@ -1,4 +1,4 @@
-System.register("chunks:///_virtual/resources",[],(function(){"use strict";return{execute:function(){}}}));
+System.register("chunks:///_virtual/resources",["./index.mjs_cjs=&original=2.js"],(function(){"use strict";return{setters:[null],execute:function(){}}}));
 
 (function(r) {
   r('virtual:///prerequisite-imports/resources', 'chunks:///_virtual/resources'); 

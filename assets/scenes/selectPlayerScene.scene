@@ -266,7 +266,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 432,
+    "_orthoHeight": 447.8501170960188,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -3985,7 +3985,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Lamine",
+    "_string": "-------",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 30,
@@ -4094,7 +4094,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "45 ans",
+    "_string": "-- ans",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 25,
@@ -4203,7 +4203,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Agent Immobilier",
+    "_string": "------------",
     "_horizontalAlign": 0,
     "_verticalAlign": 0,
     "_actualFontSize": 25,
@@ -4430,9 +4430,28 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "playerItemsPrefab": {
+    "m_selectedPlayerAvatar": {
+      "__id__": 185
+    },
+    "m_selectedPlayerName": {
+      "__id__": 194
+    },
+    "m_selectedPlayerAge": {
+      "__id__": 197
+    },
+    "m_selectedPlayerJob": {
+      "__id__": 200
+    },
+    "m_playerItemsPrefab": {
       "__uuid__": "52731f03-8384-4c6e-bd97-7622991206e7",
       "__expectedType__": "cc.Prefab"
+    },
+    "m_playerAvatarPrefab": {
+      "__uuid__": "3c28cada-1b9b-4e16-bc0b-170f4aea0e11",
+      "__expectedType__": "cc.Prefab"
+    },
+    "m_playerAvatarsContainer": {
+      "__id__": 65
     },
     "_id": "3bDWEkCihBYI61xJPMosbx"
   },

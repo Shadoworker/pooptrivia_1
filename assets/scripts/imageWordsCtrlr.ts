@@ -8,7 +8,8 @@ export class imageWords extends Component {
 
     m_GAME_NAME : string = "imageWords";
     m_MISTAKES : number = 3;
-
+    m_BASE_SCORE : number = 20;
+    m_base_score : number;
 
     m_quiz : any;
     m_mistakes : number;
@@ -92,6 +93,7 @@ export class imageWords extends Component {
                 this.initView();
 
                 // Init Basics
+                this.m_base_score = this.m_BASE_SCORE;
                 this.m_mistakes = this.m_MISTAKES;
         
             }
@@ -172,7 +174,7 @@ export class imageWords extends Component {
         {
             
             // Progress
-            let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+            let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
             this.m_didClearRound = _clears[0];
             this.m_didClearLevel = _clears[1];
             // Go forward -->
@@ -197,11 +199,12 @@ export class imageWords extends Component {
                 // Decrease miscoins and score base
                 //...
                 this.m_mistakes--;
+                this.m_base_score -= (5*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
             }
             else // No more miscoins
             {
                  // Progress
-                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
 

@@ -1,0 +1,191 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_native": "",
+    "data": {
+      "__id__": 1
+    },
+    "optimizationPolicy": 0,
+    "persistent": true,
+    "asyncLoadAssets": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "playerItemsScrob",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_parent": null,
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
+    "_prefab": {
+      "__id__": 12
+    },
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 1073741824,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "ce3611EcONFxZryb8REr9Lt",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 3
+    },
+    "playerItems": [
+      {
+        "__id__": 4
+      },
+      {
+        "__id__": 5
+      },
+      {
+        "__id__": 6
+      },
+      {
+        "__id__": 7
+      },
+      {
+        "__id__": 8
+      },
+      {
+        "__id__": 9
+      },
+      {
+        "__id__": 10
+      },
+      {
+        "__id__": 11
+      }
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "b10U/Ig3xL5Y4xMkyee2MR"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "c1c405f5-d6f4-48bb-8311-e39700c60076@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Lamine",
+    "m_age": 45,
+    "m_job": "Agent Immobilier"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "ced6f450-5620-4747-a080-ec53126b03aa@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Oumou",
+    "m_age": 27,
+    "m_job": "Chimiste"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "476cc4e0-c071-4e2b-8b86-fc19214eb06c@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Khady",
+    "m_age": 28,
+    "m_job": "Designer"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "30a975fd-8d21-48a7-8bbd-6447aaf398f4@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Binta",
+    "m_age": 30,
+    "m_job": "Manager"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "9db1c967-796b-449d-a897-3095bf9b0969@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Peter",
+    "m_age": 35,
+    "m_job": "Artiste"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "34eb0f5e-9252-490a-92d2-5cb18d302451@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Modou",
+    "m_age": 74,
+    "m_job": "Retraité"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "823bbb91-4ab3-4be5-8629-4e5d8c7be914@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Marie",
+    "m_age": 26,
+    "m_job": "Game Designer"
+  },
+  {
+    "__type__": "playerItemSCROB",
+    "m_avatar": {
+      "__uuid__": "e6212f77-32e2-4b9f-af48-2fac8676a7ca@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "m_name": "Thierno",
+    "m_age": 25,
+    "m_job": "Ingénieur"
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__id__": 0
+    },
+    "fileId": "c46/YsCPVOJYA4mWEpNYRx"
+  }
+]

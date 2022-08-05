@@ -78,7 +78,7 @@ export class stateManager extends Component {
     }
 
 
-    updateProgress()
+    updateProgress(_score:number)
     {
         // INFO : Data below are sent when round is over ; if the player is among best scorers then these data are processed
         let didClearLevel = false;
@@ -96,6 +96,7 @@ export class stateManager extends Component {
         
         currentGame.played = true;
         playerData.progression.gameIndex += 1;
+        playerData.score += _score;
 
         // Last game of that round : Go to next round
         if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length)
@@ -112,8 +113,8 @@ export class stateManager extends Component {
 
                 if(playerData.progression.levelIndex == gameStruct.levels.length)
                 {
-                    playerData.progression.levelIndex -= 1; // Rollback to valid index (0 -> 3)
-                    playerData.progression.roundIndex = 3; // Rollback to valid index (0 -> 3)
+                    playerData.progression.levelIndex -= 1; // Rollback to valid index (0 -> 2)
+                    playerData.progression.roundIndex = 2; // Rollback to valid index (0 -> 2)
                 }
                 else
                 {
@@ -121,6 +122,10 @@ export class stateManager extends Component {
                     // Unlock level of difficulty
                     gameStruct.levels[(playerData.progression.levelIndex+1)].unlocked = true;
                     didClearLevel = true;
+
+                    // Reset score to ZERO
+                    playerData.score = 0;
+
                 }
             }
             // else

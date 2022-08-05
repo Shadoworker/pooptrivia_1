@@ -187,7 +187,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 767.9999999999999,
+      "x": 768,
       "y": 432,
       "z": 0
     },
@@ -1597,7 +1597,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 469.7714080459772,
-      "height": 97.8
+      "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1626,7 +1626,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Stardog is the world's leading Knowledge Graph platform for the Enterprise. Turn data into knowledge faster and easier. ?",
+    "_string": "..",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 22,
@@ -1661,7 +1661,7 @@
     "_target": null,
     "_left": 0,
     "_right": 0,
-    "_top": 83.87099999999998,
+    "_top": 113.87099999999998,
     "_bottom": 0,
     "_horizontalCenter": 1.062,
     "_verticalCenter": 165.80999999999995,
@@ -2945,8 +2945,8 @@
     "__prefab": null,
     "_alignFlags": 45,
     "_target": null,
-    "_left": -1.1368683772161603e-13,
-    "_right": 0.8668171557561664,
+    "_left": 0,
+    "_right": 0,
     "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,
@@ -3023,6 +3023,9 @@
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
+    "m_pupitreScoreText": {
+      "__id__": 50
+    },
     "_id": "69zzySyfRK54fl271l8JcD"
   },
   {

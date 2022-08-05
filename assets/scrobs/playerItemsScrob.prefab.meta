@@ -1,0 +1,14 @@
+{
+  "ver": "1.1.38",
+  "importer": "prefab",
+  "imported": true,
+  "uuid": "52731f03-8384-4c6e-bd97-7622991206e7",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "syncNodeName": "playerItemsScrob",
+    "persistent": true
+  }
+}

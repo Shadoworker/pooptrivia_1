@@ -8,6 +8,9 @@ export class saveWcCtrlr extends Component {
 
     m_GAME_NAME : string = "saveWc";
     m_MISTAKES : number = 3;
+    m_BASE_SCORE : number = 20;
+    m_base_score : number;
+
     m_ALPHABET = 
     ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
@@ -183,6 +186,7 @@ export class saveWcCtrlr extends Component {
                 this.initView();
 
                 // Init Basics
+                this.m_base_score = this.m_BASE_SCORE;
                 this.m_mistakes = this.m_MISTAKES;
         
             }
@@ -223,6 +227,7 @@ export class saveWcCtrlr extends Component {
 
         // Check if among correct letters
         let isCorrect = this.m_lettersToFind.indexOf(_letter) != -1 ? true : false;
+        let amongWord = this.m_letters.indexOf(_letter) != -1 ? true : false;
 
         // Update slots
         for (let i = 0; i < this.m_slotsContainer.children.length; i++) {
@@ -246,7 +251,7 @@ export class saveWcCtrlr extends Component {
                 // Completed 
                 console.log("COMPLETED");
                     // Progress
-                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
                 
@@ -259,30 +264,33 @@ export class saveWcCtrlr extends Component {
         }
         else // Not correct letter (decrease mistake coins)
         {
-
-            if(this.m_mistakes > 1)
+            if(!amongWord)
             {
-                // Decrease miscoins and score base
-                //...
-                this.m_mistakes--;
-            }
-            else // No more miscoins
-            {
+                if(this.m_mistakes > 1)
+                {
+                    // Decrease miscoins and score base
+                    //...
+                    this.m_mistakes--;
+                    let baseReduc = Math.floor(this.m_BASE_SCORE / this.m_MISTAKES)
+                    this.m_base_score -= (baseReduc*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
+                }
+                else // No more miscoins
+                {
 
-                // FAILED
-                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
-                this.m_didClearRound = _clears[0];
-                this.m_didClearLevel = _clears[1];
+                    // FAILED
+                    let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
+                    this.m_didClearRound = _clears[0];
+                    this.m_didClearLevel = _clears[1];
 
-                // Go to next game
-                setTimeout(() => {
-                    this.nextSet();
-                }, delay);
+                    // Go to next game
+                    setTimeout(() => {
+                        this.nextSet();
+                    }, delay);
+                }
             }
 
         }
 
-        let amongWord = this.m_letters.indexOf(_letter) != -1 ? true : false;
 
 
         return [isCorrect, amongWord];
@@ -299,7 +307,7 @@ export class saveWcCtrlr extends Component {
         {
             
             // Progress
-            let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+            let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
             this.m_didClearRound = _clears[0];
             this.m_didClearLevel = _clears[1];
             
@@ -323,6 +331,8 @@ export class saveWcCtrlr extends Component {
                 // Decrease miscoins and score base
                 //...
                 this.m_mistakes--;
+                let baseReduc = Math.floor(this.m_BASE_SCORE/ this.m_MISTAKES)
+                this.m_base_score -= (5*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
             }
             else // No more miscoins
             {

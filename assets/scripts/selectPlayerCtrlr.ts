@@ -1,28 +1,20 @@
-import { _decorator, Component, Node, SpriteFrame, find, director } from 'cc';
+import { _decorator, Component, Node, SpriteFrame, find, director, Asset, Vec2, ValueType, Prefab } from 'cc';
+import { playerItemsCtrlr } from './components/playerItemsCtrlr';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
    
-export type PlayerAvatarData = {
-
-    avatar : SpriteFrame,
-    name: string,
-    age: number,
-    job: string
-    
-}
-
+ 
 @ccclass('selectPlayerCtrlr')
 export class selectPlayerCtrlr extends Component {
 
-   
 
-
-    // @property({type:  Array})
-    public m_playersData = null;
+    @property ({type : Prefab})
+    public playerItemsPrefab = null;
 
     start() {
         
+        // console.log("")
     }
  
 

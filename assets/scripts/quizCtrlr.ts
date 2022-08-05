@@ -8,6 +8,8 @@ export class quizCtrlr extends Component {
 
     m_GAME_NAME : string = "quiz";
     m_MISTAKES : number = 3;
+    m_BASE_SCORE : number = 20;
+    m_base_score : number;
 
 
     m_quiz : any;
@@ -30,6 +32,9 @@ export class quizCtrlr extends Component {
     @property({type: [SpriteFrame]})
     public m_btnTextures = [];
 
+
+    @property({type: Label})
+    public m_pupitreScoreText = null;
 
 
     start() {
@@ -66,39 +71,49 @@ export class quizCtrlr extends Component {
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
     
-            // Is this game the nextOne or Another
-            if(nextGame == this.m_GAME_NAME)
-            {
-
-                let thisLevelData : any[] = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
-                
-                if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
+        
+            // setTimeout(() => {
+                this.updateUiScore();
+                // Is this game the nextOne or Another
+                if(nextGame == this.m_GAME_NAME)
                 {
-                    thisLevelData = quizData; // Any
+
+
+
+
+                    let thisLevelData : any[] = quizData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                    
+                    if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
+                    {
+                        thisLevelData = quizData; // Any
+                    }
+                    // Get Random One Random Question
+                    let r = Math.floor(Math.random() * thisLevelData.length);
+            
+                    this.m_quiz = thisLevelData[r];
+            
+                    // Remove selected Quiz Item from initial array and save
+                    quizData.splice(quizData.indexOf(this.m_quiz), 1);
+                    find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
+
+                    // Load data
+                    this.initView();
+
+                    // Init Basics
+                    this.m_base_score = this.m_BASE_SCORE;
+                    this.m_mistakes = this.m_MISTAKES;
+            
                 }
-                // Get Random One Random Question
-                let r = Math.floor(Math.random() * thisLevelData.length);
-        
-                this.m_quiz = thisLevelData[r];
-        
-                // Remove selected Quiz Item from initial array and save
-                quizData.splice(quizData.indexOf(this.m_quiz), 1);
-                find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData));
+                else
+                {
+                    console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
+                    let scene = nextGame + "Scene";
+                    director.loadScene(scene);
 
-                // Load data
-                this.initView();
+                }
 
-                // Init Basics
-                this.m_mistakes = this.m_MISTAKES;
-        
-            }
-            else
-            {
-                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
-                let scene = nextGame + "Scene";
-                director.loadScene(scene);
+            // }, 1000);
 
-            }
         
         }
         
@@ -145,10 +160,13 @@ export class quizCtrlr extends Component {
         {
             
             // Progress
-            let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+            let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
             this.m_didClearRound = _clears[0];
             this.m_didClearLevel = _clears[1];
             
+            // Setting score UI
+            this.updateUiScore();
+
             // Go forward -->
             setTimeout(() => {
                 this.nextSet();
@@ -169,14 +187,17 @@ export class quizCtrlr extends Component {
                 // Decrease miscoins and score base
                 //...
                 this.m_mistakes--;
+                this.m_base_score -= (5*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
+
             }
             else // No more miscoins
             {
                 // Progress
-                let _clears = find('stateManager').getComponent(stateManager).updateProgress();
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
 
+                this.updateUiScore();
                 // Go to next game
                 setTimeout(() => {
                     this.nextSet();
@@ -186,6 +207,11 @@ export class quizCtrlr extends Component {
         
     }
 
+    updateUiScore()
+    {
+        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+        this.m_pupitreScoreText.string = playerData.score.toString();
+    }
 
     setAnswerBtnColor(_btnIndex:number, _isCorrect:boolean)
     {

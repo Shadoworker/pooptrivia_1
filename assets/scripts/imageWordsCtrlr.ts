@@ -73,7 +73,12 @@ export class imageWords extends Component {
             if(nextGame == this.m_GAME_NAME)
             {
 
-                let thisLevelData = fiowData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                let thisLevelData : any[] = fiowData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                
+                if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
+                {
+                    thisLevelData = fiowData; // Any
+                }
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);
         
@@ -199,7 +204,7 @@ export class imageWords extends Component {
                 let _clears = find('stateManager').getComponent(stateManager).updateProgress();
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
-                
+
                 // Go to next game
                 setTimeout(() => {
                     this.nextSet();

@@ -18,9 +18,12 @@ export class letterBtnCtrlr extends Component {
         {
             let letter = this.getComponentInChildren(Label).string;
 
-            let isCorrect = find('Canvas').getComponent(saveWcCtrlr).onClickLetter(letter);
+            let refs = find('Canvas').getComponent(saveWcCtrlr).onClickLetter(letter);
 
-            let col = isCorrect ? Color.GREEN : Color.RED;
+            let isCorrect = refs[0];
+            let amongWord = refs[1];
+
+            let col = isCorrect || amongWord ? Color.GREEN : Color.RED;
 
             this.node.getComponent(Button).enabled = false;
 

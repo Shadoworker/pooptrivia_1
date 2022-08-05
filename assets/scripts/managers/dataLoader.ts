@@ -32,7 +32,7 @@ export class dataLoader extends Component {
             this.getQuizData();
             this.getFiowData();
             this.getSaveWcData();
-            
+
             // Loading the structure of the game : Levels
             this.loadGameStruct();
             // ...
@@ -142,7 +142,7 @@ export class dataLoader extends Component {
                     "en": "WORDUS",
                     "fr": "MOTUS"
                 },
-                "level": 3,
+                "level": 2,
                 "active": true,
             },
             {

@@ -222,7 +222,7 @@ export class saveWcCtrlr extends Component {
         const delay = 1000;
 
         // Check if among correct letters
-        let isCorrect = this.m_letters.indexOf(_letter) != -1 ? true : false;
+        let isCorrect = this.m_lettersToFind.indexOf(_letter) != -1 ? true : false;
 
         // Update slots
         for (let i = 0; i < this.m_slotsContainer.children.length; i++) {
@@ -240,7 +240,7 @@ export class saveWcCtrlr extends Component {
         {
             // Remove from to find
             this.m_lettersToFind.splice(this.m_lettersToFind.indexOf(_letter), 1);
-
+            console.log(this.m_lettersToFind)
             if(this.m_lettersToFind.length == 0)
             {
                 // Completed 
@@ -282,7 +282,10 @@ export class saveWcCtrlr extends Component {
 
         }
 
-        return isCorrect;
+        let amongWord = this.m_letters.indexOf(_letter) != -1 ? true : false;
+
+
+        return [isCorrect, amongWord];
     }
 
     checkAnswer(e: EventMouse, _btnIndex:number)

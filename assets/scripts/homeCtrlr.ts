@@ -69,6 +69,15 @@ export class homeCtrlr extends Component {
 
     }
 
+
+    reset()
+    {
+        localStorage.clear();
+
+        setTimeout(() => {
+            director.loadScene("splashScene");
+        }, 10);
+    }
     
 }
 

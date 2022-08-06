@@ -1000,7 +1000,10 @@
     "__prefab": {
       "__id__": 80
     },
-    "m_playerItemsPrefab": null,
+    "m_playerItemsPrefab": {
+      "__uuid__": "52731f03-8384-4c6e-bd97-7622991206e7",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": ""
   },
   {

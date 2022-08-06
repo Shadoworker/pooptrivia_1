@@ -137,7 +137,12 @@ export class selectPlayerCtrlr extends Component {
                     gameIndex: 0,
                     bestScore: 0
                 },
-
+                stats:{
+                    pq: 0,
+                    wrong_answers: 0,
+                    right_answers: 0,
+                    poop_coins: 0,
+                },
                 eliminated:false
             };
             
@@ -200,6 +205,12 @@ export class selectPlayerCtrlr extends Component {
                     roundIndex: 0,
                     gameIndex: 0,
                     bestScore: 0
+                },
+                stats:{
+                    pq: 0,
+                    wrong_answers: 0,
+                    right_answers: 0,
+                    poop_coins: 0,
                 },
                 eliminated: false
             };

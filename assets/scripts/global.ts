@@ -39,11 +39,20 @@ export function qualifyPlayers(_players : any[], _eliminatedCount : number)
         return b.score - a.score;
     });
  
+    let firstEliminatedIndex = sortedByScore.findIndex(e=>e.eliminated == true);
+    if(firstEliminatedIndex == -1) firstEliminatedIndex = 0;
+
+    let eliminated = sortedByScore.filter(e=>e.eliminated == true).length;
+
+    let totalEliminated = eliminated + _eliminatedCount;
+
     // Eliminated
-    for (let i = (sortedByScore.length - _eliminatedCount); i < sortedByScore.length; i++) {
+    for (let i = (sortedByScore.length - totalEliminated); i < sortedByScore.length; i++) {
         
        sortedByScore[i].eliminated = true;
     }
+
+    
    
     return sortedByScore;
 }

@@ -13,7 +13,13 @@ export type PlayerData = {
         roundIndex: number,
         gameIndex: number,
         bestScore: number
-    }
+    },
+    stats:{
+        pq:number,
+        wrong_answers:number,
+        right_answers:number,
+        poop_coins:number
+    },
     eliminated : boolean
 
 }

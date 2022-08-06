@@ -243,7 +243,7 @@ export class imageWords extends Component {
 
         for (let i = 0; i < playersListData.length; i++) {
             
-            if(i != indexAmongPlayers)
+            if(i != indexAmongPlayers && !playersListData[i].eliminated)
             {
                 var signs = [1, -1];
                 var signIndex = Math.floor(Math.random() * (1 + 1));

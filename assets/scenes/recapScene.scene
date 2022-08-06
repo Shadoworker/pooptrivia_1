@@ -269,7 +269,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 432,
+    "_orthoHeight": 441.1914893617021,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -3221,6 +3221,8 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "m_playerItemsPrefab": null,
+    "m_podiumPlayersContainer": null,
     "_id": "bfA9FtFChGm53ItYKtwSEf"
   },
   {

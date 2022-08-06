@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, instantiate, Sprite, Label, find } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, Sprite, Label, find, Color } from 'cc';
 import { stateManager } from '../managers/stateManager';
 import { playerItemSCROB } from '../utils/scrobs';
 import { PlayerData } from '../utils/types';
@@ -19,29 +19,58 @@ export class playerPupitreListCtrlr extends Component {
 
     initView()
     {
+
         var playerItemsPrefab = instantiate(this.m_playerItemsPrefab);
         this.m_playerItemSCROBs = playerItemsPrefab.getComponent(playerItemsCtrlr).playerItems;
 
-        // Get PlayersList
-        let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
+        if(find('stateManager').getComponent(stateManager).m_playersListData.get() != '')
+        {
+
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+            // Get PlayersList
+            let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
+            let _list = [..._playersListData];
+
+            let sortedList = _list.sort((a, b) => {
+                return b.score - a.score;
+            });
 
 
-        for (let i = 0; i < _playersListData.length; i++) {
 
-            let player = _playersListData.find(e=>e.podiumIndex == i);
+            for (let i = 0; i < _playersListData.length; i++) {
 
-            const scrob = this.m_playerItemSCROBs[player.index];
+                let player = _playersListData.find(e=>e.podiumIndex == i);
 
-            let playerPupitreItem = this.node.children[i];
+                const scrob = this.m_playerItemSCROBs[player.index];
 
-            // console.log(this.node.children);
-            playerPupitreItem.getChildByPath("playerMask/player").getComponent(Sprite).spriteFrame = scrob.m_avatar;
-            playerPupitreItem.getChildByPath("playerMask/playerName").getComponent(Label).string = scrob.m_name.toString();
-            playerPupitreItem.getChildByPath("playerMask/playerScore").getComponent(Label).string = player.score.toString();
-            
+                let playerPupitreItem = this.node.children[i];
 
+                // Trophy set
+                let playerIndexInRanking = sortedList.findIndex(e=>e.index == player.index);
+                if(playerIndexInRanking > 2) // 0, 1, 2 
+                    playerIndexInRanking = 3; // The last item index in trophies
+
+                let c : Color = player.eliminated ? Color.BLACK : Color.WHITE;
+                // console.log(this.node.children);
+                let leftover = sortedList.filter(e=>e.eliminated == false).length;
+                if(playerData.eliminated || leftover == 1) // Player eliminated or the single one 
+                {
+                    playerPupitreItem.getChildByPath("trophies").children[playerIndexInRanking].active = true;
+                }
+                
+                playerPupitreItem.getChildByPath("playerMask/player").getComponent(Sprite).spriteFrame = scrob.m_avatar;
+                playerPupitreItem.getChildByPath("playerMask/player").getComponent(Sprite).color = c;
+                playerPupitreItem.getChildByPath("playerMask/playerName").getComponent(Label).string = scrob.m_name.toString();
+                // playerPupitreItem.getChildByPath("playerMask/playerScore").getComponent(Label).string = player.eliminated ? "X" : player.score.toString();
+                playerPupitreItem.getChildByPath("playerMask/playerScore").getComponent(Label).string = player.score.toString();
+                playerPupitreItem.getChildByPath("playerMask/playerScore").getComponent(Label).color = player.eliminated ? Color.RED : Color.WHITE;
+                
+
+            }
+        
         }
-
+        
     }
 
 }

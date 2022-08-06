@@ -36,12 +36,14 @@ export class recapCtrlr extends Component {
             case 0:
                 eliminated = 2;
                 break;
+            case -1:
             case 1:
             case 2:
                 eliminated = 1;
                 break;
         }
 
+        console.log("eliminated : " + eliminated)
         let newPlayersListData = qualifyPlayers(playersListData, eliminated)
 
         // Check if Player is among qualified or not

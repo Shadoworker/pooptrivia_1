@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
+import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
@@ -255,10 +256,15 @@ export class saveWcCtrlr extends Component {
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
                 
+                // Simulate opps scores
+                this.simulateOpponentsScores(this.m_base_score);
+
                 // Go forward -->
                 setTimeout(() => {
                     this.nextSet();
                 }, delay);
+
+
 
             }
         }
@@ -282,6 +288,9 @@ export class saveWcCtrlr extends Component {
                     this.m_didClearRound = _clears[0];
                     this.m_didClearLevel = _clears[1];
 
+                    // Simulate opps scores
+                    this.simulateOpponentsScores(this.m_base_score);
+
                     // Go to next game
                     setTimeout(() => {
                         this.nextSet();
@@ -295,6 +304,55 @@ export class saveWcCtrlr extends Component {
 
         return [isCorrect, amongWord];
     }
+
+
+    simulateOpponentsScores(_playerScore)
+    {
+
+        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+        
+        let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
+        let playersListData = [..._playersListData]
+
+        
+        let modeBaseProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].baseProbaRightAnswer;
+        let modeMarginProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].marginProbaRightAnswer;
+        let randomBaseMax = modeMarginProba / 5 + 1; 
+        
+
+        let indexAmongPlayers = playersListData.findIndex(e=>e.index == playerData.index);
+
+        playersListData[indexAmongPlayers].score += _playerScore;
+
+        for (let i = 0; i < playersListData.length; i++) {
+            
+            if(i != indexAmongPlayers)
+            {
+                var signs = [1, -1];
+                var signIndex = Math.floor(Math.random() * (1 + 1));
+                var sign = signs[signIndex];
+    
+                let margin = Math.floor(Math.random()*randomBaseMax)*5;
+                margin = margin * sign;
+                let rightAnswerProba = modeBaseProba + margin;
+                let wrongAnswerProba = 100 - rightAnswerProba;
+    
+                var points = [{point : 1, power : rightAnswerProba}, {point : 0, power : wrongAnswerProba}];
+                points = points.sort((a, b) => 0.5 - Math.random());
+
+                var p = getRandomWithWeight(points);
+                playersListData[i].score = playersListData[i].score +( p * 10);
+            }
+        }
+
+
+        // Update data
+        find('stateManager').getComponent(stateManager).m_playersListData.set(JSON.stringify(playersListData))
+
+        //console.log(playersListData)
+
+    }
+
 
     checkAnswer(e: EventMouse, _btnIndex:number)
     {

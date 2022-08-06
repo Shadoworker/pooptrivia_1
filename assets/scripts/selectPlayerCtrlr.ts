@@ -124,6 +124,7 @@ export class selectPlayerCtrlr extends Component {
             
             this.m_selectedPlayerData = {
                 index: playerIndex, // Index among playerItemSCROBs
+                podiumIndex:0,
                 name:  this.m_selectedPlayer.m_name.toString(),
                 avatar: '',
                 score: 0,
@@ -187,6 +188,7 @@ export class selectPlayerCtrlr extends Component {
             // Creating PlayerData Item and setting values from playerAvatarSCROB corresponding item
             var playerData : PlayerData = {
                 index:0,
+                podiumIndex:(i+1),
                 name: '',
                 avatar: '',
                 score: 0,

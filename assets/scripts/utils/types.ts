@@ -1,6 +1,7 @@
 export type PlayerData = {
 
     index:number,
+    podiumIndex:number,
     name : string,
     avatar : string,
     score : number,

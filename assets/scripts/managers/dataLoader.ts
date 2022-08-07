@@ -232,7 +232,7 @@ export class dataLoader extends Component {
         resources.load<JsonAsset>('gameStruct', (err, data)=> {
 
             this.m_gameStruct = data.json;
-
+            console.log(this.m_gameStruct);
         });
     }
 

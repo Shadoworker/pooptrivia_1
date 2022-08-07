@@ -100,7 +100,7 @@ export class imageWords extends Component {
             }
             else
             {
-                console.log("WE ARE LOADING THE NEXT TYPE OF GAME(QUIZ)")
+                // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(QUIZ)")
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);
             }

@@ -24,7 +24,7 @@ export class homeCtrlr extends Component {
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
 
-            console.log(nextGame);
+            // console.log(nextGame);
 
             setTimeout(() => {
                 let scene = nextGame + "Scene";
@@ -73,6 +73,9 @@ export class homeCtrlr extends Component {
     reset()
     {
         localStorage.clear();
+
+        find('dataLoader').destroy();
+        find('stateManager').destroy();
 
         setTimeout(() => {
             director.loadScene("splashScene");

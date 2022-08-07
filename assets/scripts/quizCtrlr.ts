@@ -139,7 +139,7 @@ export class quizCtrlr extends Component {
                 }
                 else
                 {
-                    console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
+                    // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
                     let scene = nextGame + "Scene";
                     director.loadScene(scene);
 
@@ -253,7 +253,7 @@ export class quizCtrlr extends Component {
         let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
         let playersListData = [..._playersListData]
 
-        console.log(playersListData)
+        // console.log(playersListData)
         
         let modeBaseProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].baseProbaRightAnswer;
         let modeMarginProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].marginProbaRightAnswer;

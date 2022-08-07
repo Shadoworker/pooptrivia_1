@@ -43,7 +43,7 @@ export class recapCtrlr extends Component {
                 break;
         }
 
-        console.log("eliminated : " + eliminated)
+        // console.log("eliminated : " + eliminated)
         let newPlayersListData = qualifyPlayers(playersListData, eliminated)
 
         // Check if Player is among qualified or not
@@ -79,7 +79,7 @@ export class recapCtrlr extends Component {
                                     .rounds[playerData.progression.roundIndex]
                                         .games.find((g)=>{return g.played == false}).name;
 
-        console.log(nextGame);
+        // console.log(nextGame);
 
         setTimeout(() => {
             let gameScene = nextGame + "Scene";

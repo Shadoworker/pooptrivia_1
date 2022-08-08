@@ -40,10 +40,10 @@ export class dataLoader extends Component {
             localStorage.setItem("_dataLoaded", "true")
         }
 
-        // Got Home
+        // Go to Home
         setTimeout(() => {
             director.loadScene("homeScene");
-        }, 500);
+        }, 1500);
     
 
 

@@ -2881,7 +2881,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Label",
+    "_name": "continuLabel",
     "_objFlags": 512,
     "_parent": {
       "__id__": 151
@@ -3721,6 +3721,9 @@
     },
     "m_podiumPlayersContainer": {
       "__id__": 28
+    },
+    "m_continuBtnLabel": {
+      "__id__": 154
     },
     "m_pqCountLabel": null,
     "m_rightAnswersCountLabel": null,

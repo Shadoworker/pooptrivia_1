@@ -23,6 +23,11 @@ export class stateManager extends Component {
     public m_playerData = new Kayfo.PersistentString('m_persistentPlayerData', '');
     public m_playersListData = new Kayfo.PersistentString('m_persistentPlayersListData', '');
 
+
+
+    public m_didClearRound = new Kayfo.PersistentString('m_persistentDidClearRound', 'false');
+    public m_didClearLevel = new Kayfo.PersistentString('m_persistentDidClearLevel', 'false');
+
     
     onLoad()
     {
@@ -83,7 +88,7 @@ export class stateManager extends Component {
         this.m_playersListData.set(JSON.stringify(_playersListData))
     }
 
-    updateProgress(_score:number)
+    updateProgress(_score:number, _isRightAnswer:boolean=true)
     {
         // INFO : Data below are sent when round is over ; if the player is among best scorers then these data are processed
         let didClearLevel = false;
@@ -102,6 +107,8 @@ export class stateManager extends Component {
         currentGame.played = true;
         playerData.progression.gameIndex += 1;
         playerData.score += _score;
+        playerData.stats.right_answers = _isRightAnswer ?  playerData.stats.right_answers + 1 :  playerData.stats.right_answers;
+        playerData.stats.wrong_answers = !_isRightAnswer ?  playerData.stats.wrong_answers + 1 :  playerData.stats.wrong_answers;
 
         // Last game of that round : Go to next round
         if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length)
@@ -125,11 +132,8 @@ export class stateManager extends Component {
                 {
                     // playerData.progression.levelIndex += 1;
                     // Unlock level of difficulty
-                    gameStruct.levels[(playerData.progression.levelIndex+1)].unlocked = true;
-                    didClearLevel = true;
-
-                    // Reset score to ZERO
-                    playerData.score = 0;
+                    gameStruct.levels[(playerData.progression.levelIndex)].unlocked = true;
+                    didClearLevel = true;                    
 
                 }
             }
@@ -146,13 +150,17 @@ export class stateManager extends Component {
         // }
 
         // Save New Data
-        console.log("SM v")
-        console.log(playerData);
-        console.log(gameStruct);
+        // console.log("SM v")
+        // console.log(playerData);
+        // console.log(gameStruct);
 
         this.m_playerData.set(JSON.stringify(playerData));
 
         this.m_gameStruct.set(JSON.stringify(gameStruct));
+
+        this.m_didClearRound.set(didClearRound);
+        this.m_didClearLevel.set(didClearLevel);
+
        
         return [didClearRound ,didClearLevel];
 

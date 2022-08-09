@@ -1,3 +1,6 @@
+import { playerItemSCROB } from "./utils/scrobs";
+import { PlayerData } from "./utils/types";
+
 export const OPPONENTS_ANSWERS_PROBS = [
 
     { name: "EASY" , baseProbaRightAnswer : 50, marginProbaRightAnswer : 20},
@@ -5,6 +8,13 @@ export const OPPONENTS_ANSWERS_PROBS = [
     { name: "HARD" , baseProbaRightAnswer : 70, marginProbaRightAnswer : 20}
 ]
 
+
+export function padWithX(n, width, z = null) 
+{
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
 
 export function getRandomWithWeight(items)
 {
@@ -55,4 +65,55 @@ export function qualifyPlayers(_players : any[], _eliminatedCount : number)
     
    
     return sortedByScore;
+}
+
+
+export function definePlayers(_selectedPlayerData:PlayerData, _playerItemSCROBs:[playerItemSCROB], _selectedPlayer : playerItemSCROB)
+{
+    var newPlayers : [PlayerData] = [_selectedPlayerData];
+
+    var _globalPlayers = [..._playerItemSCROBs];
+    var shuffledPlayers = _globalPlayers.sort((a, b) => 0.5 - Math.random());
+    
+    var index = shuffledPlayers.indexOf(_selectedPlayer);
+    shuffledPlayers.splice(index, 1);
+
+    // Add selected player data to array
+
+    for (let i = 0; i < 4; i++) { // 4 Opponents
+        var p = shuffledPlayers[i];
+
+        // Creating PlayerData Item and setting values from playerAvatarSCROB corresponding item
+        var playerData : PlayerData = {
+            index:0,
+            podiumIndex:(i+1),
+            name: '',
+            avatar: '',
+            score: 0,
+            globalScore: 0,
+            coins: 0,
+            pq: 0,
+            progression: {
+                levelIndex: 0,
+                roundIndex: 0,
+                gameIndex: 0,
+                bestScore: 0
+            },
+            stats:{
+                pq: 0,
+                wrong_answers: 0,
+                right_answers: 0,
+                poop_coins: 0,
+            },
+            eliminated: false
+        };
+        playerData.index = _playerItemSCROBs.indexOf(p);
+        playerData.name = p.m_name.toString();
+        // Add to array
+        newPlayers.push(playerData);
+    }
+
+    
+    return newPlayers;
+
 }

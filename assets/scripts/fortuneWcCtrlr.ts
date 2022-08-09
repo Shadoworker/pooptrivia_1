@@ -1,4 +1,6 @@
-import { _decorator, Component, Node, Sprite, tween, Vec3, Vec2, Button } from 'cc';
+import { _decorator, Component, Node, Sprite, tween, Vec3, Vec2, Button, find, director, Label } from 'cc';
+import { stateManager } from './managers/stateManager';
+import { PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
 @ccclass('fortuneWcCtrlr')
@@ -38,7 +40,7 @@ export class fortuneWcCtrlr extends Component {
         ]
 
         let item = data[Math.floor(Math.random() * data.length)];
-        let tours = Math.floor(Math.random() * 4);
+        let tours = Math.floor(Math.random() * 4) + 2;
         let angle = item.angle + (360 * tours) // For full tour at least
 
         let duration = 1.5;
@@ -54,6 +56,37 @@ export class fortuneWcCtrlr extends Component {
         setTimeout(() => {
             
             console.log(item);
+
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+            switch (item.type) {
+                case "coin":
+                    // Global value
+                    playerData.coins += item.value;
+                    // Stats local value
+                    playerData.stats.poop_coins = item.value;
+                    break;
+                
+                case "pq":
+                    // Global value
+                    playerData.pq += item.value;
+                    // Stats local value
+                    playerData.stats.pq = item.value;
+                    break;
+            }
+
+            let node = 'Canvas/'+item.type+'View';
+
+            find(node).getComponentInChildren(Label).string = item.value.toString();
+
+            find(node).active = true;
+
+            find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+            setTimeout(() => {
+                director.loadScene('recapScene');
+            }, 1000);
+
 
         }, (duration * 1000 + 50));
     }

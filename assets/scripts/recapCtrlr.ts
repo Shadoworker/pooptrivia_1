@@ -1,5 +1,6 @@
-import { _decorator, Component, Node, find, director, assetManager, SpriteFrame, ImageAsset, Texture2D, Sprite, dynamicAtlasManager, SpriteAtlas, Prefab } from 'cc';
-import { qualifyPlayers } from './global';
+import { _decorator, Component, Node, find, director, assetManager, SpriteFrame, ImageAsset, Texture2D, Sprite, dynamicAtlasManager, SpriteAtlas, Prefab, Label, instantiate } from 'cc';
+import { playerItemsCtrlr } from './components/playerItemsCtrlr';
+import { definePlayers, padWithX, qualifyPlayers } from './global';
 import { stateManager } from './managers/stateManager';
 import { playerItemSCROB } from './utils/scrobs';
 import { GameStruct, PlayerData } from './utils/types';
@@ -17,6 +18,17 @@ export class recapCtrlr extends Component {
     public m_podiumPlayersContainer = null;
 
 
+    // Stats
+    @property ({type : Label})
+    public m_pqCountLabel = null;
+    @property ({type : Label})
+    public m_rightAnswersCountLabel = null;
+    @property ({type : Label})
+    public m_wrongAnswersCountLabel = null;
+    @property ({type : Label})
+    public m_coinsCountLabel = null;
+
+
     start() {
 
         this.initPlayers()
@@ -29,6 +41,10 @@ export class recapCtrlr extends Component {
 
         let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
         let playersListData = [..._playersListData]
+
+        var playerItemsPrefab = instantiate(this.m_playerItemsPrefab);
+        this.m_playerItemSCROBs = playerItemsPrefab.getComponent(playerItemsCtrlr).playerItems;
+
 
         let playedRoundIndex = playerData.progression.roundIndex - 1; // At this stage round has been decreased
         let eliminated = 0;
@@ -43,8 +59,14 @@ export class recapCtrlr extends Component {
                 break;
         }
 
+
+        this.setPlayerStats(playerData)
+
+
         // console.log("eliminated : " + eliminated)
         let newPlayersListData = qualifyPlayers(playersListData, eliminated)
+
+        find('stateManager').getComponent(stateManager).m_playersListData.set(JSON.stringify(newPlayersListData));
 
         // Check if Player is among qualified or not
         if(newPlayersListData.findIndex(e=>(e.index == playerData.index) && (e.eliminated == false)) != -1 ) // IN
@@ -57,10 +79,29 @@ export class recapCtrlr extends Component {
         }
 
 
-        find('stateManager').getComponent(stateManager).m_playersListData.set(JSON.stringify(newPlayersListData));
+        if(find('stateManager').getComponent(stateManager).m_didClearRound.get() == 'true')
+        {
+            // Reset player data
+                playerData.eliminated = false;
+                playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
+                // playerData.score = 0;
+                find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+ 
+                // Reset round clear status
+                find('stateManager').getComponent(stateManager).m_didClearRound.set('false');
+        }
 
-        this.setPlayersView(newPlayersListData)
 
+        // this.setPlayersView(newPlayersListData)
+
+    }
+
+    setPlayerStats(_playerData: PlayerData)
+    {
+        this.m_pqCountLabel.string = padWithX(_playerData.stats.pq, 3);
+        this.m_rightAnswersCountLabel.string = padWithX(_playerData.stats.right_answers, 3);
+        this.m_wrongAnswersCountLabel.string = padWithX(_playerData.stats.wrong_answers, 3);
+        this.m_coinsCountLabel.string = padWithX(_playerData.stats.poop_coins, 3);
     }
 
     setPlayersView(_playersList : any[])
@@ -74,17 +115,63 @@ export class recapCtrlr extends Component {
         let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
         let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 
+
         // Getting the fist game not yet played "levels/rounds/games"
-        let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+        let nextGameItem = gameStruct.levels[playerData.progression.levelIndex]
                                     .rounds[playerData.progression.roundIndex]
-                                        .games.find((g)=>{return g.played == false}).name;
+                                        .games.find((g)=>{return g.played == false})
+                                        
+        if(nextGameItem) // Left unplayed game
+        {
+
+            let nextGame = nextGameItem.name;
+
+            // Reseting for next Level
+            if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
+            {
+                // Reset player data
+                    playerData.eliminated = false;
+                    playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
+                    playerData.score = 0;
+                    find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+                // Reset players list data
+                    let _selectedPlayerData = playerData;
+                    let _playerItemSCROBs = this.m_playerItemSCROBs;
+                    let _selectedPlayer = this.m_playerItemSCROBs[playerData.index];
+                    // Select random Players (4) + selctedPlayer = 5
+                    let allPlayers = definePlayers(_selectedPlayerData, _playerItemSCROBs, _selectedPlayer);
+                    find('stateManager').getComponent(stateManager).setPlayersListData(allPlayers);
+
+                    // Reset level clear status
+                    find('stateManager').getComponent(stateManager).m_didClearLevel.set('false');
+
+                    setTimeout(() => {
+                        let _scene = "homeScene";
+                        director.loadScene(_scene);
+                    }, 200);
+            }
+            else
+            {
+                setTimeout(() => {
+                    let gameScene = nextGame + "Scene";
+                    director.loadScene(gameScene);
+                }, 200);
+            }
+        
+
+        }
+        else // No longer game to be played
+        {
+            setTimeout(() => {
+                let gameScene = "finalScene";
+                director.loadScene(gameScene);
+            }, 200);
+        }
 
         // console.log(nextGame);
 
-        setTimeout(() => {
-            let gameScene = nextGame + "Scene";
-            director.loadScene(gameScene);
-        }, 200);
+
 
     }
 

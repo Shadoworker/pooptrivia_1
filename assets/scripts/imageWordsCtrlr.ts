@@ -49,7 +49,7 @@ export class imageWords extends Component {
 
         if(this.m_didClearRound) // Goto Recap screen
         {
-            director.loadScene('recapScene');
+            director.loadScene('fortuneWcScene');
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
@@ -205,7 +205,7 @@ export class imageWords extends Component {
             else // No more miscoins
             {
                  // Progress
-                let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
+                let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score, false);
                 this.m_didClearRound = _clears[0];
                 this.m_didClearLevel = _clears[1];
 

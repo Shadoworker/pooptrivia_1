@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, SpriteFrame, find, director, Asset, Vec2, ValueType, Prefab, instantiate, Button, Sprite, Label, Color } from 'cc';
 import { playerAvatarCtrlr } from './components/playerAvatarCtrlr';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
+import { definePlayers } from './global';
 import { stateManager } from './managers/stateManager';
 import { playerItemSCROB } from './utils/scrobs';
 import { GameStruct, PlayerData } from './utils/types';
@@ -150,7 +151,8 @@ export class selectPlayerCtrlr extends Component {
         }
 
         // Select random Players (4) + selctedPlayer = 5
-        let allPlayers = this.definePlayers();
+        let allPlayers = definePlayers(this.m_selectedPlayerData, this.m_playerItemSCROBs, this.m_selectedPlayer);
+        find('stateManager').getComponent(stateManager).setPlayersListData(allPlayers);
 
         setTimeout(() => {
             
@@ -174,58 +176,6 @@ export class selectPlayerCtrlr extends Component {
 
     }
 
-
-    definePlayers()
-    {
-        var newPlayers : [PlayerData] = [this.m_selectedPlayerData];
-
-        var _globalPlayers = [...this.m_playerItemSCROBs];
-        var shuffledPlayers = _globalPlayers.sort((a, b) => 0.5 - Math.random());
-        
-        var index = shuffledPlayers.indexOf(this.m_selectedPlayer);
-        shuffledPlayers.splice(index, 1);
-
-        // Add selected player data to array
-
-        for (let i = 0; i < 4; i++) { // 4 Opponents
-            var p = shuffledPlayers[i];
-
-            // Creating PlayerData Item and setting values from playerAvatarSCROB corresponding item
-            var playerData : PlayerData = {
-                index:0,
-                podiumIndex:(i+1),
-                name: '',
-                avatar: '',
-                score: 0,
-                globalScore: 0,
-                coins: 0,
-                pq: 0,
-                progression: {
-                    levelIndex: 0,
-                    roundIndex: 0,
-                    gameIndex: 0,
-                    bestScore: 0
-                },
-                stats:{
-                    pq: 0,
-                    wrong_answers: 0,
-                    right_answers: 0,
-                    poop_coins: 0,
-                },
-                eliminated: false
-            };
-            playerData.index = this.m_playerItemSCROBs.indexOf(p);
-            playerData.name = p.m_name.toString();
-            // Add to array
-            newPlayers.push(playerData);
-        }
-
-        
-        find('stateManager').getComponent(stateManager).setPlayersListData(newPlayers);
-
-
-
-    }
 
 
 

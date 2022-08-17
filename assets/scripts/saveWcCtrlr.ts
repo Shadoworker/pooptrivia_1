@@ -46,8 +46,11 @@ export class saveWcCtrlr extends Component {
     @property({type: [Node]})
     public m_answerBtns = [];
 
+    @property({type: Sprite})
+    public m_wcSprite = null;
+
     @property({type: [SpriteFrame]})
-    public m_btnTextures = [];
+    public m_wcTextures = [];
 
 
 
@@ -224,7 +227,7 @@ export class saveWcCtrlr extends Component {
 
     onClickLetter(_letter : string)
     {
-        const delay = 1000;
+        const delay = 2000;
 
         // Check if among correct letters
         let isCorrect = this.m_lettersToFind.indexOf(_letter) != -1 ? true : false;
@@ -279,9 +282,14 @@ export class saveWcCtrlr extends Component {
                     this.m_mistakes--;
                     let baseReduc = Math.floor(this.m_BASE_SCORE / this.m_MISTAKES)
                     this.m_base_score -= (baseReduc*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
+
+                    // WC SPRITEFRAME
+                    this.setupWc();
+
                 }
                 else // No more miscoins
                 {
+                    this.m_wcSprite.spriteFrame = this.m_wcTextures[2];
 
                     // FAILED
                     let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score, false);
@@ -296,6 +304,10 @@ export class saveWcCtrlr extends Component {
                         this.nextSet();
                     }, delay);
                 }
+
+              
+
+             
             }
 
         }
@@ -305,6 +317,17 @@ export class saveWcCtrlr extends Component {
         return [isCorrect, amongWord];
     }
 
+
+    setupWc()
+    {
+        let _spriteIndex = 0
+        if(this.m_mistakes <= (this.m_MISTAKES / 2))
+            _spriteIndex = 1;
+        else if(this.m_mistakes == 0)
+            _spriteIndex = 2;
+
+        this.m_wcSprite.spriteFrame = this.m_wcTextures[_spriteIndex];
+    }
 
     simulateOpponentsScores(_playerScore)
     {

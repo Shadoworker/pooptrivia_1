@@ -7,5 +7,27 @@
       "width": 1536,
       "height": 864
     }
-  }
+  },
+  "layer": [
+    {
+      "name": "SCENERY_5",
+      "value": 524288
+    },
+    {
+      "name": "SCENERY_4",
+      "value": 262144
+    },
+    {
+      "name": "SCENERY_3",
+      "value": 131072
+    },
+    {
+      "name": "SCENERY_2",
+      "value": 65536
+    },
+    {
+      "name": "SCENERY_1",
+      "value": 32768
+    }
+  ]
 }

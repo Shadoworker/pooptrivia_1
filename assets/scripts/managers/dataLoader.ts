@@ -17,6 +17,7 @@ export class dataLoader extends Component {
     public m_quizData = null;
     public m_fiowData = null;
     public m_saveWcData = null;
+    public m_sanitizeData = null;
 
     onLoad()
     {
@@ -33,6 +34,7 @@ export class dataLoader extends Component {
             this.getFiowData();
             this.getSaveWcData();
 
+            this.getSanitizeData();
             // Loading the structure of the game : Levels
             this.loadGameStruct();
             // ...
@@ -226,6 +228,20 @@ export class dataLoader extends Component {
         ]
  
     }
+
+
+    getSanitizeData()
+    {
+        this.m_sanitizeData =
+        {
+            "env": [],
+            "bio": [],
+            "building": []
+        }
+ 
+    }
+
+
 
     loadGameStruct(){
         

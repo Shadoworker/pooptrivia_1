@@ -8,10 +8,15 @@ export class gameHeaderCtrlr extends Component {
     
     @property({type: Label})
     public m_pqPointsText = null;
+    
+    @property({type: Label})
+    public m_coinsPointsText = null;
 
     start() {
 
         this.setPqPoints();
+
+        this.setCoinsPoints();
     }
 
     setPqPoints()
@@ -20,6 +25,15 @@ export class gameHeaderCtrlr extends Component {
         {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             this.m_pqPointsText.string = this.padWithZeroes(playerData.pq, 3);
+        }
+    }
+
+    setCoinsPoints()
+    {
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+        {
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            this.m_coinsPointsText.string = this.padWithZeroes(playerData.coins, 3);
         }
     }
 

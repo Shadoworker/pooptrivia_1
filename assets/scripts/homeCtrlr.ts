@@ -69,6 +69,16 @@ export class homeCtrlr extends Component {
 
     }
 
+    gotoSanitize()
+    {
+        let playerData = find('stateManager').getComponent(stateManager).m_playerData.get();
+        if(playerData != '')
+            director.loadScene("sanitizeScene");
+        else
+        {
+            alert("Choisissez un personnage d'abord !")
+        }
+    }
 
     reset()
     {

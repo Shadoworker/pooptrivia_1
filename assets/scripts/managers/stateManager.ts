@@ -17,6 +17,8 @@ export class stateManager extends Component {
     public m_fiowData = new Kayfo.PersistentString('m_persistentFiowData', '');
     public m_saveWcData = new Kayfo.PersistentString('m_persistentSaveWcData', '');
 
+    public m_sanitizeData = new Kayfo.PersistentString('m_persistentSanitizeData', '');
+
     // selected levelIndex (0=EASY, 1=MEDIUM, 2=)
     // public m_currentLevelIndex = new Kayfo.PersistentNum('m_persistentCurrentLevelIndex', 0);
     
@@ -59,6 +61,9 @@ export class stateManager extends Component {
             if(this.m_saveWcData.get() == '')
                 this.m_saveWcData.set(JSON.stringify(persistentDataLoader.m_saveWcData))
 
+            if(this.m_sanitizeData.get() == '')
+                this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
+                
 
         }
         else

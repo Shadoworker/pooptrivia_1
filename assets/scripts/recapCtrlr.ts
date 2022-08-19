@@ -53,7 +53,6 @@ export class recapCtrlr extends Component {
         this.m_playerItemSCROBs = playerItemsPrefab.getComponent(playerItemsCtrlr).playerItems;
 
 
-
         let playedRoundIndex = playerData.progression.roundIndex - 1; // At this stage round has been decreased
         let eliminated = 0;
         switch (playedRoundIndex) {
@@ -116,6 +115,12 @@ export class recapCtrlr extends Component {
     setPlayersView(_playersList : any[])
     {
 
+    }
+
+    
+    gotoSanitize()
+    {
+        director.loadScene("sanitizeScene");
     }
 
     continue()

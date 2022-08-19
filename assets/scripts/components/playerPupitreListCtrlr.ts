@@ -57,6 +57,8 @@ export class playerPupitreListCtrlr extends Component {
                 if(playerData.eliminated || leftover == 1) // Player eliminated or the single one 
                 {
                     playerPupitreItem.getChildByPath("trophies").children[playerIndexInRanking].active = true;
+
+                    
                 }
                 
                 playerPupitreItem.getChildByPath("playerMask/player").getComponent(Sprite).spriteFrame = scrob.m_avatar;

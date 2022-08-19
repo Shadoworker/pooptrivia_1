@@ -20,6 +20,7 @@ export class recapCtrlr extends Component {
     public m_continuBtnLabel = null;
 
     public m_isEliminated : boolean = false;
+    public m_clearedLevel : boolean = false;
 
     // Stats
     @property ({type : Label})
@@ -36,6 +37,11 @@ export class recapCtrlr extends Component {
 
         this.initPlayers()
 
+        setTimeout(() => {
+        
+            this.setupPlayers()
+            
+        }, 1000);
     }
 
     initPlayers()
@@ -123,6 +129,34 @@ export class recapCtrlr extends Component {
         director.loadScene("sanitizeScene");
     }
 
+    setupPlayers()
+    {
+       
+        if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
+        {
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+            // Reset player data
+            playerData.eliminated = false;
+            playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
+            playerData.score = 0;
+            find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+            // Reset players list data
+            let _selectedPlayerData = playerData;
+            let _playerItemSCROBs = this.m_playerItemSCROBs;
+            let _selectedPlayer = this.m_playerItemSCROBs[playerData.index];
+            // Select random Players (4) + selctedPlayer = 5
+            let allPlayers = definePlayers(_selectedPlayerData, _playerItemSCROBs, _selectedPlayer);
+            find('stateManager').getComponent(stateManager).setPlayersListData(allPlayers);
+
+            // Reset level clear status
+            find('stateManager').getComponent(stateManager).m_didClearLevel.set('false');
+        
+        }
+
+    }
+
     continue()
     {
        
@@ -144,24 +178,8 @@ export class recapCtrlr extends Component {
                 let nextGame = nextGameItem.name;
 
                 // Reseting for next Level
-                if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
+                if(this.m_clearedLevel)
                 {
-                    // Reset player data
-                        playerData.eliminated = false;
-                        playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
-                        playerData.score = 0;
-                        find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
-
-                    // Reset players list data
-                        let _selectedPlayerData = playerData;
-                        let _playerItemSCROBs = this.m_playerItemSCROBs;
-                        let _selectedPlayer = this.m_playerItemSCROBs[playerData.index];
-                        // Select random Players (4) + selctedPlayer = 5
-                        let allPlayers = definePlayers(_selectedPlayerData, _playerItemSCROBs, _selectedPlayer);
-                        find('stateManager').getComponent(stateManager).setPlayersListData(allPlayers);
-
-                        // Reset level clear status
-                        find('stateManager').getComponent(stateManager).m_didClearLevel.set('false');
 
                         setTimeout(() => {
                             let _scene = "homeScene";

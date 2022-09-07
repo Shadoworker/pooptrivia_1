@@ -9,7 +9,7 @@ export class saveWcCtrlr extends Component {
 
     m_GAME_NAME : string = "saveWc";
     m_MISTAKES : number = 3;
-    m_BASE_SCORE : number = 20;
+    m_BASE_SCORE : number = 50;
     m_base_score : number;
 
     m_ALPHABET = 

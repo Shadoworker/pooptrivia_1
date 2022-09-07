@@ -11,7 +11,7 @@ export class quizCtrlr extends Component {
 
     m_GAME_NAME : string = "quiz";
     m_MISTAKES : number = 3;
-    m_BASE_SCORE : number = 20;
+    m_BASE_SCORE : number = 50;
     m_base_score : number;
 
 
@@ -220,7 +220,7 @@ export class quizCtrlr extends Component {
                 // Decrease miscoins and score base
                 //...
                 this.m_mistakes--;
-                this.m_base_score -= (5*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
+                this.m_base_score -=  10 //(5*this.m_mistakes); // init 3 : 5*2=10; 5*1=5
 
             }
             else // No more miscoins

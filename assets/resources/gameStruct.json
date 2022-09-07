@@ -12,26 +12,29 @@
                         "games":[
                             {"name":"quiz", "played":false},
                             {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false}
+                            {"name":"imageWords", "played":false},
+                            {"name":"imageWords", "played":false},
+                            {"name":"saveWc", "played":false}
                         ]
                     },
                     {
                         "id":2,
                         "games":[
                             {"name":"quiz", "played":false},
+                            {"name":"quiz", "played":false},
                             {"name":"imageWords", "played":false},
                             {"name":"saveWc", "played":false},
-                            {"name":"imageWords", "played":false}
+                            {"name":"saveWc", "played":false}
                         ]
                     },
                     {
                         "id":3,
                         "games":[
                             {"name":"quiz", "played":false},
+                            {"name":"imageWords", "played":false},
+                            {"name":"imageWords", "played":false},
                             {"name":"saveWc", "played":false},
-                            {"name":"saveWc", "played":false},
-                            {"name":"imageWords", "played":false}
+                            {"name":"saveWc", "played":false}
                         ]
                     }
                 ]
@@ -44,73 +47,78 @@
             "name":"MEDIUM",
             "unlocked":false,
             "rounds" : 
-                [
-                    {
-                        "id":1,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false}
-                        ]
-                    },
-                    {
-                        "id":2,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"imageWords", "played":false},
-                            {"name":"imageWords", "played":false}
-                        ]
-                    },
-                    {
-                        "id":3,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"imageWords", "played":false},
-                            {"name":"imageWords", "played":false}
-                        ]
-                    }
-                ]
+            [
+                {
+                    "id":1,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                },
+                {
+                    "id":2,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                },
+                {
+                    "id":3,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                }
+            ]
             
         },
-
 
         {
             "id":3,
             "name":"HARD",
             "unlocked":false,
             "rounds" : 
-                [
-                    {
-                        "id":1,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false}
-                        ]
-                    },
-                    {
-                        "id":2,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"imageWords", "played":false},
-                            {"name":"imageWords", "played":false}
-                        ]
-                    },
-                    {
-                        "id":3,
-                        "games":[
-                            {"name":"quiz", "played":false},
-                            {"name":"quiz", "played":false},
-                            {"name":"imageWords", "played":false},
-                            {"name":"imageWords", "played":false}
-                        ]
-                    }
-                ]
+            [
+                {
+                    "id":1,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                },
+                {
+                    "id":2,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                },
+                {
+                    "id":3,
+                    "games":[
+                        {"name":"quiz", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"imageWords", "played":false},
+                        {"name":"saveWc", "played":false},
+                        {"name":"saveWc", "played":false}
+                    ]
+                }
+            ]
             
         }
 

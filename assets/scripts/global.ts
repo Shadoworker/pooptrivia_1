@@ -9,6 +9,15 @@ export const OPPONENTS_ANSWERS_PROBS = [
 ]
 
 
+export const TROPHIES_ACCESS = [
+
+    { id:0, name: "NONE"   , scoreMin: 0, scoreMax:199},
+    { id:1, name: "BRONZE" , scoreMin: 200, scoreMax:450},
+    { id:2, name: "SILVER" , scoreMin: 451, scoreMax:600},
+    { id:3, name: "GOLD"   , scoreMin: 601, scoreMax:10000000}
+]
+
+
 export function padWithX(n, width, z = null) 
 {
     z = z || '0';

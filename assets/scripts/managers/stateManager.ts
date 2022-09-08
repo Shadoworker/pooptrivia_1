@@ -27,6 +27,7 @@ export class stateManager extends Component {
 
 
 
+    public m_selectedDifficulty = new Kayfo.PersistentNum('m_persistentSelectedDifficulty', 0);
     public m_didClearRound = new Kayfo.PersistentString('m_persistentDidClearRound', 'false');
     public m_didClearLevel = new Kayfo.PersistentString('m_persistentDidClearLevel', 'false');
 
@@ -63,7 +64,6 @@ export class stateManager extends Component {
 
             if(this.m_sanitizeData.get() == '')
                 this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
-                
 
         }
         else
@@ -102,8 +102,11 @@ export class stateManager extends Component {
         let playerData : PlayerData = JSON.parse(this.m_playerData.get());
         let gameStruct : GameStruct = JSON.parse(this.m_gameStruct.get());
 
+        // let levelIndex = this.m_selectedDifficulty.get();
+        let levelIndex = playerData.progression.levelIndex;
+
         
-        let currentGame = gameStruct.levels[playerData.progression.levelIndex]
+        let currentGame = gameStruct.levels[levelIndex]
         .rounds[playerData.progression.roundIndex]
             .games.find((g)=>g.played == false);
         
@@ -116,20 +119,23 @@ export class stateManager extends Component {
         playerData.stats.wrong_answers = !_isRightAnswer ?  playerData.stats.wrong_answers + 1 :  playerData.stats.wrong_answers;
 
         // Last game of that round : Go to next round
-        if(playerData.progression.gameIndex == gameStruct.levels[playerData.progression.levelIndex].rounds[playerData.progression.roundIndex].games.length)
+        if(playerData.progression.gameIndex == gameStruct.levels[levelIndex].rounds[playerData.progression.roundIndex].games.length)
         {
+    
             playerData.progression.gameIndex = 0;
             playerData.progression.roundIndex += 1;
             didClearRound = true;
             // If last Round
-            if(playerData.progression.roundIndex == gameStruct.levels[playerData.progression.levelIndex].rounds.length)
+            if(playerData.progression.roundIndex == gameStruct.levels[levelIndex].rounds.length)
             {
 
+              
                 playerData.progression.roundIndex = 0;
                 playerData.progression.levelIndex += 1;
 
                 if(playerData.progression.levelIndex == gameStruct.levels.length)
                 {
+                    
                     playerData.progression.levelIndex -= 1; // Rollback to valid index (0 -> 2)
                     playerData.progression.roundIndex = 2; // Rollback to valid index (0 -> 2)
                 }
@@ -137,7 +143,9 @@ export class stateManager extends Component {
                 {
                     // playerData.progression.levelIndex += 1;
                     // Unlock level of difficulty
-                    gameStruct.levels[(playerData.progression.levelIndex)].unlocked = true;
+                    
+                    gameStruct.levels[playerData.progression.levelIndex].unlocked = true;
+
                     didClearLevel = true;                    
 
                 }
@@ -157,7 +165,8 @@ export class stateManager extends Component {
         // Save New Data
         // console.log("SM v")
         // console.log(playerData);
-        // console.log(gameStruct);
+        if(didClearLevel)
+        console.log(gameStruct);
 
         this.m_playerData.set(JSON.stringify(playerData));
 

@@ -1,6 +1,6 @@
 import { _decorator, Component, Node, find, director, assetManager, SpriteFrame, ImageAsset, Texture2D, Sprite, dynamicAtlasManager, SpriteAtlas, Prefab, Label, instantiate } from 'cc';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
-import { definePlayers, padWithX, qualifyPlayers } from './global';
+import { definePlayers, padWithX, qualifyPlayers, TROPHIES_ACCESS } from './global';
 import { stateManager } from './managers/stateManager';
 import { playerItemSCROB } from './utils/scrobs';
 import { GameStruct, PlayerData } from './utils/types';
@@ -136,6 +136,7 @@ export class recapCtrlr extends Component {
         {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
 
+            let playerScore = playerData.score;
             // Reset player data
             playerData.eliminated = false;
             playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
@@ -152,6 +153,25 @@ export class recapCtrlr extends Component {
 
             // Reset level clear status
             find('stateManager').getComponent(stateManager).m_didClearLevel.set('false');
+
+            // Check trophy
+            let trophyItem = TROPHIES_ACCESS.find(e=>(playerScore >= e.scoreMin && playerScore <= e.scoreMax))
+            if(trophyItem)
+            {
+                let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
+                let levelIndex = playerData.progression.levelIndex - 1 ; // We are already in next level index
+                // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
+                
+
+                let currentTrophyIndex = TROPHIES_ACCESS.findIndex(e=>e.name == gameStruct.levels[levelIndex].trophy)
+
+                if(trophyItem.id > currentTrophyIndex) // Not to downgrade
+                    gameStruct.levels[levelIndex].trophy = trophyItem.name;
+                
+                
+                // Save Gamestruct with new trophy
+                find('stateManager').getComponent(stateManager).m_gameStruct.set(JSON.stringify(gameStruct));
+            }
         
         }
 

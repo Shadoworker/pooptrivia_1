@@ -5,6 +5,7 @@
             "id":1,
             "name": "EASY",
             "unlocked":true,
+            "trophy" : "NONE",
             "rounds" : 
                 [
                     {
@@ -46,6 +47,7 @@
             "id":2,
             "name":"MEDIUM",
             "unlocked":false,
+            "trophy" : "NONE",
             "rounds" : 
             [
                 {
@@ -85,6 +87,7 @@
         {
             "id":3,
             "name":"HARD",
+            "trophy" : "NONE",
             "unlocked":false,
             "rounds" : 
             [

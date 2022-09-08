@@ -26,9 +26,15 @@ export class homeCtrlr extends Component {
 
             // console.log(nextGame);
 
+            // Set selectedDifficulty Then
+            find('stateManager').getComponent(stateManager).m_selectedDifficulty.set(playerData.progression.levelIndex);
+            
+
             setTimeout(() => {
-                let scene = nextGame + "Scene";
-                director.loadScene(scene);
+                // let scene = nextGame + "Scene";
+                // director.loadScene(scene);
+                director.loadScene("difficultyScene");
+
             }, 200);
 
             // let p : PlayerData = {
@@ -49,7 +55,8 @@ export class homeCtrlr extends Component {
         }
         else
         {
-            director.loadScene("selectPlayerScene");
+            // director.loadScene("selectPlayerScene");
+            director.loadScene("difficultyScene");
         }
 
         // let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())

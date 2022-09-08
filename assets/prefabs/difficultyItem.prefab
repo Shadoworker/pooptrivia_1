@@ -446,7 +446,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -677,8 +677,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 25.30800000000005,
-      "y": -1.128499999999974,
+      "x": 22.683,
+      "y": -1.129,
       "z": 0
     },
     "_lrot": {
@@ -955,7 +955,7 @@
     },
     "clickEvents": [],
     "_interactable": true,
-    "_transition": 2,
+    "_transition": 1,
     "_normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -965,16 +965,16 @@
     },
     "_hoverColor": {
       "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
+      "r": 114,
+      "g": 114,
+      "b": 114,
       "a": 255
     },
     "_pressedColor": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 160,
+      "g": 160,
+      "b": 160,
       "a": 255
     },
     "_disabledColor": {

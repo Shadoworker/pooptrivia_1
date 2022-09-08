@@ -159,8 +159,10 @@ export class selectPlayerCtrlr extends Component {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
     
+            // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
+            let levelIndex = playerData.progression.levelIndex; 
             // Getting the fist game not yet played "levels/rounds/games"
-            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+            let nextGame = gameStruct.levels[levelIndex]
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
     

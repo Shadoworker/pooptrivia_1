@@ -164,10 +164,11 @@ export class saveWcCtrlr extends Component {
             let saveWcData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
+            // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
             this.m_gameIndex = playerData.progression.gameIndex; // Used as question Index as well
             
             // Get Next Game
-            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+            let nextGame = gameStruct.levels[levelIndex]
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
     
@@ -177,6 +178,11 @@ export class saveWcCtrlr extends Component {
 
                 console.log(saveWcData)
                 let thisLevelData = saveWcData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
+                
+                if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
+                {
+                    thisLevelData = saveWcData; // Any
+                }
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);
         
@@ -212,7 +218,7 @@ export class saveWcCtrlr extends Component {
     initView()
     {
 
-        this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/4"
+        this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/5"
 
         this.initKeyboard();
 
@@ -273,6 +279,8 @@ export class saveWcCtrlr extends Component {
         }
         else // Not correct letter (decrease mistake coins)
         {
+            console.log("UNC");
+
             if(!amongWord)
             {
                 if(this.m_mistakes > 1)
@@ -337,9 +345,11 @@ export class saveWcCtrlr extends Component {
         let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
         let playersListData = [..._playersListData]
 
-        
-        let modeBaseProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].baseProbaRightAnswer;
-        let modeMarginProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].marginProbaRightAnswer;
+        // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
+        let levelIndex = playerData.progression.levelIndex;
+
+        let modeBaseProba = OPPONENTS_ANSWERS_PROBS[levelIndex].baseProbaRightAnswer;
+        let modeMarginProba = OPPONENTS_ANSWERS_PROBS[levelIndex].marginProbaRightAnswer;
         let randomBaseMax = modeMarginProba / 5 + 1; 
         
 

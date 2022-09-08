@@ -45,6 +45,7 @@ type LevelGameStruct = {
     id:number,
     name:string,
     unlocked:boolean,
+    trophy:string,
     rounds : Round[]
 }
 

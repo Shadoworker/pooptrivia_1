@@ -97,10 +97,12 @@ export class quizCtrlr extends Component {
             let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
+            // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
+            
             this.m_gameIndex = playerData.progression.gameIndex; // Used as question Index as well
             
             // Get Next Game
-            let nextGame = gameStruct.levels[playerData.progression.levelIndex]
+            let nextGame = gameStruct.levels[levelIndex]
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
     
@@ -158,7 +160,7 @@ export class quizCtrlr extends Component {
     initView()
     {
 
-        this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/4"
+        this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/5"
 
         this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
 
@@ -254,9 +256,11 @@ export class quizCtrlr extends Component {
         let playersListData = [..._playersListData]
 
         // console.log(playersListData)
+        // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
+        let levelIndex = playerData.progression.levelIndex;
         
-        let modeBaseProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].baseProbaRightAnswer;
-        let modeMarginProba = OPPONENTS_ANSWERS_PROBS[playerData.progression.levelIndex].marginProbaRightAnswer;
+        let modeBaseProba = OPPONENTS_ANSWERS_PROBS[levelIndex].baseProbaRightAnswer;
+        let modeMarginProba = OPPONENTS_ANSWERS_PROBS[levelIndex].marginProbaRightAnswer;
         let randomBaseMax = modeMarginProba / 5 + 1; 
         
         let indexAmongPlayers = playersListData.findIndex(e=>e.index == playerData.index);

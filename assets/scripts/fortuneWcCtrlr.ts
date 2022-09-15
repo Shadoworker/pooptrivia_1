@@ -1,5 +1,7 @@
 import { _decorator, Component, Node, Sprite, tween, Vec3, Vec2, Button, find, director, Label } from 'cc';
+import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { stateManager } from './managers/stateManager';
+import { TRANSITIONS } from './utils/transitions';
 import { PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
@@ -12,12 +14,29 @@ export class fortuneWcCtrlr extends Component {
     @property({type: Button})
     public m_launchBtn : Button = null;
 
-
+    public m_lang:string = "fr";
     public m_tween;
+
+
+    @property({type: Node})
+    public m_transitionBox = null;
+
 
     start() {
 
-                        
+        this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
+        
+        this.displayTransition();
+    }
+
+    displayTransition()
+    {
+        // Display transition message
+        var messages = TRANSITIONS[this.m_lang].wc;
+        var mess = messages[Math.floor(Math.random() * messages.length)]
+
+        this.m_transitionBox.getComponent(transitionBoxCtrlr).setItem("Small", mess, "happy", true, 2000);
+        
     }
 
     launch()

@@ -1,8 +1,10 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate } from 'cc';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
+import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
 import { playerItemSCROB } from './utils/scrobs';
+import { TRANSITIONS } from './utils/transitions';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
@@ -52,6 +54,8 @@ export class quizCtrlr extends Component {
     @property({type: [SpriteFrame]})
     public m_btnTextures = [];
 
+    @property({type: Node})
+    public m_transitionBox = null;
 
     start() {
 
@@ -193,6 +197,12 @@ export class quizCtrlr extends Component {
 
         if(isCorrect) // Correct answer : 
         {
+
+            // Display transition message
+            var messages = TRANSITIONS[this.m_lang].answers.correct;
+            var mess = messages[Math.floor(Math.random() * messages.length)]
+
+            this.m_transitionBox.getComponent(transitionBoxCtrlr).setItem("Small", mess, "happy", true);
             
             // Progress
             let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score);
@@ -216,6 +226,12 @@ export class quizCtrlr extends Component {
         }
         else // Wrong answer
         {
+            // Display transition message
+            var messages = TRANSITIONS[this.m_lang].answers.wrong;
+            var mess = messages[Math.floor(Math.random() * messages.length)]
+
+            this.m_transitionBox.getComponent(transitionBoxCtrlr).setItem("Small", mess, "sad", true);
+            
             // Has mistakes coins left
             if(this.m_mistakes > 1)
             {

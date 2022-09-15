@@ -1,6 +1,8 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
+import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
+import { TRANSITIONS } from './utils/transitions';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
@@ -52,6 +54,8 @@ export class saveWcCtrlr extends Component {
     @property({type: [SpriteFrame]})
     public m_wcTextures = [];
 
+    @property({type: Node})
+    public m_transitionBox = null;
 
 
     start() {
@@ -258,6 +262,13 @@ export class saveWcCtrlr extends Component {
             console.log(this.m_lettersToFind)
             if(this.m_lettersToFind.length == 0)
             {
+
+                // Display transition message
+                var messages = TRANSITIONS[this.m_lang].answers.correct;
+                var mess = messages[Math.floor(Math.random() * messages.length)]
+
+                this.m_transitionBox.getComponent(transitionBoxCtrlr).setItem("Small", mess, "happy", true);
+                
                 // Completed 
                 console.log("COMPLETED");
                     // Progress
@@ -298,6 +309,14 @@ export class saveWcCtrlr extends Component {
                 else // No more miscoins
                 {
                     this.m_wcSprite.spriteFrame = this.m_wcTextures[2];
+
+
+                    // Display transition message
+                    var messages = TRANSITIONS[this.m_lang].answers.wrong;
+                    var mess = messages[Math.floor(Math.random() * messages.length)]
+
+                    this.m_transitionBox.getComponent(transitionBoxCtrlr).setItem("Small", mess, "sad", true);
+                    
 
                     // FAILED
                     let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score, false);

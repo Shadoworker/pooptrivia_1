@@ -225,6 +225,62 @@ export class dataLoader extends Component {
                 "level": 2,
                 "active": true,
             }
+            ,
+            {
+                "id": 12,
+                "questions": {
+                    "en": "Word to find : BLUE",
+                    "fr": "Mot à trouver : BLEU"
+                },
+                "answers": {
+                    "en": "BLUE",
+                    "fr": "BLEU"
+                },
+                "level": 2,
+                "active": true,
+            }
+            ,
+            {
+                "id": 13,
+                "questions": {
+                    "en": "Word to find : YELLOW",
+                    "fr": "Mot à trouver : JAUNE"
+                },
+                "answers": {
+                    "en": "YELLOW",
+                    "fr": "JAUNE"
+                },
+                "level": 2,
+                "active": true,
+            }
+            ,
+            {
+                "id": 14,
+                "questions": {
+                    "en": "Word to find : ORANGE",
+                    "fr": "Mot à trouver : ORANGE"
+                },
+                "answers": {
+                    "en": "ORANGE",
+                    "fr": "ORANGE"
+                },
+                "level": 2,
+                "active": true,
+            }
+            ,
+            {
+                "id": 15,
+                "questions": {
+                    "en": "Word to find : ROUND",
+                    "fr": "Mot à trouver : ROND"
+                },
+                "answers": {
+                    "en": "ROUND",
+                    "fr": "ROND"
+                },
+                "level": 2,
+                "active": true,
+            }
         ]
  
     }

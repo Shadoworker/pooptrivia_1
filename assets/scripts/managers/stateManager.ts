@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, game } from 'cc';
+import { _decorator, Component, Node, find, game, director } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
 import { Singleton } from '../utils/singleton';
 import { GameData, GameStruct, PlayerData } from '../utils/types';
@@ -15,7 +15,12 @@ export class stateManager extends Component {
     public m_gameStruct = new Kayfo.PersistentString('m_persistentGameStruct', '');
     public m_quizData = new Kayfo.PersistentString('m_persistentQuizData', '');
     public m_fiowData = new Kayfo.PersistentString('m_persistentFiowData', '');
+
     public m_saveWcData = new Kayfo.PersistentString('m_persistentSaveWcData', '');
+
+    public m_quizDataInit = new Kayfo.PersistentString('m_persistentQuizDataInit', '');
+    public m_fiowDataInit = new Kayfo.PersistentString('m_persistentFiowDataInit', '');
+    public m_saveWcDataInit = new Kayfo.PersistentString('m_persistentSaveWcDataInit', '');
 
     public m_sanitizeData = new Kayfo.PersistentString('m_persistentSanitizeData', '');
 
@@ -47,23 +52,43 @@ export class stateManager extends Component {
         {      
             let persistentDataLoader = find('dataLoader').getComponent(dataLoader);
             // console.log(persistentDataLoader.m_quizData);
-    
+ 
             // console.log(dataLoader.getInstance().m_quizData)
             if(this.m_gameStruct.get() == '')
                 this.m_gameStruct.set(JSON.stringify(persistentDataLoader.m_gameStruct))
 
             if(this.m_quizData.get() == '')
+            {
                 this.m_quizData.set(JSON.stringify(persistentDataLoader.m_quizData))
+                this.m_quizDataInit.set(JSON.stringify(persistentDataLoader.m_quizData))
+            }
 
             if(this.m_fiowData.get() == '')
+            {
                 this.m_fiowData.set(JSON.stringify(persistentDataLoader.m_fiowData))
+                this.m_fiowDataInit.set(JSON.stringify(persistentDataLoader.m_fiowData))
+            }
 
             // console.log(persistentDataLoader.m_saveWcData);
             if(this.m_saveWcData.get() == '')
+            {
                 this.m_saveWcData.set(JSON.stringify(persistentDataLoader.m_saveWcData))
+                this.m_saveWcDataInit.set(JSON.stringify(persistentDataLoader.m_saveWcData))
+            }
 
             if(this.m_sanitizeData.get() == '')
                 this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
+
+
+            setTimeout(() => {
+                
+                // iN ORDER TO AVOID USERS NOT HAVING INIT DATA TO RUN INTO THE EMPTY ARRAY ERROR
+                if(this.m_fiowDataInit.get() == '')
+                {
+                    localStorage.clear();
+                    director.loadScene("splashScene")
+                }
+            }, 100);
 
         }
         else
@@ -129,7 +154,6 @@ export class stateManager extends Component {
             if(playerData.progression.roundIndex == gameStruct.levels[levelIndex].rounds.length)
             {
 
-              
                 playerData.progression.roundIndex = 0;
                 playerData.progression.levelIndex += 1;
 

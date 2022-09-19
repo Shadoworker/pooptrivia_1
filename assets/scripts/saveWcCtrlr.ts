@@ -119,7 +119,9 @@ export class saveWcCtrlr extends Component {
                 this.m_lettersToFind.push(el);
             }
 
-
+            // Uniquify
+            let tmp = [...new Set(this.m_lettersToFind)];
+            this.m_lettersToFind = tmp;
             // letterSlot.clickEvents[0].
             this.m_slotsContainer.addChild(letterSlot);
             
@@ -166,6 +168,7 @@ export class saveWcCtrlr extends Component {
     
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let saveWcData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcData.get())
+            let saveWcDataInit : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcDataInit.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
@@ -179,17 +182,16 @@ export class saveWcCtrlr extends Component {
             // Is this game the nextOne or Another
             if(nextGame == this.m_GAME_NAME)
             {
-
-                console.log(saveWcData)
+                // console.log(saveWcData)
                 let thisLevelData = saveWcData.filter(q=>q.level == (levelIndex+1)); // quiz-level starts from 1 and levelIndex in type from 0.
                 
                 if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
                 {
-                    thisLevelData = saveWcData; // Any
+                    thisLevelData = saveWcDataInit; // Any
                 }
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);
-        
+                
                 this.m_quiz = thisLevelData[r];
         
                 // Remove selected Quiz Item from initial array and save
@@ -214,7 +216,6 @@ export class saveWcCtrlr extends Component {
         
         }
         
-
 
     }
 
@@ -290,7 +291,7 @@ export class saveWcCtrlr extends Component {
         }
         else // Not correct letter (decrease mistake coins)
         {
-            console.log("UNC");
+            console.log("UNC"); // ERROR : Duplicated letter among those to be found
 
             if(!amongWord)
             {

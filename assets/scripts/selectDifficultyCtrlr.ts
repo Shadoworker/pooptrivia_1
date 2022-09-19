@@ -93,6 +93,7 @@ export class selectDifficultyCtrlr extends Component {
         
                 // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
                 let levelIndex = playerData.progression.levelIndex; 
+                console.log(levelIndex)
                 // Getting the fist game not yet played "levels/rounds/games"
                 let nextGame = gameStruct.levels[levelIndex]
                                             .rounds[playerData.progression.roundIndex]

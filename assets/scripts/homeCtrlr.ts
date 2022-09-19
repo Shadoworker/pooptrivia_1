@@ -19,21 +19,22 @@ export class homeCtrlr extends Component {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 
+            console.log(typeof(playerData.progression.levelIndex));
+
             // Getting the fist game not yet played "levels/rounds/games"
             let nextGame = gameStruct.levels[playerData.progression.levelIndex]
                                         .rounds[playerData.progression.roundIndex]
                                             .games.find((g)=>{return g.played == false}).name;
 
-            // console.log(nextGame);
 
             // Set selectedDifficulty Then
             find('stateManager').getComponent(stateManager).m_selectedDifficulty.set(playerData.progression.levelIndex);
             
 
             setTimeout(() => {
-                // let scene = nextGame + "Scene";
-                // director.loadScene(scene);
-                director.loadScene("difficultyScene");
+                let scene = nextGame + "Scene";
+                director.loadScene(scene);
+                // director.loadScene("difficultyScene");
 
             }, 200);
 

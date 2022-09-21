@@ -169,6 +169,12 @@ export class saveWcCtrlr extends Component {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let saveWcData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcData.get())
             let saveWcDataInit : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_saveWcDataInit.get())
+            if(saveWcData.length == 0) 
+            {
+                saveWcData = saveWcDataInit;
+                find('stateManager').getComponent(stateManager).m_saveWcData.set(JSON.stringify(saveWcData))
+            }
+
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
@@ -187,7 +193,7 @@ export class saveWcCtrlr extends Component {
                 
                 if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
                 {
-                    thisLevelData = saveWcDataInit; // Any
+                    thisLevelData = saveWcData/* Init */; // Any
                 }
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);

@@ -99,7 +99,13 @@ export class quizCtrlr extends Component {
     
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let quizData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizData.get())
-            let m_quizDataInit : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizDataInit.get())
+            let quizDataInit : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_quizDataInit.get())
+            if(quizData.length == 0) 
+            {
+                quizData = quizDataInit;
+                find('stateManager').getComponent(stateManager).m_quizData.set(JSON.stringify(quizData))
+            }
+
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
@@ -122,7 +128,7 @@ export class quizCtrlr extends Component {
                     
                     if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
                     {
-                        thisLevelData = m_quizDataInit; // Any
+                        thisLevelData = quizData/* Init */; // Any
                     }
                     // Get Random One Random Question
                     let r = Math.floor(Math.random() * thisLevelData.length);

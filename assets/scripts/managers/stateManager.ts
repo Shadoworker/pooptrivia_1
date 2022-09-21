@@ -35,6 +35,7 @@ export class stateManager extends Component {
     public m_selectedDifficulty = new Kayfo.PersistentNum('m_persistentSelectedDifficulty', 0);
     public m_didClearRound = new Kayfo.PersistentString('m_persistentDidClearRound', 'false');
     public m_didClearLevel = new Kayfo.PersistentString('m_persistentDidClearLevel', 'false');
+    public m_didSeeTutorial = new Kayfo.PersistentString('m_persistentDidSeeTutorial', 'false');
 
     
     onLoad()
@@ -80,15 +81,15 @@ export class stateManager extends Component {
                 this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
 
 
-            setTimeout(() => {
+            // setTimeout(() => {
                 
-                // iN ORDER TO AVOID USERS NOT HAVING INIT DATA TO RUN INTO THE EMPTY ARRAY ERROR
-                if(this.m_fiowDataInit.get() == '')
-                {
-                    localStorage.clear();
-                    director.loadScene("splashScene")
-                }
-            }, 100);
+            //     // iN ORDER TO AVOID USERS NOT HAVING INIT DATA TO RUN INTO THE EMPTY ARRAY ERROR
+            //     if(this.m_fiowDataInit.get() == '')
+            //     {
+            //         localStorage.clear();
+            //         director.loadScene("splashScene")
+            //     }
+            // }, 100);
 
         }
         else

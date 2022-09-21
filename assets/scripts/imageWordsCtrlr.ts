@@ -66,6 +66,12 @@ export class imageWords extends Component {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let fiowData : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_fiowData.get())
             let fiowDataInit : any[]  = JSON.parse(find('stateManager').getComponent(stateManager).m_fiowDataInit.get())
+            if(fiowData.length == 0) 
+            {
+                fiowData = fiowDataInit;
+                find('stateManager').getComponent(stateManager).m_fiowData.set(JSON.stringify(fiowData))
+            }
+
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
             let levelIndex = playerData.progression.levelIndex; // Used as difficulty property as well
             // let levelIndex = find('stateManager').getComponent(stateManager).m_selectedDifficulty.get();
@@ -86,7 +92,7 @@ export class imageWords extends Component {
                 
                 if(thisLevelData.length == 0) // CHEAT : Must ensure in DB that there is enough data for each level (THIS CAUSED A BUG)
                 {
-                    thisLevelData = fiowDataInit; // Any
+                    thisLevelData = fiowData/* Init */; // Any
                 }
                 // Get Random One Random Question
                 let r = Math.floor(Math.random() * thisLevelData.length);

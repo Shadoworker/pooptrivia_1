@@ -266,7 +266,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 447.8501170960188,
+    "_orthoHeight": 455.7362637362637,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -4015,7 +4015,7 @@
       "__id__": 191
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 196
@@ -4136,8 +4136,8 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 24.008499999999984,
-      "y": -49.55899999999997,
+      "x": 24.009,
+      "y": -17.388,
       "z": 0
     },
     "_lrot": {

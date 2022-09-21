@@ -19,7 +19,7 @@ export class homeCtrlr extends Component {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
             let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 
-            console.log(typeof(playerData.progression.levelIndex));
+            // console.log(typeof(playerData.progression.levelIndex));
 
             // Getting the fist game not yet played "levels/rounds/games"
             let nextGame = gameStruct.levels[playerData.progression.levelIndex]
@@ -57,7 +57,20 @@ export class homeCtrlr extends Component {
         else
         {
             // director.loadScene("selectPlayerScene");
-            director.loadScene("difficultyScene");
+
+            if(find('stateManager').getComponent(stateManager).m_didSeeTutorial.get() == "false")
+            {
+
+                find('stateManager').getComponent(stateManager).m_didSeeTutorial.set("true")
+                director.loadScene("tutorialScene");
+
+            }
+            else
+            {
+
+                director.loadScene("difficultyScene");
+
+            }
         }
 
         // let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())

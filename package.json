@@ -4,5 +4,8 @@
   "version": "3.5.2",
   "creator": {
     "version": "3.5.2"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.12/xlsx-0.18.12.tgz"
   }
 }

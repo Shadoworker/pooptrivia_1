@@ -22,6 +22,7 @@ export class imageWords extends Component {
     m_didClearRound : boolean = false;
     m_didClearLevel : boolean = false;
 
+    m_correctBtnIndex = 0;
 
     
     @property({type: Label})
@@ -150,6 +151,7 @@ export class imageWords extends Component {
             this.m_questionImage.node.getChildByName("spinnerItem").active = false;
 
 
+
         })
         // this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
 
@@ -172,6 +174,9 @@ export class imageWords extends Component {
             el.getChildByName("spinnerItem").active = false;
 
             el.getComponentInChildren(Label).string = this.m_quiz.answers[i].answer;
+
+            if(this.m_quiz.answers[i].isCorrect)
+                this.m_correctBtnIndex = i;
             
         }
     }
@@ -231,6 +236,12 @@ export class imageWords extends Component {
             }
             else // No more miscoins
             {
+
+                // set correct one
+                setTimeout(() => {
+                    this.setAnswerBtnColor(this.m_correctBtnIndex, true);
+                }, 50);
+
                  // Progress
                 let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score, false);
                 this.m_didClearRound = _clears[0];

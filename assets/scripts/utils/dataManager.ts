@@ -25,4 +25,8 @@ return this._instance;
 setLog() {
 // console.log(this.names);
 };
+
+
+
+
 };

@@ -1,9 +1,11 @@
-import { _decorator, Component, Node, TextAsset, resources, JsonAsset, director, game, sys, SceneGlobals } from 'cc';
+import { _decorator, Component, Node, TextAsset, resources, JsonAsset, director, game, sys, SceneGlobals, assetManager } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
 import { DataManager} from '../utils/dataManager';
 import { Singleton } from '../utils/singleton';
 import { stateManager } from './stateManager';
 const { ccclass, property } = _decorator;
+
+import * as XLSX from 'xlsx/xlsx.mjs';
 
 @ccclass('dataLoader')
 export class dataLoader extends Component {
@@ -19,6 +21,8 @@ export class dataLoader extends Component {
     public m_saveWcData = null;
     public m_sanitizeData = null;
 
+    public m_excel_url_1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDC7mWqUY2L3N4Yma9L-6RULzdKHs8RhJvsDbnfYHNXeiB4qgpQxqdyHy8CojJRd-88ZwrR2fjJC1A/pubhtml"
+
     onLoad()
     {
         if(!this.node._persistNode)
@@ -26,6 +30,8 @@ export class dataLoader extends Component {
     }
 
     start() {
+
+        // this.getExcelData();
 
         if(localStorage.getItem("_dataLoaded") != "true")
         {
@@ -55,6 +61,34 @@ export class dataLoader extends Component {
 
     }
 
+    getExcelData()
+    {
+        fetch(this.m_excel_url_1).then(function (res) {
+            /* get the data as a Blob */
+            if (!res.ok) throw new Error("fetch failed");
+            return res.arrayBuffer();
+        })
+        .then(function (ab) {
+            /* parse the data when it is received */
+            var data = new Uint8Array(ab);
+            var workbook = XLSX.read(data, {
+                type: "array"
+            });
+        
+            /* *****************************************************************
+            * DO SOMETHING WITH workbook: Converting Excel value to Json       *
+            ********************************************************************/
+            var first_sheet_name = workbook.SheetNames[0];
+            /* Get worksheet */
+            var worksheet = workbook.Sheets[first_sheet_name];
+        
+            var _JsonData = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+            /************************ End of conversion ************************/
+
+            console.log(_JsonData)
+        });
+    }
+
    
     getQuizData()
     {
@@ -66,6 +100,7 @@ export class dataLoader extends Component {
         })
         .catch(error => console.error(error))
     }
+
 
     getFiowData()
     {

@@ -48,11 +48,23 @@ export class dataLoader extends Component {
             localStorage.setItem("_dataLoaded", "true")
         }
 
-        // Go to Home
-        setTimeout(() => {
-            director.loadScene("homeScene");
-        }, 1500);
-    
+        if(localStorage.getItem("m_persistentGameLang") == "null" || !localStorage.getItem("m_persistentGameLang"))
+        {
+            // Go to Onboard
+            setTimeout(() => {
+                director.loadScene("onboardScene");
+            }, 1500);
+        
+        }
+        else
+        {
+            // Go to Home
+            setTimeout(() => {
+                director.loadScene("homeScene");
+            }, 1500);
+        
+        }
+
 
 
         // setInterval(() => {

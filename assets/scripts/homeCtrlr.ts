@@ -1,11 +1,39 @@
-import { _decorator, Component, Node, find, director, assetManager, SpriteFrame, ImageAsset, Texture2D, Sprite, dynamicAtlasManager, SpriteAtlas } from 'cc';
+import { _decorator, Component, Node, find, director, assetManager, SpriteFrame, ImageAsset, Texture2D, Sprite, dynamicAtlasManager, SpriteAtlas, Button } from 'cc';
 import { stateManager } from './managers/stateManager';
 import { GameStruct, PlayerData } from './utils/types';
 const { ccclass, property } = _decorator;
 
 @ccclass('homeCtrlr')
 export class homeCtrlr extends Component {
+
+    @property({type: Button})
+    public m_investBtn : Button = null;
+
     start() {
+
+
+        this.setInvestBtn();
+
+    }
+
+    setInvestBtn()
+    {
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+        {
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            if(playerData.coins > 0)
+            {
+                this.m_investBtn.node.active = true;
+            }
+            else
+            {
+                this.m_investBtn.node.active = false;
+            }
+        }
+        else
+        {
+            this.m_investBtn.node.active = false;
+        }
 
     }
 

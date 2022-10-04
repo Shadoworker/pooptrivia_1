@@ -9,7 +9,7 @@ const { ccclass, property } = _decorator;
 @ccclass('stateManager')
 export class stateManager extends Component {
 
-    public m_gameLang = new Kayfo.PersistentString('m_persistentGameLang', 'fr');
+    public m_gameLang = new Kayfo.PersistentString('m_persistentGameLang', null);
 
 
     public m_gameStruct = new Kayfo.PersistentString('m_persistentGameStruct', '');

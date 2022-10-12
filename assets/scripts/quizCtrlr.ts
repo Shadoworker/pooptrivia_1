@@ -199,6 +199,9 @@ export class quizCtrlr extends Component {
 
     checkAnswer(e: EventMouse, _btnIndex:number)
     {
+
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         const delay = 1000;
         let isCorrect = this.m_quiz.answers[_btnIndex].isCorrect;
         // UI btn change
@@ -346,6 +349,17 @@ export class quizCtrlr extends Component {
         setTimeout(() => {
             // thisBtn.getComponent(Sprite).spriteFrame = btnTexture;
             thisBtn.getComponent(Sprite).color = btnTexture;
+
+
+            if(_isCorrect)
+            {
+                find('stateManager').getComponent(stateManager).playSuccessSound();
+            }
+            else
+            {
+                find('stateManager').getComponent(stateManager).playErrorSound();
+            }
+
         }, 30);
     }
 

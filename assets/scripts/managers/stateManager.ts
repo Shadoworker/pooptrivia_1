@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, game, director } from 'cc';
+import { _decorator, Component, Node, find, game, director, AudioSource } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
 import { Singleton } from '../utils/singleton';
 import { GameData, GameStruct, PlayerData } from '../utils/types';
@@ -10,7 +10,9 @@ const { ccclass, property } = _decorator;
 export class stateManager extends Component {
 
     public m_gameLang = new Kayfo.PersistentString('m_persistentGameLang', null);
-
+    
+    public m_gameSoundEffects = new Kayfo.PersistentString('m_persistentGameSoundEffects', "true");
+    public m_gameMusic = new Kayfo.PersistentString('m_persistentGameMusic', null);
 
     public m_gameStruct = new Kayfo.PersistentString('m_persistentGameStruct', '');
     public m_quizData = new Kayfo.PersistentString('m_persistentQuizData', '');
@@ -37,6 +39,20 @@ export class stateManager extends Component {
     public m_didClearLevel = new Kayfo.PersistentString('m_persistentDidClearLevel', 'false');
     public m_didSeeTutorial = new Kayfo.PersistentString('m_persistentDidSeeTutorial', 'false');
 
+
+    @property ({type : AudioSource})
+    public m_bgSound = null;
+    
+    @property ({type : AudioSource})
+    public m_btnSound = null;
+
+    @property ({type : AudioSource})
+    public m_errorSound = null;
+
+    @property ({type : AudioSource})
+    public m_successSound = null;
+
+
     
     onLoad()
     {
@@ -48,6 +64,7 @@ export class stateManager extends Component {
 
     start() {
 
+        this.playBgSound();
        
         if(find('dataLoader') != null)
         {      
@@ -205,6 +222,39 @@ export class stateManager extends Component {
 
     }
 
+
+    playErrorSound()
+    {
+        if(this.m_gameSoundEffects.get() == "true")
+        {
+            this.m_errorSound.play();
+        }
+    }
+
+    playSuccessSound()
+    {
+        if(this.m_gameSoundEffects.get() == "true")
+        {
+            this.m_successSound.play();
+        }
+    }
+
+    playBtnSound()
+    {
+        if(this.m_gameSoundEffects.get() == "true")
+        {
+            this.m_btnSound.play();
+        }
+    }
+
+
+    playBgSound()
+    {
+        if(this.m_gameMusic.get() == "true")
+        {
+            this.m_bgSound.play();
+        }
+    }
 
     // update(deltaTime: number) {
         

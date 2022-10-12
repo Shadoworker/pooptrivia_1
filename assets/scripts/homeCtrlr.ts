@@ -9,6 +9,9 @@ export class homeCtrlr extends Component {
     @property({type: Button})
     public m_investBtn : Button = null;
 
+    @property({type: Node})
+    public m_optsCanvas : Node = null;
+
     start() {
 
 
@@ -39,6 +42,10 @@ export class homeCtrlr extends Component {
 
     play()
     {
+
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+
         //New only if not current new one
         if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
         {
@@ -120,6 +127,8 @@ export class homeCtrlr extends Component {
 
     gotoSanitize()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         let playerData = find('stateManager').getComponent(stateManager).m_playerData.get();
         if(playerData != '')
             director.loadScene("sanitizeScene");
@@ -129,8 +138,30 @@ export class homeCtrlr extends Component {
         }
     }
 
+    gotoAbout()
+    {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+        director.loadScene("aboutScene");
+    }
+
+
+    gotoOpts()
+    {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+        localStorage.setItem("screenType", "SETTINGS");
+
+        setTimeout(() => {
+          this.m_optsCanvas.active = true;
+        }, 50);
+    }
+
+
     reset()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         localStorage.clear();
 
         find('dataLoader').destroy();

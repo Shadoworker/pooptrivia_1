@@ -68,6 +68,8 @@ export class selectDifficultyCtrlr extends Component {
 
     selectDifficulty(e:Event, d:number)
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         find('stateManager').getComponent(stateManager).m_selectedDifficulty.set(d);
 
         // Check if player already exist in order to reset progression 
@@ -118,6 +120,8 @@ export class selectDifficultyCtrlr extends Component {
 
     goBack()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("homeScene");
     }
  

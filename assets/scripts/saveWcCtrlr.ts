@@ -244,6 +244,9 @@ export class saveWcCtrlr extends Component {
 
     onClickLetter(_letter : string)
     {
+
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         const delay = 2000;
 
         // Check if among correct letters

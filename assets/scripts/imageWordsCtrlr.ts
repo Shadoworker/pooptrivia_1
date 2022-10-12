@@ -184,6 +184,8 @@ export class imageWords extends Component {
     checkAnswer(e: EventMouse, _btnIndex:number)
     {
 
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         const delay = 1000;
         let isCorrect = this.m_quiz.answers[_btnIndex].isCorrect;
         // UI btn change
@@ -191,7 +193,7 @@ export class imageWords extends Component {
 
         if(isCorrect) // Correct answer : 
         {
-
+ 
             // Display transition message
             var messages = TRANSITIONS[this.m_lang].answers.correct;
             var mess = messages[Math.floor(Math.random() * messages.length)]
@@ -219,7 +221,7 @@ export class imageWords extends Component {
         }
         else // Wrong answer
         {
-
+ 
             // Display transition message
             var messages = TRANSITIONS[this.m_lang].answers.wrong;
             var mess = messages[Math.floor(Math.random() * messages.length)]
@@ -320,7 +322,18 @@ export class imageWords extends Component {
         thisBtn.getComponent(Button).enabled = false;
         setTimeout(() => {
             // thisBtn.getComponent(Sprite).spriteFrame = btnTexture;
+            
             thisBtn.getComponent(Sprite).color = btnTexture;
+
+            if(_isCorrect)
+            {
+                find('stateManager').getComponent(stateManager).playSuccessSound();
+            }
+            else
+            {
+                find('stateManager').getComponent(stateManager).playErrorSound();
+            }
+            
         }, 30);
     }
 

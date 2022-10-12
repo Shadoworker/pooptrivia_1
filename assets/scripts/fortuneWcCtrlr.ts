@@ -42,6 +42,8 @@ export class fortuneWcCtrlr extends Component {
     launch()
     {
 
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
 
         let FULL_ANGLE = 360;
         let PARTS = 8;
@@ -110,8 +112,5 @@ export class fortuneWcCtrlr extends Component {
         }, (duration * 1000 + 50));
     }
 
-    update(deltaTime: number) {
-        
-    }
 }
 

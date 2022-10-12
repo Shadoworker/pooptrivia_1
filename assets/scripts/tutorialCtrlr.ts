@@ -28,6 +28,8 @@ export class tutorialCtrlr extends Component {
 
     gotoNext()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         this.m_sectionIndex++;
         if(this.m_sectionIndex < this.m_sections.length)
         {
@@ -53,6 +55,8 @@ export class tutorialCtrlr extends Component {
 
     goBack()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("homeScene");
     }
  

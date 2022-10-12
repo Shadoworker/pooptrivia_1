@@ -84,11 +84,15 @@ export class selectPlayerCtrlr extends Component {
 
     goBack()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("homeScene");
     }
 
     onClickPlayerAvatar(_d: playerItemSCROB)
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         this.m_selectedPlayer = _d;
         // console.log(_d);
         let thisIndex = this.m_playerItemSCROBs.indexOf(_d);
@@ -116,6 +120,8 @@ export class selectPlayerCtrlr extends Component {
 
     play()
     {
+
+        find('stateManager').getComponent(stateManager).playBtnSound();
 
         //New only if not current new one
         // if(find('stateManager').getComponent(stateManager).m_playerData.get() == '')

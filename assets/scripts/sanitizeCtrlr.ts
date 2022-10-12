@@ -72,6 +72,8 @@ export class sanitizeCtrlr extends Component {
 
     goBack()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("homeScene");
     }
 
@@ -124,6 +126,8 @@ export class sanitizeCtrlr extends Component {
 
     toggleMenu(e:Event, _bool:any)
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         let bool = _bool == "true" ? true : false;
         this.m_menuBox.active = bool;
         this.m_plusBtn.active = !bool;
@@ -168,6 +172,8 @@ export class sanitizeCtrlr extends Component {
 
     investIn(e:Event, _domain: string)
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         let _sanitizeData : any = JSON.parse(find('stateManager').getComponent(stateManager).m_sanitizeData.get())
         let sanitizeData = {..._sanitizeData};
 

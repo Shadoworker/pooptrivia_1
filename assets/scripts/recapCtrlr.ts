@@ -126,6 +126,8 @@ export class recapCtrlr extends Component {
     
     gotoSanitize()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("sanitizeScene");
     }
 
@@ -180,6 +182,9 @@ export class recapCtrlr extends Component {
     continue()
     {
        
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+
         let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
         let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 

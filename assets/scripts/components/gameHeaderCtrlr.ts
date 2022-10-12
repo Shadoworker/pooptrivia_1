@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label } from 'cc';
+import { _decorator, Component, Node, find, Label, director } from 'cc';
 import { stateManager } from '../managers/stateManager';
 import { PlayerData } from '../utils/types';
 const { ccclass, property } = _decorator;
@@ -11,6 +11,10 @@ export class gameHeaderCtrlr extends Component {
     
     @property({type: Label})
     public m_coinsPointsText = null;
+
+    @property({type: Node})
+    public m_optsCanvas : Node = null;
+
 
     start() {
 
@@ -43,6 +47,18 @@ export class gameHeaderCtrlr extends Component {
             my_string = '0' + my_string;
         }
         return my_string;
+    }
+
+
+    gotoOpts()
+    {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+        localStorage.setItem("screenType", "PAUSE");
+
+        setTimeout(() => {
+            this.m_optsCanvas.active = true;
+        }, 50);
     }
 
  

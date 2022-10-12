@@ -26,6 +26,8 @@ export class onboardCtrlr extends Component {
 
     selectLang(e: EventMouse, _lang:string)
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         let langs = 
         {
             "fr" : [0 ,"Choisir votre langue pour continuer", "CONTINUER"], 
@@ -57,6 +59,8 @@ export class onboardCtrlr extends Component {
 
     continue()
     {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
         director.loadScene("homeScene");
     }
  

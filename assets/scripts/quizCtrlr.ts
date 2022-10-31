@@ -171,11 +171,9 @@ export class quizCtrlr extends Component {
     {
 
         this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/5"
+        this.m_questionText.string =  this.m_quiz.questions[this.m_lang];
 
-        this.m_questionText.string = JSON.parse(this.m_quiz.questions)[this.m_lang];
-
-        let answers = JSON.parse(this.m_quiz.answers)[this.m_lang];
-
+        let answers = this.m_quiz.answers[this.m_lang];
         let shuffledAnswers = answers.sort(() => Math.random() - 0.5);
 
         this.m_quiz.answers = shuffledAnswers;

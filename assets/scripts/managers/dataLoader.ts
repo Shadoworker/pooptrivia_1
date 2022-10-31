@@ -21,8 +21,9 @@ export class dataLoader extends Component {
     public m_saveWcData = null;
     public m_sanitizeData = null;
 
-    public m_excel_url_1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDC7mWqUY2L3N4Yma9L-6RULzdKHs8RhJvsDbnfYHNXeiB4qgpQxqdyHy8CojJRd-88ZwrR2fjJC1A/pubhtml"
-
+    public m_quiz_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRSAQaTABwKtg-UXX8VOpsa80R5Re8d1dNF2glniiY1SQ3y7NzN7CLS19nSGDjeMxEzhhr7P6zYhAbI/pubhtml"
+    
+    
     onLoad()
     {
         if(!this.node._persistNode)
@@ -30,8 +31,6 @@ export class dataLoader extends Component {
     }
 
     start() {
-
-        // this.getExcelData();
 
         if(localStorage.getItem("_dataLoaded") != "true")
         {
@@ -73,9 +72,11 @@ export class dataLoader extends Component {
 
     }
 
-    getExcelData()
+    getExcelData(_index :any, _url : string)
     {
-        fetch(this.m_excel_url_1).then(function (res) {
+        let _self = this;
+
+        fetch(_url).then(function (res) {
             /* get the data as a Blob */
             if (!res.ok) throw new Error("fetch failed");
             return res.arrayBuffer();
@@ -97,21 +98,52 @@ export class dataLoader extends Component {
             var _JsonData = XLSX.utils.sheet_to_json(worksheet, {raw: true});
             /************************ End of conversion ************************/
 
-            console.log(_JsonData)
+            // console.log(_JsonData);
+            // FORMAT
+            _JsonData.forEach((el ,_i)=> {
+                
+                let _quests = _JsonData[_i].questions; // Later split languages by "/"
+                let _answs = _JsonData[_i].answers; // Later split languages by "/"
+                _JsonData[_i].questions = {"fr" : "", "en" : ""};
+                _JsonData[_i].answers = {"fr" : [], "en" : []};
+
+                _JsonData[_i].questions["fr"] = _quests; 
+
+                let frAnswers = _answs.split("\n").filter(e=>e);
+
+                frAnswers.forEach((_a , _j)=> {
+                    let _answer = {answer : _a, isCorrect : _j == 0};
+                    frAnswers[_j] = _answer;
+                });
+
+                _JsonData[_i].answers["fr"] = frAnswers;
+
+            });
+
+            switch (_index) {
+                case 0:
+                    _self.m_quizData = _JsonData;
+                    break;
+                
+                case 1:
+                    _self.m_fiowData = _JsonData;
+                    break;
+                
+                case 2:
+                    _self.m_saveWcData = _JsonData;
+                    break;
+        
+            }
+
         });
+
     }
 
    
     getQuizData()
     {
-        fetch(this.m_baseUrl+'/quizzes')
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data) // Prints result from `response.json()` in getRequest
-            this.m_quizData = data;
-        })
-        .catch(error => console.error(error))
-    }
+        this.getExcelData(0, this.m_quiz_excel_url);
+    }   
 
 
     getFiowData()

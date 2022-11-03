@@ -39,6 +39,8 @@ export class imageWords extends Component {
     @property({type: Node})
     public m_transitionBox = null;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
 
@@ -114,6 +116,7 @@ export class imageWords extends Component {
             }
             else
             {
+                this.m_preloader.active = true;
                 // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(QUIZ)")
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);

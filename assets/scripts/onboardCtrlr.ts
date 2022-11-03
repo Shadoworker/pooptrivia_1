@@ -17,6 +17,9 @@ export class onboardCtrlr extends Component {
     @property({type: [Node]})
     public m_langBtns = [];
 
+    @property({type: Node})
+    public m_preloader : Node = null;
+
     public m_selectedLang : string;
 
     start() {
@@ -60,6 +63,8 @@ export class onboardCtrlr extends Component {
     continue()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.m_preloader.active = true;
 
         director.loadScene("homeScene");
     }

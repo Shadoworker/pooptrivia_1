@@ -42,6 +42,8 @@ export class selectPlayerCtrlr extends Component {
 
     public m_playerItemSCROBs : [playerItemSCROB];
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
         
@@ -85,6 +87,8 @@ export class selectPlayerCtrlr extends Component {
     goBack()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.m_preloader.active = true;
 
         director.loadScene("homeScene");
     }
@@ -175,6 +179,8 @@ export class selectPlayerCtrlr extends Component {
             // console.log(nextGame);
     
             setTimeout(() => {
+
+                this.m_preloader.active = true;
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);
             }, 100);

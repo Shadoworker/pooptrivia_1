@@ -21,9 +21,8 @@ export class dataLoader extends Component {
     public m_saveWcData = null;
     public m_sanitizeData = null;
 
-    public m_quiz_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRSAQaTABwKtg-UXX8VOpsa80R5Re8d1dNF2glniiY1SQ3y7NzN7CLS19nSGDjeMxEzhhr7P6zYhAbI/pubhtml"
-    
-    
+    public m_quiz_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRSAQaTABwKtg-UXX8VOpsa80R5Re8d1dNF2glniiY1SQ3y7NzN7CLS19nSGDjeMxEzhhr7P6zYhAbI/pubhtml";
+
     onLoad()
     {
         if(!this.node._persistNode)
@@ -72,6 +71,7 @@ export class dataLoader extends Component {
 
     }
 
+ 
     getExcelData(_index :any, _url : string)
     {
         let _self = this;
@@ -94,11 +94,10 @@ export class dataLoader extends Component {
             var first_sheet_name = workbook.SheetNames[0];
             /* Get worksheet */
             var worksheet = workbook.Sheets[first_sheet_name];
-        
+            
             var _JsonData = XLSX.utils.sheet_to_json(worksheet, {raw: true});
             /************************ End of conversion ************************/
-
-            // console.log(_JsonData);
+            console.log(_JsonData);
             // FORMAT
             _JsonData.forEach((el ,_i)=> {
                 

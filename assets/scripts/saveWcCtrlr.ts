@@ -57,6 +57,8 @@ export class saveWcCtrlr extends Component {
     @property({type: Node})
     public m_transitionBox = null;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
 
@@ -155,8 +157,12 @@ export class saveWcCtrlr extends Component {
     nextSet()
     {
 
+    
+
         if(this.m_didClearRound) // Goto Recap screen
         {
+            this.m_preloader.active = true;
+        
             director.loadScene('fortuneWcScene');
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
@@ -214,6 +220,8 @@ export class saveWcCtrlr extends Component {
             }
             else
             {
+                this.m_preloader.active = true;
+                
                 console.log("WE ARE LOADING THE NEXT TYPE OF GAME(any)")
                 let scene = nextGame + "Scene";
                 director.loadScene(scene);

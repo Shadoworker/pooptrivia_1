@@ -32,6 +32,8 @@ export class recapCtrlr extends Component {
     @property ({type : Label})
     public m_coinsCountLabel = null;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
 
@@ -128,6 +130,8 @@ export class recapCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
+        this.m_preloader.active = true;
+
         director.loadScene("sanitizeScene");
     }
 
@@ -182,6 +186,8 @@ export class recapCtrlr extends Component {
     continue()
     {
        
+        this.m_preloader.active = true;
+        
         find('stateManager').getComponent(stateManager).playBtnSound();
 
 

@@ -21,6 +21,9 @@ export class selectDifficultyCtrlr extends Component {
 
     @property({type: [SpriteFrame]})
     public m_trophiesTextures = [];
+
+    @property({type: Node})
+    public m_preloader : Node = null;
  
     start() {
         
@@ -68,6 +71,9 @@ export class selectDifficultyCtrlr extends Component {
 
     selectDifficulty(e:Event, d:number)
     {
+
+        this.m_preloader.active = true;
+        
         find('stateManager').getComponent(stateManager).playBtnSound();
 
         find('stateManager').getComponent(stateManager).m_selectedDifficulty.set(d);
@@ -122,6 +128,8 @@ export class selectDifficultyCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
+        this.m_preloader.active = true;
+        
         director.loadScene("homeScene");
     }
  

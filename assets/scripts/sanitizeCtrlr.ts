@@ -50,6 +50,8 @@ export class sanitizeCtrlr extends Component {
     @property ({type : Boolean})
     public m_onTest = false;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     onLoad()
     {
@@ -72,6 +74,8 @@ export class sanitizeCtrlr extends Component {
 
     goBack()
     {
+        this.m_preloader.active = true;
+        
         find('stateManager').getComponent(stateManager).playBtnSound();
 
         director.loadScene("homeScene");

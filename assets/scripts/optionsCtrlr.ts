@@ -24,6 +24,9 @@ export class optionsCtrlr extends Component {
     @property ({type : [SpriteFrame]})
     public m_btnsTextures = [];
 
+    @property({type: Node})
+    public m_preloader : Node = null;
+
     public m_screenType = "SETTINGS";
 
     start() {
@@ -91,6 +94,8 @@ export class optionsCtrlr extends Component {
     leaveRound()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.m_preloader.active = true;
 
         director.loadScene("homeScene");
     }

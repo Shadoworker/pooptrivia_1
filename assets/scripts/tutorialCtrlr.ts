@@ -18,7 +18,8 @@ export class tutorialCtrlr extends Component {
     @property({type: Button})
     public m_nextBtn : Button;
  
-    
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
 
@@ -49,6 +50,8 @@ export class tutorialCtrlr extends Component {
         }
         else
         {
+            this.m_preloader.active = true;
+
             director.loadScene("difficultyScene");
         }
     }
@@ -56,6 +59,8 @@ export class tutorialCtrlr extends Component {
     goBack()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.m_preloader.active = true;
 
         director.loadScene("homeScene");
     }

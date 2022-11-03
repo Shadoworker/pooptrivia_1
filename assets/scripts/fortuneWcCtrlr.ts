@@ -21,6 +21,8 @@ export class fortuneWcCtrlr extends Component {
     @property({type: Node})
     public m_transitionBox = null;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
 
     start() {
 
@@ -105,6 +107,9 @@ export class fortuneWcCtrlr extends Component {
             find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
 
             setTimeout(() => {
+
+                this.m_preloader.active = true;
+
                 director.loadScene('recapScene');
             }, 1000);
 

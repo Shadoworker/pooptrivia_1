@@ -12,6 +12,9 @@ export class homeCtrlr extends Component {
     @property({type: Node})
     public m_optsCanvas : Node = null;
 
+    @property({type: Node})
+    public m_preloader : Node = null;
+
     start() {
 
 
@@ -45,6 +48,7 @@ export class homeCtrlr extends Component {
 
         find('stateManager').getComponent(stateManager).playBtnSound();
 
+        this.m_preloader.active = true;
 
         //New only if not current new one
         if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')

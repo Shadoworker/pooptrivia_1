@@ -237,12 +237,14 @@ export class saveWcCtrlr extends Component {
     initView()
     {
 
+        this.m_wcSprite.spriteFrame = this.m_wcTextures[0];
+
         this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/5"
 
         this.initKeyboard();
 
         this.m_questionText.string = this.m_quiz.questions[this.m_lang];
-        let answer = this.m_quiz.answers[this.m_lang];
+        let answer = this.m_quiz.answers[this.m_lang][0].answer.toUpperCase(); // [0].answer : array of unique value : see dataLoader.getExcelData
         
         console.log(answer)
         this.initAnswer(answer, this.m_quiz.level)

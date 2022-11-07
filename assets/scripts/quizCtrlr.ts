@@ -262,7 +262,7 @@ export class quizCtrlr extends Component {
                 // set correct one
                 setTimeout(() => {
                     this.setAnswerBtnColor(this.m_correctBtnIndex, true);
-                }, 50);
+                }, 300);
 
 
                 // Progress
@@ -356,14 +356,14 @@ export class quizCtrlr extends Component {
 
             if(_isCorrect)
             {
-                find('stateManager').getComponent(stateManager).playSuccessSound();
+                // find('stateManager').getComponent(stateManager).playSuccessSound();
             }
             else
             {
-                find('stateManager').getComponent(stateManager).playErrorSound();
+                // find('stateManager').getComponent(stateManager).playErrorSound();
             }
 
-        }, 30);
+        }, 50);
     }
 
     // update(deltaTime: number) {

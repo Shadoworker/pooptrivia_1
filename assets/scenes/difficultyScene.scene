@@ -1411,7 +1411,7 @@
     "propertyPath": [
       "_string"
     ],
-    "value": "200"
+    "value": "0"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1699,7 +1699,7 @@
     "propertyPath": [
       "_string"
     ],
-    "value": "450"
+    "value": "0"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -1928,7 +1928,7 @@
     "propertyPath": [
       "_string"
     ],
-    "value": "601"
+    "value": "0"
   },
   {
     "__type__": "cc.TargetInfo",

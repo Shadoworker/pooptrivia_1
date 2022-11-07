@@ -22,6 +22,8 @@ export class dataLoader extends Component {
     public m_sanitizeData = null;
 
     public m_quiz_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vRSAQaTABwKtg-UXX8VOpsa80R5Re8d1dNF2glniiY1SQ3y7NzN7CLS19nSGDjeMxEzhhr7P6zYhAbI/pubhtml";
+    
+    public m_savewc_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vSICo7dgg828X8HuaFjRZ9T2w_0E9p_9DGEFUVV-TNgsKta2hFtRwlYmj6OkNppI4XOiA37FvW946ZL/pubhtml";
 
     onLoad()
     {
@@ -97,7 +99,7 @@ export class dataLoader extends Component {
             
             var _JsonData = XLSX.utils.sheet_to_json(worksheet, {raw: true});
             /************************ End of conversion ************************/
-            console.log(_JsonData);
+            // console.log(_JsonData);
             // FORMAT
             _JsonData.forEach((el ,_i)=> {
                 
@@ -106,12 +108,12 @@ export class dataLoader extends Component {
                 _JsonData[_i].questions = {"fr" : "", "en" : ""};
                 _JsonData[_i].answers = {"fr" : [], "en" : []};
 
-                _JsonData[_i].questions["fr"] = _quests; 
+                _JsonData[_i].questions["fr"] = _quests.replaceAll("&#39;", "'"); 
 
                 let frAnswers = _answs.split("\n").filter(e=>e);
 
                 frAnswers.forEach((_a , _j)=> {
-                    let _answer = {answer : _a, isCorrect : _j == 0};
+                    let _answer = {answer : _a.replaceAll("&#39;", "'"), isCorrect : _j == 0};
                     frAnswers[_j] = _answer;
                 });
 
@@ -158,208 +160,210 @@ export class dataLoader extends Component {
 
     getSaveWcData()
     {
-        this.m_saveWcData =
-        [
-            {
-                "id": 1,
-                "questions": {
-                    "en": "Word to find : CAR",
-                    "fr": "Mot à trouver : VOITURE"
-                },
-                "answers": {
-                    "en": "CAR",
-                    "fr": "VOITURE"
-                },
-                "level": 1,
-                "active": true,
-            },
-            {
-                "id": 2,
-                "questions": {
-                    "en": "Word to find : HOME",
-                    "fr": "Mot à trouver : MAISON"
-                },
-                "answers": {
-                    "en": "HOME",
-                    "fr": "MAISON"
-                },
-                "level": 1,
-                "active": true,
-            },
-            {
-                "id": 3,
-                "questions": {
-                    "en": "Word to find : NECK",
-                    "fr": "Mot à trouver : COU"
-                },
-                "answers": {
-                    "en": "NECK",
-                    "fr": "COU"
-                },
-                "level": 1,
-                "active": true,
-            },
-            {
-                "id": 4,
-                "questions": {
-                    "en": "Word to find : BEE",
-                    "fr": "Mot à trouver : ABEILLE"
-                },
-                "answers": {
-                    "en": "BEE",
-                    "fr": "ABEILLE"
-                },
-                "level": 2,
-                "active": true,
-            },
-            {
-                "id": 5,
-                "questions": {
-                    "en": "Word to find : WORDUS",
-                    "fr": "Mot à trouver : MOTUS"
-                },
-                "answers": {
-                    "en": "WORDUS",
-                    "fr": "MOTUS"
-                },
-                "level": 2,
-                "active": true,
-            },
-            {
-                "id": 6,
-                "questions": {
-                    "en": "Word to find : TITLE",
-                    "fr": "Mot à trouver : TITRE"
-                },
-                "answers": {
-                    "en": "TITLE",
-                    "fr": "TITRE"
-                },
-                "level": 3,
-                "active": true,
-            },
-            {
-                "id": 7,
-                "questions": {
-                    "en": "Word to find : LONDON",
-                    "fr": "Mot à trouver : LONDRES"
-                },
-                "answers": {
-                    "en": "LONDON",
-                    "fr": "LONDRES"
-                },
-                "level": 1,
-                "active": true,
-            },
-            {
-                "id": 8,
-                "questions": {
-                    "en": "Word to find : BIRD",
-                    "fr": "Mot à trouver : OISEAU"
-                },
-                "answers": {
-                    "en": "BIRD",
-                    "fr": "OISEAU"
-                },
-                "level": 3,
-                "active": true,
-            },
-            {
-                "id": 9,
-                "questions": {
-                    "en": "Word to find : YELLOW",
-                    "fr": "Mot à trouver : JAUNE"
-                },
-                "answers": {
-                    "en": "YELLOW",
-                    "fr": "JAUNE"
-                },
-                "level": 3,
-                "active": true,
-            },
-            {
-                "id": 10,
-                "questions": {
-                    "en": "Word to find : GREEN",
-                    "fr": "Mot à trouver : VERT"
-                },
-                "answers": {
-                    "en": "GREEN",
-                    "fr": "VERT"
-                },
-                "level": 2,
-                "active": true,
-            },
-            {
-                "id": 11,
-                "questions": {
-                    "en": "Word to find : RED",
-                    "fr": "Mot à trouver : ROUGE"
-                },
-                "answers": {
-                    "en": "RED",
-                    "fr": "ROUGE"
-                },
-                "level": 2,
-                "active": true,
-            }
-            ,
-            {
-                "id": 12,
-                "questions": {
-                    "en": "Word to find : BLUE",
-                    "fr": "Mot à trouver : BLEU"
-                },
-                "answers": {
-                    "en": "BLUE",
-                    "fr": "BLEU"
-                },
-                "level": 2,
-                "active": true,
-            }
-            ,
-            {
-                "id": 13,
-                "questions": {
-                    "en": "Word to find : YELLOW",
-                    "fr": "Mot à trouver : JAUNE"
-                },
-                "answers": {
-                    "en": "YELLOW",
-                    "fr": "JAUNE"
-                },
-                "level": 2,
-                "active": true,
-            }
-            ,
-            {
-                "id": 14,
-                "questions": {
-                    "en": "Word to find : ORANGE",
-                    "fr": "Mot à trouver : ORANGE"
-                },
-                "answers": {
-                    "en": "ORANGE",
-                    "fr": "ORANGE"
-                },
-                "level": 2,
-                "active": true,
-            }
-            ,
-            {
-                "id": 15,
-                "questions": {
-                    "en": "Word to find : ROUND",
-                    "fr": "Mot à trouver : ROND"
-                },
-                "answers": {
-                    "en": "ROUND",
-                    "fr": "ROND"
-                },
-                "level": 2,
-                "active": true,
-            }
-        ]
+        this.getExcelData(2, this.m_savewc_excel_url);
+
+        // this.m_saveWcData =
+        // [
+        //     {
+        //         "id": 1,
+        //         "questions": {
+        //             "en": "Word to find : CAR",
+        //             "fr": "Mot à trouver : VOITURE"
+        //         },
+        //         "answers": {
+        //             "en": "CAR",
+        //             "fr": "VOITURE"
+        //         },
+        //         "level": 1,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 2,
+        //         "questions": {
+        //             "en": "Word to find : HOME",
+        //             "fr": "Mot à trouver : MAISON"
+        //         },
+        //         "answers": {
+        //             "en": "HOME",
+        //             "fr": "MAISON"
+        //         },
+        //         "level": 1,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 3,
+        //         "questions": {
+        //             "en": "Word to find : NECK",
+        //             "fr": "Mot à trouver : COU"
+        //         },
+        //         "answers": {
+        //             "en": "NECK",
+        //             "fr": "COU"
+        //         },
+        //         "level": 1,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 4,
+        //         "questions": {
+        //             "en": "Word to find : BEE",
+        //             "fr": "Mot à trouver : ABEILLE"
+        //         },
+        //         "answers": {
+        //             "en": "BEE",
+        //             "fr": "ABEILLE"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 5,
+        //         "questions": {
+        //             "en": "Word to find : WORDUS",
+        //             "fr": "Mot à trouver : MOTUS"
+        //         },
+        //         "answers": {
+        //             "en": "WORDUS",
+        //             "fr": "MOTUS"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 6,
+        //         "questions": {
+        //             "en": "Word to find : TITLE",
+        //             "fr": "Mot à trouver : TITRE"
+        //         },
+        //         "answers": {
+        //             "en": "TITLE",
+        //             "fr": "TITRE"
+        //         },
+        //         "level": 3,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 7,
+        //         "questions": {
+        //             "en": "Word to find : LONDON",
+        //             "fr": "Mot à trouver : LONDRES"
+        //         },
+        //         "answers": {
+        //             "en": "LONDON",
+        //             "fr": "LONDRES"
+        //         },
+        //         "level": 1,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 8,
+        //         "questions": {
+        //             "en": "Word to find : BIRD",
+        //             "fr": "Mot à trouver : OISEAU"
+        //         },
+        //         "answers": {
+        //             "en": "BIRD",
+        //             "fr": "OISEAU"
+        //         },
+        //         "level": 3,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 9,
+        //         "questions": {
+        //             "en": "Word to find : YELLOW",
+        //             "fr": "Mot à trouver : JAUNE"
+        //         },
+        //         "answers": {
+        //             "en": "YELLOW",
+        //             "fr": "JAUNE"
+        //         },
+        //         "level": 3,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 10,
+        //         "questions": {
+        //             "en": "Word to find : GREEN",
+        //             "fr": "Mot à trouver : VERT"
+        //         },
+        //         "answers": {
+        //             "en": "GREEN",
+        //             "fr": "VERT"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     },
+        //     {
+        //         "id": 11,
+        //         "questions": {
+        //             "en": "Word to find : RED",
+        //             "fr": "Mot à trouver : ROUGE"
+        //         },
+        //         "answers": {
+        //             "en": "RED",
+        //             "fr": "ROUGE"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     }
+        //     ,
+        //     {
+        //         "id": 12,
+        //         "questions": {
+        //             "en": "Word to find : BLUE",
+        //             "fr": "Mot à trouver : BLEU"
+        //         },
+        //         "answers": {
+        //             "en": "BLUE",
+        //             "fr": "BLEU"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     }
+        //     ,
+        //     {
+        //         "id": 13,
+        //         "questions": {
+        //             "en": "Word to find : YELLOW",
+        //             "fr": "Mot à trouver : JAUNE"
+        //         },
+        //         "answers": {
+        //             "en": "YELLOW",
+        //             "fr": "JAUNE"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     }
+        //     ,
+        //     {
+        //         "id": 14,
+        //         "questions": {
+        //             "en": "Word to find : ORANGE",
+        //             "fr": "Mot à trouver : ORANGE"
+        //         },
+        //         "answers": {
+        //             "en": "ORANGE",
+        //             "fr": "ORANGE"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     }
+        //     ,
+        //     {
+        //         "id": 15,
+        //         "questions": {
+        //             "en": "Word to find : ROUND",
+        //             "fr": "Mot à trouver : ROND"
+        //         },
+        //         "answers": {
+        //             "en": "ROUND",
+        //             "fr": "ROND"
+        //         },
+        //         "level": 2,
+        //         "active": true,
+        //     }
+        // ]
  
     }
 

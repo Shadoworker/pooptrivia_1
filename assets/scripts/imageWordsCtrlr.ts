@@ -245,7 +245,7 @@ export class imageWords extends Component {
                 // set correct one
                 setTimeout(() => {
                     this.setAnswerBtnColor(this.m_correctBtnIndex, true);
-                }, 50);
+                }, 300);
 
                  // Progress
                 let _clears = find('stateManager').getComponent(stateManager).updateProgress(this.m_base_score, false);
@@ -330,14 +330,14 @@ export class imageWords extends Component {
 
             if(_isCorrect)
             {
-                find('stateManager').getComponent(stateManager).playSuccessSound();
+                // find('stateManager').getComponent(stateManager).playSuccessSound();
             }
             else
             {
-                find('stateManager').getComponent(stateManager).playErrorSound();
+                // find('stateManager').getComponent(stateManager).playErrorSound();
             }
             
-        }, 30);
+        }, 50);
     }
 
     // update(deltaTime: number) {

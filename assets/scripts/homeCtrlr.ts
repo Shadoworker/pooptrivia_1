@@ -145,6 +145,8 @@ export class homeCtrlr extends Component {
     gotoAbout()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+        
+        this.m_preloader.active = true;
 
         director.loadScene("aboutScene");
     }
@@ -161,6 +163,16 @@ export class homeCtrlr extends Component {
         }, 50);
     }
 
+
+    gotoTutorial()
+    {
+        find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.m_preloader.active = true;
+
+        director.loadScene("tutorialScene");
+    }
+    
 
     reset()
     {

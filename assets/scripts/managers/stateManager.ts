@@ -157,7 +157,7 @@ export class stateManager extends Component {
         
         currentGame.played = true;
         playerData.progression.gameIndex += 1;
-        playerData.score += _score;
+        playerData.score += Math.round(_score);
         playerData.stats.right_answers = _isRightAnswer ?  playerData.stats.right_answers + 1 :  playerData.stats.right_answers;
         playerData.stats.wrong_answers = !_isRightAnswer ?  playerData.stats.wrong_answers + 1 :  playerData.stats.wrong_answers;
 

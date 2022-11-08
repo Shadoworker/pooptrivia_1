@@ -2,7 +2,7 @@
   "ver": "1.0.23",
   "importer": "image",
   "imported": true,
-  "uuid": "a6f11e51-2878-4fc7-bb0d-7c060c10351f",
+  "uuid": "1032c4a7-9faf-4d43-abca-7f888340ea52",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "a6f11e51-2878-4fc7-bb0d-7c060c10351f@6c48a",
-      "displayName": "quiz_header_false",
+      "uuid": "1032c4a7-9faf-4d43-abca-7f888340ea52@6c48a",
+      "displayName": "kayfologo",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "a6f11e51-2878-4fc7-bb0d-7c060c10351f",
+        "imageUuidOrDatabaseUri": "1032c4a7-9faf-4d43-abca-7f888340ea52",
         "isUuid": true,
         "minfilter": "linear",
         "magfilter": "linear",
@@ -33,29 +33,29 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "a6f11e51-2878-4fc7-bb0d-7c060c10351f@f9941",
-      "displayName": "quiz_header_false",
+      "uuid": "1032c4a7-9faf-4d43-abca-7f888340ea52@f9941",
+      "displayName": "kayfologo",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
         "trimType": "auto",
         "trimThreshold": 1,
         "rotated": false,
-        "offsetX": 1.5,
+        "offsetX": 1,
         "offsetY": 0,
-        "trimX": 3,
-        "trimY": 3,
-        "width": 369,
-        "height": 121,
-        "rawWidth": 372,
-        "rawHeight": 127,
+        "trimX": 11,
+        "trimY": 4,
+        "width": 246,
+        "height": 56,
+        "rawWidth": 266,
+        "rawHeight": 64,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "a6f11e51-2878-4fc7-bb0d-7c060c10351f@6c48a",
+        "imageUuidOrDatabaseUri": "1032c4a7-9faf-4d43-abca-7f888340ea52@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -70,6 +70,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "a6f11e51-2878-4fc7-bb0d-7c060c10351f@f9941"
+    "redirect": "1032c4a7-9faf-4d43-abca-7f888340ea52@f9941"
   }
 }

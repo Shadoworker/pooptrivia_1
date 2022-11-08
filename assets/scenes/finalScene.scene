@@ -266,7 +266,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 455.7362637362637,
+    "_orthoHeight": 432,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -1114,12 +1114,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "122d0954-cb48-4502-925f-ec088faa765b@f9941",
+      "__uuid__": "a4940769-3e20-4593-b06c-199d7f9bc73f@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1220,12 +1220,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "db1fec85-3c87-4b6e-ae9a-685b8a0e47a9@f9941",
+      "__uuid__": "46cd580f-1b8a-4a06-98b7-bb5c01e0da8d@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,

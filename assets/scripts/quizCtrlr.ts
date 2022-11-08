@@ -83,7 +83,7 @@ export class quizCtrlr extends Component {
 
         // Set
         this.m_playerAvatar.spriteFrame = currentPlayer.m_avatar;
-        this.m_playerName.string = playerData.name;
+        this.m_playerName.string = playerData.name.toUpperCase();
         this.m_playerScore.string = playerData.score.toString();
 
     }

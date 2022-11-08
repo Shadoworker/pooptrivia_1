@@ -149,13 +149,7 @@ export class dataLoader extends Component {
 
     getFiowData()
     {
-        fetch(this.m_baseUrl+'/fiows')
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data) // Prints result from `response.json()` in getRequest
-            this.m_fiowData = data;
-        })
-        .catch(error => console.error(error))
+     
     }
 
     getSaveWcData()
@@ -366,7 +360,6 @@ export class dataLoader extends Component {
         // ]
  
     }
-
 
     getSanitizeData()
     {

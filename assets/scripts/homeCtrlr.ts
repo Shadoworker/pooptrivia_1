@@ -163,7 +163,7 @@ export class homeCtrlr extends Component {
         }, 50);
     }
 
-
+    
     gotoTutorial()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();

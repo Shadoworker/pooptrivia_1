@@ -47,12 +47,15 @@ export class selectPlayerCtrlr extends Component {
 
     start() {
         
+
         this.initPlayers();
     }
  
     initPlayers()
     {
         let playerItemsPrefab = instantiate(this.m_playerItemsPrefab);
+        
+        playerItemsPrefab.getComponent(playerItemsCtrlr).updatePlayersData();
         this.m_playerItemSCROBs = playerItemsPrefab.getComponent(playerItemsCtrlr).playerItems;
         // console.log(this.m_playerItemSCROBs)
 

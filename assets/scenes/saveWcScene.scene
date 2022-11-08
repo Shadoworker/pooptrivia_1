@@ -2750,15 +2750,15 @@
     },
     "m_wcTextures": [
       {
-        "__uuid__": "7a25039e-fa78-4a95-b959-decf52d6c7d6@f9941",
+        "__uuid__": "433b48da-55ea-4690-b132-cee842d58ed7@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "423d8078-1dc6-4749-b650-65954e04f38c@f9941",
+        "__uuid__": "1188e264-4cac-44b0-8c8b-dc80161403c1@f9941",
         "__expectedType__": "cc.SpriteFrame"
       },
       {
-        "__uuid__": "c4293125-28c2-408b-ab30-48983a09f9ff@f9941",
+        "__uuid__": "11b09417-a001-4dff-825c-a7e196a9bc9d@f9941",
         "__expectedType__": "cc.SpriteFrame"
       }
     ],

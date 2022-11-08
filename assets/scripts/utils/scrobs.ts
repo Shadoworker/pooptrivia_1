@@ -1,12 +1,20 @@
-import { Component, Node, SpriteFrame, _decorator } from "cc";
+import { Component, Enum, Node, SpriteFrame, _decorator } from "cc";
 
 // avatarModule.ts
 const {ccclass, property} = _decorator;
 
+    
+enum sex {
+    M = 0,
+    F = 1
+}
 
 @ccclass('playerItemSCROB')
 export class playerItemSCROB  {
-    
+
+    @property ({type:Enum(sex)})
+    public m_sex: sex = sex.M;
+
     @property (SpriteFrame)
     public m_avatar: SpriteFrame = null;
 

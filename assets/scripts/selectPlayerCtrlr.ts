@@ -157,6 +157,7 @@ export class selectPlayerCtrlr extends Component {
                     right_answers: 0,
                     poop_coins: 0,
                 },
+                level_coins : [0,0,0],
                 eliminated:false
             };
             

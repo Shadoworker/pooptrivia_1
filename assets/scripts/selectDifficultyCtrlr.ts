@@ -32,7 +32,6 @@ export class selectDifficultyCtrlr extends Component {
  
     initDifficulties()
     {
-         
         let gameStruct : GameStruct = JSON.parse(find('stateManager').getComponent(stateManager).m_gameStruct.get())
 
         let levels = gameStruct.levels;
@@ -42,13 +41,13 @@ export class selectDifficultyCtrlr extends Component {
             const lvlItem = levels[i];
             let dItem = this.m_difficultyItems[i];
 
-            this.setupDifficultyItem(lvlItem, dItem);
+            this.setupDifficultyItem(lvlItem, dItem, i);
             
         }
 
     }
 
-    setupDifficultyItem(lvlItem:any, dItem:Node)
+    setupDifficultyItem(lvlItem:any, dItem:Node, lvlInd:number)
     {
         let isUnlocked = lvlItem.unlocked;
         
@@ -66,6 +65,14 @@ export class selectDifficultyCtrlr extends Component {
 
         let trophySprite = trophiesNameToSprite[lvlItem.trophy];
         dItem.getChildByName("trophy").getComponent(Sprite).spriteFrame = trophySprite;
+
+        dItem.getChildByPath("coinsBox/value").getComponent(Label).string = "0";
+        
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+        {
+            let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+            dItem.getChildByPath("coinsBox/value").getComponent(Label).string = playerData.level_coins[lvlInd].toString();
+        }
 
     }
 

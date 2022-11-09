@@ -22,6 +22,8 @@ export class recapCtrlr extends Component {
     public m_isEliminated : boolean = false;
     public m_clearedLevel : boolean = false;
 
+    public m_levelCoins : number = 0;
+
     // Stats
     @property ({type : Label})
     public m_pqCountLabel = null;
@@ -97,14 +99,21 @@ export class recapCtrlr extends Component {
 
         if(find('stateManager').getComponent(stateManager).m_didClearRound.get() == 'true')
         {
+
+            this.m_levelCoins = playerData.stats.poop_coins;
+
+            // Set Level Poop levels
+            let levelIndex = playerData.progression.levelIndex - 1 ; // We are already in next level index
+            playerData.level_coins[levelIndex] += this.m_levelCoins;
+
             // Reset player data
-                playerData.eliminated = false;
-                playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
-                // playerData.score = 0;
-                find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
- 
-                // Reset round clear status
-                find('stateManager').getComponent(stateManager).m_didClearRound.set('false');
+            playerData.eliminated = false;
+            playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
+            // playerData.score = 0;
+            find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+            // Reset round clear status
+            find('stateManager').getComponent(stateManager).m_didClearRound.set('false');
         }
 
 
@@ -137,14 +146,28 @@ export class recapCtrlr extends Component {
 
     setupPlayers()
     {
+
+
+    
        
         if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
         {
+                   
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
 
+            this.m_clearedLevel = true;
+
             let playerScore = playerData.score;
+
             // Reset player data
             playerData.eliminated = false;
+
+            // Set Level Poop levels
+            let levelIndex = playerData.progression.levelIndex - 1 ; // We are already in next level index
+            playerData.level_coins[levelIndex] = playerData.level_coins[levelIndex] > playerData.stats.poop_coins ? playerData.level_coins[levelIndex] : playerData.stats.poop_coins;
+            
+            playerData.level_coins[levelIndex] += playerScore;
+
             playerData.stats = {pq:0, wrong_answers:0, right_answers:0, poop_coins:0};
             playerData.score = 0;
             find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
@@ -213,7 +236,7 @@ export class recapCtrlr extends Component {
                 {
 
                         setTimeout(() => {
-                            let _scene = "homeScene";
+                            let _scene = "difficultyScene";
                             director.loadScene(_scene);
                         }, 200);
                 }

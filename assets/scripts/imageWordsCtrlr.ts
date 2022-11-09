@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, assetManager, ImageAsset, Texture2D, director } from 'cc';
+import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
 import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
@@ -183,6 +184,55 @@ export class imageWords extends Component {
             
         }
     }
+
+
+    usePqHint()
+    {
+        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+        if(playerData.pq == 0) return;
+
+        playerData.pq -= 1;
+
+        let btnCounter = 0;
+        for (let i = 0; i < this.m_answerBtns.length; i++) 
+        {
+            const btnEl : Node = this.m_answerBtns[i];
+            if(btnEl.getComponent(Button).enabled == false)
+                btnCounter++;
+        }
+
+        if(btnCounter >= 2) return;
+        
+        let counter = 0;
+        for (let i = 0; i < this.m_quiz.answers.length; i++) {
+            const el = this.m_quiz.answers[i];
+
+            if(!el.isCorrect)
+            {
+                const btnEl : Node = this.m_answerBtns[i];
+
+                btnEl.getComponent(Button).interactable = false;
+                btnEl.getComponent(Button).enabled = false;
+                // btnEl.getComponent(Sprite).spriteFrame = this.m_btnTextures[0];
+                btnEl.getComponent(Sprite).color = Color.RED;
+
+                
+                counter++;
+            }
+
+            if(counter == 2) break;
+            
+            
+        }
+
+        // Save
+        find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+        this.node.getChildByName("gameHeader").getComponent(gameHeaderCtrlr).setPqPoints();
+
+    }
+
 
     checkAnswer(e: EventMouse, _btnIndex:number)
     {

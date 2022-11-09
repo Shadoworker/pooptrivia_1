@@ -41,8 +41,6 @@ export class optionsCtrlr extends Component {
         }
 
         this.setUI();
-
-
     }
   
     setUI()

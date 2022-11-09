@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
+import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
 import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
@@ -363,6 +364,30 @@ export class saveWcCtrlr extends Component {
 
 
         return [isCorrect, amongWord];
+    }
+
+
+
+    usePqHint()
+    {
+        let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
+
+        if(playerData.pq == 0) return;
+
+        playerData.pq -= 1;
+
+        
+        // Get A letter 
+        let letter = this.m_lettersToFind[0];
+
+        // Set
+        this.onClickLetter(letter);
+
+        // Save
+        find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
+
+        this.node.getChildByName("gameHeader").getComponent(gameHeaderCtrlr).setPqPoints();
+
     }
 
 

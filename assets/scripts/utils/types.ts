@@ -20,6 +20,7 @@ export type PlayerData = {
         right_answers:number,
         poop_coins:number
     },
+    level_coins : number[],
     eliminated : boolean
 
 }

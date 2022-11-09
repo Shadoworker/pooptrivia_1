@@ -41,7 +41,8 @@ export class playerRecapListCtrlr extends Component {
 
             for (let i = 0; i < sortedList.length; i++) {
 
-                let player = sortedList.find(e=>e.podiumIndex == i);
+                // let player = sortedList.find(e=>e.podiumIndex == i);
+                let player = sortedList[i];
 
                 const scrob = this.m_playerItemSCROBs[player.index];
 

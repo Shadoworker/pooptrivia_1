@@ -2538,6 +2538,19 @@
     "m_optsCanvas": {
       "__id__": 69
     },
+    "m_pauseBtn": {
+      "__id__": 5
+    },
+    "m_pauseBtnTextures": [
+      {
+        "__uuid__": "36946514-cda1-47eb-b50c-e817065542d5@f9941",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "1af6210b-8bb0-45c3-90ae-92739b816b46@f9941",
+        "__expectedType__": "cc.SpriteFrame"
+      }
+    ],
     "_id": ""
   },
   {

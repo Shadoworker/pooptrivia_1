@@ -275,11 +275,12 @@ export class saveWcCtrlr extends Component {
  
         }
 
+        console.log(this.m_lettersToFind)
+
         if(isCorrect)
         {
             // Remove from to find
             this.m_lettersToFind.splice(this.m_lettersToFind.indexOf(_letter), 1);
-            console.log(this.m_lettersToFind)
             if(this.m_lettersToFind.length == 0)
             {
 

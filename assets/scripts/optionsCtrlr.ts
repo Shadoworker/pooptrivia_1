@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, SpriteFrame, find, director, Asset, Vec2, ValueType, Prefab, instantiate, Button, Sprite, Label, Color, color } from 'cc';
+import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
 import { playerAvatarCtrlr } from './components/playerAvatarCtrlr';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
 import { definePlayers } from './global';
@@ -40,6 +41,8 @@ export class optionsCtrlr extends Component {
         }
 
         this.setUI();
+
+
     }
   
     setUI()
@@ -104,7 +107,12 @@ export class optionsCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.node.active = false;
+        this.node.parent.getComponent(gameHeaderCtrlr).updatePauseBtn(0);
+        // console.log(this.node.parent.getComponentInChildren(gameHeaderCtrlr))
+
+        setTimeout(() => {
+            this.node.active = false;
+        }, 10);
     }
  
 

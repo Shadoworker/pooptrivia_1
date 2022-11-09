@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, director } from 'cc';
+import { _decorator, Component, Node, find, Label, director, SpriteFrame, Sprite } from 'cc';
 import { stateManager } from '../managers/stateManager';
 import { PlayerData } from '../utils/types';
 const { ccclass, property } = _decorator;
@@ -14,6 +14,12 @@ export class gameHeaderCtrlr extends Component {
 
     @property({type: Node})
     public m_optsCanvas : Node = null;
+
+    @property({type: Sprite})
+    public m_pauseBtn : Sprite = null;
+    
+    @property ({type : [SpriteFrame]})
+    public m_pauseBtnTextures = [];
 
 
     start() {
@@ -50,9 +56,16 @@ export class gameHeaderCtrlr extends Component {
     }
 
 
+    updatePauseBtn(_ind : number)
+    {
+        this.m_pauseBtn.spriteFrame = this.m_pauseBtnTextures[_ind];
+    }
+
     gotoOpts()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+
+        this.updatePauseBtn(1);
 
         localStorage.setItem("screenType", "PAUSE");
 

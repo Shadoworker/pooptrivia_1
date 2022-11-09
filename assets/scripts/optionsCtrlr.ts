@@ -105,7 +105,8 @@ export class optionsCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.node.parent.getComponent(gameHeaderCtrlr).updatePauseBtn(0);
+        if(this.node.parent.getComponent(gameHeaderCtrlr) != null)
+            this.node.parent.getComponent(gameHeaderCtrlr).updatePauseBtn(0);
         // console.log(this.node.parent.getComponentInChildren(gameHeaderCtrlr))
 
         setTimeout(() => {

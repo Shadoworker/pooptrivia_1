@@ -2,7 +2,7 @@
   "ver": "1.0.23",
   "importer": "image",
   "imported": true,
-  "uuid": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5",
+  "uuid": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5@6c48a",
-      "displayName": "Ville_avant_plan_propre",
+      "uuid": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d@6c48a",
+      "displayName": "Soleil",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5",
+        "imageUuidOrDatabaseUri": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d",
         "isUuid": true,
         "minfilter": "linear",
         "magfilter": "linear",
@@ -33,8 +33,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5@f9941",
-      "displayName": "Ville_avant_plan_propre",
+      "uuid": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d@f9941",
+      "displayName": "Soleil",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -45,17 +45,17 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 2506,
-        "height": 643,
-        "rawWidth": 2506,
-        "rawHeight": 643,
+        "width": 440,
+        "height": 441,
+        "rawWidth": 440,
+        "rawHeight": 441,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5@6c48a",
+        "imageUuidOrDatabaseUri": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -70,6 +70,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "3e4c5fbe-27ef-465c-8048-181a32d7d7d5@f9941"
+    "redirect": "f229590d-fdfc-4dfa-a1e5-bfcff6fe274d@f9941"
   }
 }

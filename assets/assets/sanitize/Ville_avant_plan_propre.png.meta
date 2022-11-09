@@ -2,7 +2,7 @@
   "ver": "1.0.23",
   "importer": "image",
   "imported": true,
-  "uuid": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d",
+  "uuid": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d@6c48a",
-      "displayName": "Ciel_ville_sale",
+      "uuid": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d@6c48a",
+      "displayName": "Ville_avant_plan_propre",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d",
+        "imageUuidOrDatabaseUri": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d",
         "isUuid": true,
         "minfilter": "linear",
         "magfilter": "linear",
@@ -33,8 +33,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d@f9941",
-      "displayName": "Ciel_ville_sale",
+      "uuid": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d@f9941",
+      "displayName": "Ville_avant_plan_propre",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -45,17 +45,17 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 3320,
-        "height": 980,
-        "rawWidth": 3320,
-        "rawHeight": 980,
+        "width": 2506,
+        "height": 643,
+        "rawWidth": 2506,
+        "rawHeight": 643,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d@6c48a",
+        "imageUuidOrDatabaseUri": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -70,6 +70,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "91dbdd60-f639-43ea-8c2c-253fb5e64d5d@f9941"
+    "redirect": "2f3c6435-520a-4fce-8c61-3c02e6f94f0d@f9941"
   }
 }

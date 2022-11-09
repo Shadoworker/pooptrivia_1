@@ -2,7 +2,7 @@
   "ver": "1.0.23",
   "importer": "image",
   "imported": true,
-  "uuid": "110bfec9-712f-482a-a494-4f906e506941",
+  "uuid": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "110bfec9-712f-482a-a494-4f906e506941@6c48a",
-      "displayName": "Route",
+      "uuid": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4@6c48a",
+      "displayName": "Poubelle_ville_sale",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "110bfec9-712f-482a-a494-4f906e506941",
+        "imageUuidOrDatabaseUri": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4",
         "isUuid": true,
         "minfilter": "linear",
         "magfilter": "linear",
@@ -33,8 +33,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "110bfec9-712f-482a-a494-4f906e506941@f9941",
-      "displayName": "Route",
+      "uuid": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4@f9941",
+      "displayName": "Poubelle_ville_sale",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -45,17 +45,17 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 3197,
-        "height": 97,
-        "rawWidth": 3197,
-        "rawHeight": 97,
+        "width": 147,
+        "height": 54,
+        "rawWidth": 147,
+        "rawHeight": 54,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "110bfec9-712f-482a-a494-4f906e506941@6c48a",
+        "imageUuidOrDatabaseUri": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -70,6 +70,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "110bfec9-712f-482a-a494-4f906e506941@f9941"
+    "redirect": "4ddd2dca-763e-4a4d-ac01-e8303f96e2a4@f9941"
   }
 }

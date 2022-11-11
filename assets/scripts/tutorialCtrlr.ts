@@ -50,9 +50,11 @@ export class tutorialCtrlr extends Component {
         }
         else
         {
-            this.m_preloader.active = true;
+            // this.m_preloader.active = true;
 
-            director.loadScene("difficultyScene");
+            // director.loadScene("difficultyScene");
+            find('stateManager').getComponent(stateManager).switchScene("difficultyScene");
+
         }
     }
 
@@ -60,9 +62,11 @@ export class tutorialCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
 
-        director.loadScene("homeScene");
+        // this.m_preloader.active = true;
+
+        // director.loadScene("homeScene");
     }
  
 

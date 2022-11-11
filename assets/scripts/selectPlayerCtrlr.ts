@@ -67,7 +67,7 @@ export class selectPlayerCtrlr extends Component {
 
             let playerAvatar = instantiate(this.m_playerAvatarPrefab)
             
-            playerAvatar.getComponent(playerAvatarCtrlr).setItem(scrob);
+            playerAvatar.getComponent(playerAvatarCtrlr).setItem(this.node, scrob);
 
             this.m_playerAvatarsContainer.addChild(playerAvatar)
             
@@ -80,6 +80,8 @@ export class selectPlayerCtrlr extends Component {
             // Trigger click on First Element : Select the first Avatar
             this.m_selectedPlayer = this.m_playerItemSCROBs[0];
             const el = this.m_playerAvatarsContainer.children[0];
+            // console.log(this.m_playerAvatarsContainer);
+            // console.log(el);
             el.getComponent(playerAvatarCtrlr).onClickPlayerAvatar(this.m_selectedPlayer);
             
         }, 50);
@@ -91,9 +93,11 @@ export class selectPlayerCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
 
-        director.loadScene("homeScene");
+        // director.loadScene("homeScene");
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
+
     }
 
     onClickPlayerAvatar(_d: playerItemSCROB)
@@ -184,9 +188,12 @@ export class selectPlayerCtrlr extends Component {
     
             setTimeout(() => {
 
-                this.m_preloader.active = true;
+                // this.m_preloader.active = true;
                 let scene = nextGame + "Scene";
-                director.loadScene(scene);
+                // director.loadScene(scene);
+                
+                find('stateManager').getComponent(stateManager).switchScene(scene);
+
             }, 100);
 
         }, 10);

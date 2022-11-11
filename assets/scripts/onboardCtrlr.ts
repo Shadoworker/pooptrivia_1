@@ -22,6 +22,7 @@ export class onboardCtrlr extends Component {
 
     public m_selectedLang : string;
 
+
     start() {
 
         this.m_selectedLang = find('stateManager').getComponent(stateManager).m_gameLang.get()
@@ -64,9 +65,11 @@ export class onboardCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
 
-        director.loadScene("homeScene");
+        // this.m_preloader.active = true;
+
+        // director.loadScene("homeScene");
     }
  
     

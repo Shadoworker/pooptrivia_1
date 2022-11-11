@@ -79,7 +79,7 @@ export class selectDifficultyCtrlr extends Component {
     selectDifficulty(e:Event, d:number)
     {
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
         
         find('stateManager').getComponent(stateManager).playBtnSound();
 
@@ -118,14 +118,18 @@ export class selectDifficultyCtrlr extends Component {
         
                 setTimeout(() => {
                     let scene = nextGame + "Scene";
-                    director.loadScene(scene);
+                    // director.loadScene(scene);
+                    find('stateManager').getComponent(stateManager).switchScene(scene);
+
                 }, 100);
         
           
             }
             else
             {
-                director.loadScene("selectPlayerScene");
+                // director.loadScene("selectPlayerScene");
+                find('stateManager').getComponent(stateManager).switchScene("selectPlayerScene");
+
             }
             
         }, 50);
@@ -135,9 +139,11 @@ export class selectDifficultyCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
         
-        director.loadScene("homeScene");
+        // director.loadScene("homeScene");
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
+
     }
  
 

@@ -94,7 +94,9 @@ export class quizCtrlr extends Component {
 
         if(this.m_didClearRound) // Goto Recap screen
         {
-            director.loadScene('fortuneWcScene');
+            // director.loadScene('fortuneWcScene');
+            find('stateManager').getComponent(stateManager).switchScene("fortuneWcScene");
+
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
@@ -156,10 +158,12 @@ export class quizCtrlr extends Component {
                 else
                 {
 
-                    this.m_preloader.active = true;
+                    // this.m_preloader.active = true;
                     // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
                     let scene = nextGame + "Scene";
-                    director.loadScene(scene);
+                    // director.loadScene(scene);
+                    find('stateManager').getComponent(stateManager).switchScene(scene);
+
 
                 }
 

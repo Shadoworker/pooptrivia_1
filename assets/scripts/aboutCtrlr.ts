@@ -52,7 +52,9 @@ export class aboutCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        director.loadScene("homeScene");
+        // director.loadScene("homeScene");
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
+
     }
  
 

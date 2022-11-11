@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, TextAsset, resources, JsonAsset, director, game, sys, SceneGlobals, assetManager } from 'cc';
+import { _decorator, Component, Node, TextAsset, resources, JsonAsset, director, game, sys, SceneGlobals, assetManager, find } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
 import { DataManager} from '../utils/dataManager';
 import { Singleton } from '../utils/singleton';
@@ -25,6 +25,8 @@ export class dataLoader extends Component {
     
     public m_savewc_excel_url ="https://docs.google.com/spreadsheets/d/e/2PACX-1vSICo7dgg828X8HuaFjRZ9T2w_0E9p_9DGEFUVV-TNgsKta2hFtRwlYmj6OkNppI4XOiA37FvW946ZL/pubhtml";
 
+    public m_dataCounter = 0;
+
     onLoad()
     {
         if(!this.node._persistNode)
@@ -35,35 +37,36 @@ export class dataLoader extends Component {
 
         if(localStorage.getItem("_dataLoaded") != "true")
         {
-        
+           // Loading the structure of the game : Levels
+            this.loadGameStruct();
+
             this.getQuizData();
             this.getFiowData();
             this.getSaveWcData();
 
             this.getSanitizeData();
-            // Loading the structure of the game : Levels
-            this.loadGameStruct();
+         
             // ...
 
-            localStorage.setItem("_dataLoaded", "true")
-        }
-
-        if(localStorage.getItem("m_persistentGameLang") == "null" || !localStorage.getItem("m_persistentGameLang"))
-        {
-            // Go to Onboard
-            setTimeout(() => {
-                director.loadScene("onboardScene");
-            }, 1500);
-        
         }
         else
         {
+             // Go to Home
+             setTimeout(() => {
+                find('stateManager').getComponent(stateManager).switchScene("homeScene");
+            }, 150);
+        }
+
+
+        if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+        {
             // Go to Home
             setTimeout(() => {
-                director.loadScene("homeScene");
-            }, 1500);
+                find('stateManager').getComponent(stateManager).switchScene("homeScene");
+            }, 150);
         
         }
+       
 
 
 
@@ -103,21 +106,29 @@ export class dataLoader extends Component {
             // FORMAT
             _JsonData.forEach((el ,_i)=> {
                 
-                let _quests = _JsonData[_i].questions; // Later split languages by "/"
-                let _answs = _JsonData[_i].answers; // Later split languages by "/"
+                let _quests = _JsonData[_i].questions.split("\\"); // Later split languages by "\"
+                let _answs = _JsonData[_i].answers.split("\\"); // Later split languages by "\"
                 _JsonData[_i].questions = {"fr" : "", "en" : ""};
                 _JsonData[_i].answers = {"fr" : [], "en" : []};
 
-                _JsonData[_i].questions["fr"] = _quests.replaceAll("&#39;", "'"); 
+                _JsonData[_i].questions["fr"] = _quests[0].replaceAll("&#39;", "'"); 
+                // _JsonData[_i].questions["en"] = _quests[1].replaceAll("&#39;", "'"); 
 
-                let frAnswers = _answs.split("\n").filter(e=>e);
+                let frAnswers = _answs[0].split("\n").filter(e=>e);
+                // let enAnswers = _answs[1].split("\n").filter(e=>e);
 
                 frAnswers.forEach((_a , _j)=> {
-                    let _answer = {answer : _a.replaceAll("&#39;", "'"), isCorrect : _j == 0};
+                    let _answer = {answer : _a.split("&#39;").join("'"), isCorrect : _j == 0};
                     frAnswers[_j] = _answer;
                 });
 
+                // enAnswers.forEach((_a , _j)=> {
+                //     let _answer = {answer : _a.split("&#39;").join("'"), isCorrect : _j == 0};
+                //     enAnswers[_j] = _answer;
+                // });
+
                 _JsonData[_i].answers["fr"] = frAnswers;
+                // _JsonData[_i].answers["en"] = enAnswers;
 
             });
 
@@ -134,6 +145,23 @@ export class dataLoader extends Component {
                     _self.m_saveWcData = _JsonData;
                     break;
         
+            }
+
+            _self.m_dataCounter++;
+
+            if(_self.m_dataCounter == 2)
+            {
+    
+                localStorage.setItem("_dataLoaded", "true")
+
+                // Go to Onboard
+                setTimeout(() => {
+
+                    find('stateManager').getComponent(stateManager).initialize();
+
+                    find('stateManager').getComponent(stateManager).switchScene("onboardScene");
+
+                }, 150);
             }
 
         });

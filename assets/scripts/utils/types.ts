@@ -1,3 +1,5 @@
+import { Node } from "cc"
+
 export type PlayerData = {
 
     index:number,
@@ -53,4 +55,11 @@ type LevelGameStruct = {
 export type GameStruct = {
 
     levels : LevelGameStruct[]
+}
+
+
+export type sceneItem = {
+    
+    name : string,
+    scene : Node
 }

@@ -7,9 +7,18 @@ export class letterBtnCtrlr extends Component {
 
     m_clicked : boolean;
 
+    
+    @property({type: Node})
+    public m_saveWcCtrlr = null;
+
     start() {
 
         this.m_clicked = false;
+    }
+
+    setItem(_ctrlr : Node)
+    {
+        this.m_saveWcCtrlr = _ctrlr;
     }
 
     onClickLetter(ev:any)
@@ -18,7 +27,7 @@ export class letterBtnCtrlr extends Component {
         {
             let letter = this.getComponentInChildren(Label).string;
 
-            let refs = find('Canvas').getComponent(saveWcCtrlr).onClickLetter(letter);
+            let refs = this.m_saveWcCtrlr.getComponent(saveWcCtrlr).onClickLetter(letter);
 
             let isCorrect = refs[0];
             let amongWord = refs[1];

@@ -139,9 +139,12 @@ export class recapCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
 
-        director.loadScene("sanitizeScene");
+        // director.loadScene("sanitizeScene");
+
+        find('stateManager').getComponent(stateManager).switchScene("sanitizeScene");
+
     }
 
     setupPlayers()
@@ -237,14 +240,18 @@ export class recapCtrlr extends Component {
 
                         setTimeout(() => {
                             let _scene = "difficultyScene";
-                            director.loadScene(_scene);
+                            // director.loadScene(_scene);
+                            find('stateManager').getComponent(stateManager).switchScene(_scene);
+
                         }, 200);
                 }
                 else
                 {
                     setTimeout(() => {
                         let gameScene = nextGame + "Scene";
-                        director.loadScene(gameScene);
+                        // director.loadScene(gameScene);
+                        find('stateManager').getComponent(stateManager).switchScene(gameScene);
+
                     }, 200);
                 }
             
@@ -254,7 +261,9 @@ export class recapCtrlr extends Component {
             {
                 setTimeout(() => {
                     let gameScene = "finalScene";
-                    director.loadScene(gameScene);
+                    // director.loadScene(gameScene);
+                    find('stateManager').getComponent(stateManager).switchScene(gameScene);
+
                 }, 200);
             }
 
@@ -266,7 +275,9 @@ export class recapCtrlr extends Component {
 
             setTimeout(() => {
                 let _scene = "splashScene";
-                director.loadScene(_scene);
+                // director.loadScene(_scene);
+                find('stateManager').getComponent(stateManager).switchScene(_scene);
+
             }, 200);
         }
 

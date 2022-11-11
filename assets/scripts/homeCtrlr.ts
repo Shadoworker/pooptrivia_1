@@ -48,7 +48,7 @@ export class homeCtrlr extends Component {
 
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
 
         //New only if not current new one
         if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
@@ -75,7 +75,7 @@ export class homeCtrlr extends Component {
                 director.loadScene(scene);
                 // director.loadScene("difficultyScene");
 
-            }, 200);
+            }, 20);
 
             // let p : PlayerData = {
             //     name: 'Lamine',
@@ -101,13 +101,15 @@ export class homeCtrlr extends Component {
             {
 
                 find('stateManager').getComponent(stateManager).m_didSeeTutorial.set("true")
-                director.loadScene("tutorialScene");
+                        
+                find('stateManager').getComponent(stateManager).switchScene("tutorialScene");
+         
 
             }
             else
             {
-
-                director.loadScene("difficultyScene");
+                        
+                find('stateManager').getComponent(stateManager).switchScene("difficultyScene");         
 
             }
         }
@@ -146,9 +148,8 @@ export class homeCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
         
-        this.m_preloader.active = true;
-
-        director.loadScene("aboutScene");
+        find('stateManager').getComponent(stateManager).switchScene("aboutScene");
+         
     }
 
 
@@ -167,10 +168,12 @@ export class homeCtrlr extends Component {
     gotoTutorial()
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
+        
+        find('stateManager').getComponent(stateManager).switchScene("tutorialScene");
+         
+        // this.m_preloader.active = true;
 
-        this.m_preloader.active = true;
-
-        director.loadScene("tutorialScene");
+        // director.loadScene("tutorialScene");
     }
     
 

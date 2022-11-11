@@ -98,11 +98,11 @@ export class fortuneWcCtrlr extends Component {
                     break;
             }
 
-            let node = 'Canvas/'+item.type+'View';
+            let _node = item.type+'View';
 
-            find(node).getComponentInChildren(Label).string = item.value.toString();
+            this.node.getChildByName(_node).getComponentInChildren(Label).string = item.value.toString();
 
-            find(node).active = true;
+            this.node.getChildByName(_node).active = true;
 
             find('stateManager').getComponent(stateManager).m_playerData.set(JSON.stringify(playerData));
 
@@ -110,7 +110,9 @@ export class fortuneWcCtrlr extends Component {
 
                 this.m_preloader.active = true;
 
-                director.loadScene('recapScene');
+                // director.loadScene('recapScene');
+                find('stateManager').getComponent(stateManager).switchScene("recapScene");
+
             }, 1000);
 
 

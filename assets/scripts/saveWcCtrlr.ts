@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
 import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
+import { letterBtnCtrlr } from './components/letterBtnCtrlr';
 import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
 import { getRandomWithWeight, OPPONENTS_ANSWERS_PROBS } from './global';
 import { stateManager } from './managers/stateManager';
@@ -65,7 +66,6 @@ export class saveWcCtrlr extends Component {
 
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
 
-
         this.nextSet();
 
     }
@@ -80,7 +80,9 @@ export class saveWcCtrlr extends Component {
             const el = this.m_ALPHABET[i];
 
             let letterBtn : Button = instantiate(this.m_letterBtn);
- 
+            
+            letterBtn.getComponent(letterBtnCtrlr).setItem(this.node);
+
             letterBtn.getComponentInChildren(Label).string = el;
             // letterBtn.clickEvents[0].
             this.m_keyboard.addChild(letterBtn);
@@ -130,6 +132,8 @@ export class saveWcCtrlr extends Component {
             
         }
 
+        console.log(this.m_lettersToFind);
+
     }
 
     getHiddenLength(_wordLength: number, _level:number)
@@ -158,13 +162,12 @@ export class saveWcCtrlr extends Component {
     nextSet()
     {
 
-    
-
+     
         if(this.m_didClearRound) // Goto Recap screen
         {
-            this.m_preloader.active = true;
-        
-            director.loadScene('fortuneWcScene');
+            // director.loadScene('fortuneWcScene');
+            find('stateManager').getComponent(stateManager).switchScene("fortuneWcScene");
+
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
@@ -221,11 +224,14 @@ export class saveWcCtrlr extends Component {
             }
             else
             {
-                this.m_preloader.active = true;
+                // this.m_preloader.active = true;
                 
                 console.log("WE ARE LOADING THE NEXT TYPE OF GAME(any)")
                 let scene = nextGame + "Scene";
-                director.loadScene(scene);
+                // director.loadScene(scene);
+
+                find('stateManager').getComponent(stateManager).switchScene(scene);
+
 
             }
         

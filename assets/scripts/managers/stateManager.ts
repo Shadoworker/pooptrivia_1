@@ -1,9 +1,11 @@
 import { _decorator, Component, Node, find, game, director, AudioSource } from 'cc';
 import { Kayfo } from '../utils/persistentMember';
+import { sceneItemSCROB } from '../utils/sceneItemScrob';
 import { Singleton } from '../utils/singleton';
-import { GameData, GameStruct, PlayerData } from '../utils/types';
+import { GameData, GameStruct, PlayerData, sceneItem } from '../utils/types';
 import { dataLoader } from './dataLoader';
 const { ccclass, property } = _decorator;
+
 
 
 @ccclass('stateManager')
@@ -51,9 +53,13 @@ export class stateManager extends Component {
 
     @property ({type : AudioSource})
     public m_successSound = null;
-
-
     
+    @property ({type : [sceneItemSCROB]})
+    public m_sceneItems = [];
+    
+    public m_currentScene : string = "splashScene";
+
+
     onLoad()
     {
         this.m_gameLang.set(navigator.language.substring(0,2));
@@ -62,29 +68,46 @@ export class stateManager extends Component {
             game.addPersistRootNode(this.node);
     }
 
-    start() {
+    start() 
+    {
+        // this.initialize();
+    }
+
+    initialize() {
 
         this.playBgSound();
-       
+        console.log("L 1")
         if(find('dataLoader') != null)
         {      
+    
+            console.log("L 2")
+
             let persistentDataLoader = find('dataLoader').getComponent(dataLoader);
             // console.log(persistentDataLoader.m_quizData);
  
             // console.log(dataLoader.getInstance().m_quizData)
             if(this.m_gameStruct.get() == '')
+            {
                 this.m_gameStruct.set(JSON.stringify(persistentDataLoader.m_gameStruct))
+
+                console.log("@-struct")
+
+            }
 
             if(this.m_quizData.get() == '')
             {
                 this.m_quizData.set(JSON.stringify(persistentDataLoader.m_quizData))
                 this.m_quizDataInit.set(JSON.stringify(persistentDataLoader.m_quizData))
+                console.log("@-quiz")
+
             }
 
             if(this.m_fiowData.get() == '')
             {
                 this.m_fiowData.set(JSON.stringify(persistentDataLoader.m_fiowData))
                 this.m_fiowDataInit.set(JSON.stringify(persistentDataLoader.m_fiowData))
+                console.log("@-fiow")
+
             }
 
             // console.log(persistentDataLoader.m_saveWcData);
@@ -92,21 +115,16 @@ export class stateManager extends Component {
             {
                 this.m_saveWcData.set(JSON.stringify(persistentDataLoader.m_saveWcData))
                 this.m_saveWcDataInit.set(JSON.stringify(persistentDataLoader.m_saveWcData))
+                console.log("@-savewc")
+
             }
 
             if(this.m_sanitizeData.get() == '')
+            {
                 this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
+                console.log("@-sanitize")
 
-
-            // setTimeout(() => {
-                
-            //     // iN ORDER TO AVOID USERS NOT HAVING INIT DATA TO RUN INTO THE EMPTY ARRAY ERROR
-            //     if(this.m_fiowDataInit.get() == '')
-            //     {
-            //         localStorage.clear();
-            //         director.loadScene("splashScene")
-            //     }
-            // }, 100);
+            }
 
         }
         else
@@ -256,6 +274,15 @@ export class stateManager extends Component {
         }
     }
 
+    switchScene(_name : string)
+    {
+        let prevScene = this.m_sceneItems.find(e=>e.m_name == this.m_currentScene);
+        let nextScene = this.m_sceneItems.find(e=>e.m_name == _name);
+
+        prevScene.m_scene.active = false;
+        nextScene.m_scene.active = true;
+
+    }
     // update(deltaTime: number) {
         
     // }

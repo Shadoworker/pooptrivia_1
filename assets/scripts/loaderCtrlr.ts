@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, AssetManager, assetManager, director, game } from 'cc';
+import { _decorator, Component, Node, AssetManager, assetManager, director, game, find } from 'cc';
+import { stateManager } from './managers/stateManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('loaderCtrlr')
@@ -11,7 +12,7 @@ export class loaderCtrlr extends Component {
     start() {
 
         // setTimeout(() => {
-        //     director.loadScene("quizScene");
+        //     find('stateManager').getComponent(stateManager).switchScene("onboardScene");
         // }, 500);
 
         

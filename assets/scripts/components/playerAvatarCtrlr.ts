@@ -12,13 +12,18 @@ export class playerAvatarCtrlr extends Component {
     @property({type: playerItemSCROB})
     public m_playerData = null;
 
+    @property({type: Node})
+    public m_selectPlayerCtrlr = null;
+
+
     start() {
 
         this.m_clicked = false;
     }
 
-    setItem(_d : playerItemSCROB)
+    setItem(_ctrlr : Node, _d : playerItemSCROB)
     {
+        this.m_selectPlayerCtrlr = _ctrlr;
         this.m_playerData = _d;
         this.node.getComponentInChildren(Sprite).spriteFrame = _d.m_avatar;
     }
@@ -29,7 +34,7 @@ export class playerAvatarCtrlr extends Component {
         if(!this.m_clicked)
         {
 
-            find('Canvas').getComponent(selectPlayerCtrlr).onClickPlayerAvatar(this.m_playerData);
+            this.m_selectPlayerCtrlr.getComponent(selectPlayerCtrlr).onClickPlayerAvatar(this.m_playerData);
  
             this.node.getComponent(Button).enabled = false;
 

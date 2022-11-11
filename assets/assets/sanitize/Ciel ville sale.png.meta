@@ -2,7 +2,7 @@
   "ver": "1.0.23",
   "importer": "image",
   "imported": true,
-  "uuid": "692f196f-abf4-48a8-b88b-789227a6eceb",
+  "uuid": "066c47ca-1bf6-478e-922b-2cf5f2609977",
   "files": [
     ".json",
     ".png"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "692f196f-abf4-48a8-b88b-789227a6eceb@6c48a",
-      "displayName": "Ciel_ville_sale1",
+      "uuid": "066c47ca-1bf6-478e-922b-2cf5f2609977@6c48a",
+      "displayName": "Ciel ville sale",
       "id": "6c48a",
       "name": "texture",
       "userData": {
         "wrapModeS": "clamp-to-edge",
         "wrapModeT": "clamp-to-edge",
-        "imageUuidOrDatabaseUri": "692f196f-abf4-48a8-b88b-789227a6eceb",
+        "imageUuidOrDatabaseUri": "066c47ca-1bf6-478e-922b-2cf5f2609977",
         "isUuid": true,
         "minfilter": "linear",
         "magfilter": "linear",
@@ -33,8 +33,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "692f196f-abf4-48a8-b88b-789227a6eceb@f9941",
-      "displayName": "Ciel_ville_sale1",
+      "uuid": "066c47ca-1bf6-478e-922b-2cf5f2609977@f9941",
+      "displayName": "Ciel ville sale",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -45,17 +45,17 @@
         "offsetY": 0,
         "trimX": 0,
         "trimY": 0,
-        "width": 6500,
-        "height": 1921,
-        "rawWidth": 6500,
-        "rawHeight": 1921,
+        "width": 3320,
+        "height": 980,
+        "rawWidth": 3320,
+        "rawHeight": 980,
         "borderTop": 0,
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
         "packable": true,
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "692f196f-abf4-48a8-b88b-789227a6eceb@6c48a",
+        "imageUuidOrDatabaseUri": "066c47ca-1bf6-478e-922b-2cf5f2609977@6c48a",
         "atlasUuid": ""
       },
       "ver": "1.0.9",
@@ -70,6 +70,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "692f196f-abf4-48a8-b88b-789227a6eceb@f9941"
+    "redirect": "066c47ca-1bf6-478e-922b-2cf5f2609977@f9941"
   }
 }

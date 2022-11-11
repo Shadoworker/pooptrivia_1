@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, EventHandler, ScrollView } from 'cc';
 import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
 import { letterBtnCtrlr } from './components/letterBtnCtrlr';
 import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
@@ -254,6 +254,9 @@ export class saveWcCtrlr extends Component {
     // Set UI items
     initView()
     {
+        
+        // Reset scroll
+        this.m_questionText.node.parent.parent.parent.getComponent(ScrollView).scrollToTop();
 
         this.m_wcSprite.spriteFrame = this.m_wcTextures[0];
 

@@ -148,7 +148,7 @@ export class selectPlayerCtrlr extends Component {
                 score: 0,
                 globalScore: 0,
                 coins: 0,
-                pq: 0,
+                pq: 1,
                 progression: {
                     levelIndex: 0,
                     roundIndex: 0,

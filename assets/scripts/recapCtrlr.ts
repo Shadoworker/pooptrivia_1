@@ -156,8 +156,8 @@ export class recapCtrlr extends Component {
     setupPlayers()
     {
 
-       
-        if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
+
+        if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true' || find('stateManager').getComponent(stateManager).m_didClearLevel.get() == true)
         {
                    
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
@@ -238,6 +238,8 @@ export class recapCtrlr extends Component {
 
                 let nextGame = nextGameItem.name;
 
+                console.log(this.m_clearedLevel);
+
                 // Reseting for next Level
                 if(this.m_clearedLevel)
                 {
@@ -245,6 +247,7 @@ export class recapCtrlr extends Component {
                         setTimeout(() => {
                             let _scene = "difficultyScene";
                             // director.loadScene(_scene);
+                            console.log('@DIFF')
                             find('stateManager').getComponent(stateManager).switchScene(_scene);
 
                         }, 200);
@@ -254,6 +257,7 @@ export class recapCtrlr extends Component {
                     setTimeout(() => {
                         let gameScene = nextGame + "Scene";
                         // director.loadScene(gameScene);
+                        console.log('@GAME')
                         find('stateManager').getComponent(stateManager).switchScene(gameScene);
 
                     }, 200);

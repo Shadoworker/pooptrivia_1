@@ -211,7 +211,8 @@ export class stateManager extends Component {
                     
                     gameStruct.levels[playerData.progression.levelIndex].unlocked = true;
 
-                    didClearLevel = true;                    
+                    didClearLevel = true; 
+                    console.log("CLEARED LEVEL")                   
 
                 }
             }
@@ -230,8 +231,8 @@ export class stateManager extends Component {
         // Save New Data
         // console.log("SM v")
         // console.log(playerData);
-        if(didClearLevel)
-        console.log(gameStruct);
+        // if(didClearLevel)
+        // console.log(gameStruct);
 
         this.m_playerData.set(JSON.stringify(playerData));
 

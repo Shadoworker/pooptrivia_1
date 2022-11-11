@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate } from 'cc';
+import { _decorator, Component, Node, find, Label, RichText, Button, Sprite, SpriteFrame, EventMouse, Color, director, Prefab, instantiate, ScrollView } from 'cc';
 import { gameHeaderCtrlr } from './components/gameHeaderCtrlr';
 import { playerItemsCtrlr } from './components/playerItemsCtrlr';
 import { transitionBoxCtrlr } from './components/transitionBoxCtrlr';
@@ -188,6 +188,9 @@ export class quizCtrlr extends Component {
     // Set UI items
     initView()
     {
+
+        // Reset scroll
+        this.m_questionText.node.parent.parent.parent.getComponent(ScrollView).scrollToTop();
 
         this.m_questionHeader.string = "QUESTION "+ (this.m_gameIndex+1) + "/5"
         this.m_questionText.string =  this.m_quiz.questions[this.m_lang];

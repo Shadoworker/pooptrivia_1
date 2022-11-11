@@ -42,7 +42,7 @@ export class fortuneWcCtrlr extends Component {
         this.node.getChildByName("pqView").active = false;
 
         // Reset
-        let duration = 0.05;
+        let duration = 0.01;
         this.m_tween = tween().target(this.m_wheel)
             .to(duration, {angle : 0 })
 

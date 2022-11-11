@@ -19,7 +19,7 @@ export class playerRecapListCtrlr extends Component {
     }
 
     onEnable() {
-        
+
         this.initView()
     }
 
@@ -60,6 +60,10 @@ export class playerRecapListCtrlr extends Component {
 
                 let c : Color = player.eliminated ? Color.BLACK : Color.WHITE;
                 // console.log(this.node.children);
+
+                // Reset
+                playerPupitreItem.getChildByPath("trophies").children[playerIndexInRanking].active = false;
+
                 let leftover = sortedList.filter(e=>e.eliminated == false).length;
                 if(playerData.eliminated || leftover == 1) // Player eliminated or the single one 
                 {

@@ -72,7 +72,9 @@ export class homeCtrlr extends Component {
 
             setTimeout(() => {
                 let scene = nextGame + "Scene";
-                director.loadScene(scene);
+                // director.loadScene(scene);
+                find('stateManager').getComponent(stateManager).switchScene(scene);
+
                 // director.loadScene("difficultyScene");
 
             }, 20);
@@ -137,7 +139,9 @@ export class homeCtrlr extends Component {
 
         let playerData = find('stateManager').getComponent(stateManager).m_playerData.get();
         if(playerData != '')
-            director.loadScene("sanitizeScene");
+            // director.loadScene("sanitizeScene");
+            find('stateManager').getComponent(stateManager).switchScene("sanitizeScene");
+
         else
         {
             alert("Choisissez un personnage d'abord !")

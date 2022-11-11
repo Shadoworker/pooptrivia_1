@@ -26,9 +26,28 @@ export class fortuneWcCtrlr extends Component {
 
     start() {
 
+
+    }
+
+    onEnable()
+    {
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
         
         this.displayTransition();
+
+        // Enable
+        this.m_launchBtn.enabled = true;
+
+        this.node.getChildByName("coinView").active = false;
+        this.node.getChildByName("pqView").active = false;
+
+        // Reset
+        let duration = 0.05;
+        this.m_tween = tween().target(this.m_wheel)
+            .to(duration, {angle : 0 })
+
+        this.m_tween.start()
+
     }
 
     displayTransition()
@@ -108,7 +127,7 @@ export class fortuneWcCtrlr extends Component {
 
             setTimeout(() => {
 
-                this.m_preloader.active = true;
+                // this.m_preloader.active = true;
 
                 // director.loadScene('recapScene');
                 find('stateManager').getComponent(stateManager).switchScene("recapScene");

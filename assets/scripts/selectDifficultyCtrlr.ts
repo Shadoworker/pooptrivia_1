@@ -27,6 +27,10 @@ export class selectDifficultyCtrlr extends Component {
  
     start() {
         
+    }
+
+    onEnable()
+    {
         this.initDifficulties();
     }
  

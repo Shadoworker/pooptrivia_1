@@ -96,9 +96,12 @@ export class optionsCtrlr extends Component {
     {
         find('stateManager').getComponent(stateManager).playBtnSound();
 
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
 
-        director.loadScene("homeScene");
+        // director.loadScene("homeScene");
+        
+        find('stateManager').getComponent(stateManager).switchScene("homeScene");
+
     }
 
     goBack()

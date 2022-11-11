@@ -114,6 +114,7 @@ export function definePlayers(_selectedPlayerData:PlayerData, _playerItemSCROBs:
                 right_answers: 0,
                 poop_coins: 0,
             },
+            level_coins : [0,0,0],
             eliminated: false
         };
         playerData.index = _playerItemSCROBs.indexOf(p);

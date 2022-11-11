@@ -56,7 +56,7 @@ export class onboardCtrlr extends Component {
         this.m_continueBtn.getComponentInChildren(Label).string = btnText;
 
 
-        find('stateManager').getComponent(stateManager).m_gameLang.set(_lang)
+        // find('stateManager').getComponent(stateManager).m_gameLang.set(_lang)
 
 
     }

@@ -65,11 +65,13 @@ export class sanitizeCtrlr extends Component {
 
     start() {
 
-            
+    }
+
+    onEnable()
+    {
         this.m_playerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
 
         this.setupVisuals();
-
     }
 
     goBack()

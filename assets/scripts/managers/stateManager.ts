@@ -42,6 +42,9 @@ export class stateManager extends Component {
     public m_didSeeTutorial = new Kayfo.PersistentString('m_persistentDidSeeTutorial', 'false');
 
 
+    public m_currentScene = new Kayfo.PersistentString('m_persistentCurrentScene', '');
+
+
     @property ({type : AudioSource})
     public m_bgSound = null;
     
@@ -56,8 +59,6 @@ export class stateManager extends Component {
     
     @property ({type : [sceneItemSCROB]})
     public m_sceneItems = [];
-    
-    public m_currentScene : string = "splashScene";
 
 
     onLoad()
@@ -71,17 +72,21 @@ export class stateManager extends Component {
     start() 
     {
         // this.initialize();
+
+        if(this.m_currentScene.get() == '')
+        {
+            this.m_currentScene.set("splashScene");
+        }
+
     }
 
     initialize() {
 
         this.playBgSound();
-        console.log("L 1")
+
         if(find('dataLoader') != null)
         {      
     
-            console.log("L 2")
-
             let persistentDataLoader = find('dataLoader').getComponent(dataLoader);
             // console.log(persistentDataLoader.m_quizData);
  
@@ -90,7 +95,7 @@ export class stateManager extends Component {
             {
                 this.m_gameStruct.set(JSON.stringify(persistentDataLoader.m_gameStruct))
 
-                console.log("@-struct")
+                // console.log("@-struct")
 
             }
 
@@ -98,7 +103,7 @@ export class stateManager extends Component {
             {
                 this.m_quizData.set(JSON.stringify(persistentDataLoader.m_quizData))
                 this.m_quizDataInit.set(JSON.stringify(persistentDataLoader.m_quizData))
-                console.log("@-quiz")
+                // console.log("@-quiz")
 
             }
 
@@ -106,7 +111,7 @@ export class stateManager extends Component {
             {
                 this.m_fiowData.set(JSON.stringify(persistentDataLoader.m_fiowData))
                 this.m_fiowDataInit.set(JSON.stringify(persistentDataLoader.m_fiowData))
-                console.log("@-fiow")
+                // console.log("@-fiow")
 
             }
 
@@ -115,14 +120,14 @@ export class stateManager extends Component {
             {
                 this.m_saveWcData.set(JSON.stringify(persistentDataLoader.m_saveWcData))
                 this.m_saveWcDataInit.set(JSON.stringify(persistentDataLoader.m_saveWcData))
-                console.log("@-savewc")
+                // console.log("@-savewc")
 
             }
 
             if(this.m_sanitizeData.get() == '')
             {
                 this.m_sanitizeData.set(JSON.stringify(persistentDataLoader.m_sanitizeData))
-                console.log("@-sanitize")
+                // console.log("@-sanitize")
 
             }
 
@@ -276,11 +281,17 @@ export class stateManager extends Component {
 
     switchScene(_name : string)
     {
-        let prevScene = this.m_sceneItems.find(e=>e.m_name == this.m_currentScene);
+        // console.log(this.m_currentScene.get());
+        // console.log(_name);
+
+        let prevScene = this.m_sceneItems.find(e=>e.m_name == this.m_currentScene.get());
         let nextScene = this.m_sceneItems.find(e=>e.m_name == _name);
+
+        this.m_currentScene.set(_name);
 
         prevScene.m_scene.active = false;
         nextScene.m_scene.active = true;
+
 
     }
     // update(deltaTime: number) {

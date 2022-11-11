@@ -66,8 +66,14 @@ export class saveWcCtrlr extends Component {
 
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
 
-        this.nextSet();
+    }
 
+    onEnable()
+    {
+        this.m_didClearRound = false;
+        this.m_didClearLevel = false;
+
+        this.nextSet();
     }
 
     initKeyboard()
@@ -124,15 +130,16 @@ export class saveWcCtrlr extends Component {
                 this.m_lettersToFind.push(el);
             }
 
-            // Uniquify
-            let tmp = [...new Set(this.m_lettersToFind)];
+            // Uniquify : Used Set (caused bug)
+            let tmp = this.m_lettersToFind.filter((v, i, a) => a.indexOf(v) === i);
+
             this.m_lettersToFind = tmp;
             // letterSlot.clickEvents[0].
             this.m_slotsContainer.addChild(letterSlot);
             
         }
 
-        console.log(this.m_lettersToFind);
+        // console.log(this.m_lettersToFind);
 
     }
 
@@ -165,13 +172,16 @@ export class saveWcCtrlr extends Component {
      
         if(this.m_didClearRound) // Goto Recap screen
         {
+
             // director.loadScene('fortuneWcScene');
+            this.m_didClearRound = false;
             find('stateManager').getComponent(stateManager).switchScene("fortuneWcScene");
 
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
 
+            this.m_didClearLevel = false;
         }
         else
         {
@@ -229,6 +239,7 @@ export class saveWcCtrlr extends Component {
                 console.log("WE ARE LOADING THE NEXT TYPE OF GAME(any)")
                 let scene = nextGame + "Scene";
                 // director.loadScene(scene);
+                // console.log(scene);
 
                 find('stateManager').getComponent(stateManager).switchScene(scene);
 
@@ -253,7 +264,7 @@ export class saveWcCtrlr extends Component {
         this.m_questionText.string = this.m_quiz.questions[this.m_lang];
         let answer = this.m_quiz.answers[this.m_lang][0].answer.toUpperCase(); // [0].answer : array of unique value : see dataLoader.getExcelData
         
-        console.log(answer)
+        // console.log(answer)
         this.initAnswer(answer, this.m_quiz.level)
 
    
@@ -282,7 +293,7 @@ export class saveWcCtrlr extends Component {
  
         }
 
-        console.log(this.m_lettersToFind)
+        // console.log(this.m_lettersToFind)
 
         if(isCorrect)
         {
@@ -453,7 +464,7 @@ export class saveWcCtrlr extends Component {
         // Update data
         find('stateManager').getComponent(stateManager).m_playersListData.set(JSON.stringify(playersListData))
 
-        //console.log(playersListData)
+        // console.log(playersListData)
 
     }
 

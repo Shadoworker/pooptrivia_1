@@ -47,8 +47,14 @@ export class imageWords extends Component {
 
         this.m_lang = find('stateManager').getComponent(stateManager).m_gameLang.get();
 
-        this.nextSet();
+    }
 
+    onEnable()
+    {
+        this.m_didClearRound = false;
+        this.m_didClearLevel = false;
+
+        this.nextSet();
     }
 
 
@@ -57,11 +63,13 @@ export class imageWords extends Component {
 
         if(this.m_didClearRound) // Goto Recap screen
         {
-            director.loadScene('fortuneWcScene');
+            this.m_didClearRound = false;
+            find('stateManager').getComponent(stateManager).switchScene("fortuneWcScene");
+
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
-
+            this.m_didClearLevel = false;
         }
         else
         {
@@ -117,10 +125,12 @@ export class imageWords extends Component {
             }
             else
             {
-                this.m_preloader.active = true;
+                // this.m_preloader.active = true;
                 // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(QUIZ)")
                 let scene = nextGame + "Scene";
-                director.loadScene(scene);
+                find('stateManager').getComponent(stateManager).switchScene(scene);
+
+                // director.loadScene(scene);
             }
         
         }

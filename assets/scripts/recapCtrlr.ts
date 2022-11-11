@@ -39,13 +39,18 @@ export class recapCtrlr extends Component {
 
     start() {
 
+
+    }
+
+    onEnable()
+    {
         this.initPlayers()
 
         setTimeout(() => {
         
             this.setupPlayers()
             
-        }, 1000);
+        }, 700);
     }
 
     initPlayers()
@@ -55,6 +60,7 @@ export class recapCtrlr extends Component {
         let _playersListData : [PlayerData] = JSON.parse(find('stateManager').getComponent(stateManager).m_playersListData.get())
         let playersListData = [..._playersListData]
 
+        // console.log(playersListData);
 
         let playerIndex = playersListData.findIndex(e=>e.index == playerData.index);
         playersListData[playerIndex] = playerData;
@@ -150,8 +156,6 @@ export class recapCtrlr extends Component {
     setupPlayers()
     {
 
-
-    
        
         if(find('stateManager').getComponent(stateManager).m_didClearLevel.get() == 'true')
         {
@@ -212,7 +216,7 @@ export class recapCtrlr extends Component {
     continue()
     {
        
-        this.m_preloader.active = true;
+        // this.m_preloader.active = true;
         
         find('stateManager').getComponent(stateManager).playBtnSound();
 

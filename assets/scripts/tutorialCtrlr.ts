@@ -53,7 +53,14 @@ export class tutorialCtrlr extends Component {
             // this.m_preloader.active = true;
 
             // director.loadScene("difficultyScene");
-            find('stateManager').getComponent(stateManager).switchScene("difficultyScene");
+            if(find('stateManager').getComponent(stateManager).m_playerData.get() != '')
+            {
+                find('stateManager').getComponent(stateManager).switchScene("homeScene"); // Go Back
+            }
+            else
+            {
+                find('stateManager').getComponent(stateManager).switchScene("difficultyScene");
+            }
 
         }
     }

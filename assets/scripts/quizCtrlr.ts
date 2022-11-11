@@ -69,8 +69,16 @@ export class quizCtrlr extends Component {
 
         this.setPlayerView();
 
-        this.nextSet();
 
+
+    }
+
+    onEnable()
+    {
+        this.m_didClearRound = false;
+        this.m_didClearLevel = false;
+
+        this.nextSet();
     }
 
     setPlayerView()
@@ -94,13 +102,13 @@ export class quizCtrlr extends Component {
 
         if(this.m_didClearRound) // Goto Recap screen
         {
-            // director.loadScene('fortuneWcScene');
+            this.m_didClearRound = false;
             find('stateManager').getComponent(stateManager).switchScene("fortuneWcScene");
 
         }
         else if(this.m_didClearLevel) // Goto Recap screen : with unlock stats
         {
-
+            this.m_didClearLevel = false;
         }
         else
         {
@@ -162,6 +170,7 @@ export class quizCtrlr extends Component {
                     // console.log("WE ARE LOADING THE NEXT TYPE OF GAME(IMAGE-WORDS)")
                     let scene = nextGame + "Scene";
                     // director.loadScene(scene);
+                    // console.log(scene);
                     find('stateManager').getComponent(stateManager).switchScene(scene);
 
 
@@ -381,7 +390,7 @@ export class quizCtrlr extends Component {
         // Update data
         find('stateManager').getComponent(stateManager).m_playersListData.set(JSON.stringify(playersListData))
 
-        //console.log(playersListData)
+        // console.log(playersListData)
 
     }
 

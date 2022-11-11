@@ -14,6 +14,11 @@ export class playerPupitreListCtrlr extends Component {
     public m_playerItemSCROBs : [playerItemSCROB];
 
     start() {
+    }
+
+
+    onEnable() {
+        
         this.initView()
     }
 

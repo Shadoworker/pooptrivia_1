@@ -44,13 +44,16 @@ export class recapCtrlr extends Component {
 
     onEnable()
     {
+        this.m_isEliminated = false;
+        this.m_clearedLevel = false;
+
         this.initPlayers()
 
         setTimeout(() => {
         
             this.setupPlayers()
             
-        }, 700);
+        }, 500);
     }
 
     initPlayers()
@@ -188,7 +191,7 @@ export class recapCtrlr extends Component {
             find('stateManager').getComponent(stateManager).setPlayersListData(allPlayers);
 
             // Reset level clear status
-            find('stateManager').getComponent(stateManager).m_didClearLevel.set('false');
+            find('stateManager').getComponent(stateManager).m_didClearLevel.set(false);
 
             // Check trophy
             let trophyItem = TROPHIES_ACCESS.find(e=>(playerScore >= e.scoreMin && playerScore <= e.scoreMax))

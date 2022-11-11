@@ -80,7 +80,7 @@ export class selectDifficultyCtrlr extends Component {
 
     }
 
-    selectDifficulty(e:Event, d:number)
+    selectDifficulty(e:Event, d:any)
     {
 
         // this.m_preloader.active = true;
@@ -94,7 +94,7 @@ export class selectDifficultyCtrlr extends Component {
         {
             let playerData : PlayerData = JSON.parse(find('stateManager').getComponent(stateManager).m_playerData.get())
 
-            playerData.progression.levelIndex = d;
+            playerData.progression.levelIndex = parseInt(d);
             playerData.progression.roundIndex = 0;
             playerData.progression.gameIndex = 0;
 

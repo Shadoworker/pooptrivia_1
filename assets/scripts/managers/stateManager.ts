@@ -200,7 +200,6 @@ export class stateManager extends Component {
 
                 if(playerData.progression.levelIndex == gameStruct.levels.length)
                 {
-                    
                     playerData.progression.levelIndex -= 1; // Rollback to valid index (0 -> 2)
                     playerData.progression.roundIndex = 2; // Rollback to valid index (0 -> 2)
                 }

@@ -111,8 +111,8 @@ export class dataLoader extends Component {
                 _JsonData[_i].questions = {"fr" : "", "en" : ""};
                 _JsonData[_i].answers = {"fr" : [], "en" : []};
 
-                _JsonData[_i].questions["fr"] = _quests[0].replaceAll("&#39;", "'"); 
-                // _JsonData[_i].questions["en"] = _quests[1].replaceAll("&#39;", "'"); 
+                _JsonData[_i].questions["fr"] = _quests[0].split("&#39;").join("'"); 
+                // _JsonData[_i].questions["en"] = _quests[1].split("&#39;").join("'"); 
 
                 let frAnswers = _answs[0].split("\n").filter(e=>e);
                 // let enAnswers = _answs[1].split("\n").filter(e=>e);
